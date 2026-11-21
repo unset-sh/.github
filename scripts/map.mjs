@@ -136,7 +136,7 @@ export function renderMap(map) {
   const offRule = map.repos.filter((r) => !r.licence.followsRule);
   lines.push("", "## Licences", "", map.licenceRule);
   if (offRule.length > 0) {
-    lines.push("", "Not following the rule yet (changing a published licence needs the owner's decision):", "");
+    lines.push("", "Not matching the rule yet (changing a published licence needs the owner's decision):", "");
     lines.push("| Repository | Licence today |", "| --- | --- |");
     for (const repo of offRule) lines.push(`| \`${repo.name}\` | ${repo.licence.current} |`);
   }

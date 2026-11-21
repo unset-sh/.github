@@ -70,20 +70,18 @@ flowchart LR
 
 ## Licences
 
-Everything unset.sh writes is AGPL-3.0-only. Code, fonts and other work we use from others keep their own licence.
+Licence is set per repository (Alex, 2026-11-21). Product repositories are AGPL-3.0-only and take no outside code for now. Work meant to be copied stays permissive: the profile-recipes recipes are CC0-1.0 and the lexicon schemas are MIT, and those two take outside work with a DCO sign-off only. Third-party work keeps its own licence. There is no contributor agreement.
 
-Not following the rule yet (changing a published licence needs the owner's decision):
+Not matching the rule yet (changing a published licence needs the owner's decision):
 
 | Repository | Licence today |
 | --- | --- |
-| `unset` | AGPL-3.0-only, except shared/ and the lexicon schemas, which are MIT (ADR 0012) |
-| `.github` | None yet |
-| `brand` | None on main; the draft in brand#1 proposes MIT for files, OFL-1.1 for the fonts (third-party) and all rights reserved for the mark and icons |
-| `presentation` | None yet |
-| `profile-recipes` | MIT for tooling, CC0-1.0 for recipes and sample content |
-| `docs` | None yet (empty); holds copies of other repositories' docs |
-| `pds` | None yet (empty); the official PDS it builds on is third-party and keeps its own licence |
-| `lexicons` | Planned MIT, copied from the app (ADR 0012) |
+| `unset` | AGPL-3.0-only; the lexicon schemas are MIT (as the rule wants); shared/ is MIT under ADR 0012 |
+| `brand` | Not decided; waits for the branding pass. The fonts are third-party (OFL-1.1) |
+| `presentation` | None yet; should be AGPL-3.0-only |
+| `profile-recipes` | Recipes CC0-1.0 (as the rule wants); tooling MIT, to move to AGPL-3.0-only |
+| `docs` | None yet; holds copies of other repositories' docs, which keep their source's licence |
+| `pds` | None yet; should be AGPL-3.0-only. The official PDS it builds on keeps its own licence |
 
 ## unset
 
@@ -91,7 +89,7 @@ Not following the rule yet (changing a published licence needs the owner's decis
 
 The unset.sh app: web, admin, public API, indexer, media proxy, their database and deployment. Lives outside the organisation for now and will be largely rewritten, then wired to the repositories below by pinned releases.
 
-**Licence:** AGPL-3.0-only, except shared/ and the lexicon schemas, which are MIT (ADR 0012).
+**Licence:** AGPL-3.0-only; the lexicon schemas are MIT (as the rule wants); shared/ is MIT under ADR 0012.
 
 **Owns**
 
@@ -114,7 +112,7 @@ The unset.sh app: web, admin, public API, indexer, media proxy, their database a
 
 The organisation's front page and this map.
 
-**Licence:** None yet.
+**Licence:** AGPL-3.0-only.
 
 **Owns**
 
@@ -132,7 +130,7 @@ The organisation's front page and this map.
 
 Fixed files that say what unset.sh looks like, as pinned copies of the design sheet. Ships the package @unset-sh/brand (data only) on GitHub Packages.
 
-**Licence:** None on main; the draft in brand#1 proposes MIT for files, OFL-1.1 for the fonts (third-party) and all rights reserved for the mark and icons.
+**Licence:** Not decided; waits for the branding pass. The fonts are third-party (OFL-1.1).
 
 **Owns**
 
@@ -152,7 +150,7 @@ Fixed files that say what unset.sh looks like, as pinned copies of the design sh
 
 Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/presentation on GitHub Packages; no running service.
 
-**Licence:** None yet.
+**Licence:** None yet; should be AGPL-3.0-only.
 
 **Owns**
 
@@ -172,7 +170,7 @@ Templates and the one rendering path for preview images and embeds, with a galle
 
 Persona profile layouts (recipes) with a guide an AI assistant follows to build someone's profile, plus sample records checked against the lexicons.
 
-**Licence:** MIT for tooling, CC0-1.0 for recipes and sample content.
+**Licence:** Recipes CC0-1.0 (as the rule wants); tooling MIT, to move to AGPL-3.0-only.
 
 **Owns**
 
@@ -191,7 +189,7 @@ Persona profile layouts (recipes) with a guide an AI assistant follows to build 
 
 Every repository's human docs, aggregated, and the docs.unset.sh site built from them on GitHub Pages. Nothing here is written by hand: each source repository's CI pushes its own top folder. Waiting for its first push.
 
-**Licence:** None yet (empty); holds copies of other repositories' docs.
+**Licence:** None yet; holds copies of other repositories' docs, which keep their source's licence.
 
 **Owns**
 
@@ -208,7 +206,7 @@ Every repository's human docs, aggregated, and the docs.unset.sh site built from
 
 The home for unset.sh's PDS image and everything that customises the PDS: the build on top of the official image, the theme for its sign-in and account pages, and their pins. Empty for now; until it moves, the image is built in the app repository (deployment/pds/).
 
-**Licence:** None yet (empty); the official PDS it builds on is third-party and keeps its own licence.
+**Licence:** None yet; should be AGPL-3.0-only. The official PDS it builds on keeps its own licence.
 
 **Owns**
 
@@ -226,7 +224,7 @@ The home for unset.sh's PDS image and everything that customises the PDS: the bu
 
 A one-way, read-only copy of the sh.unset.* lexicon schemas, pushed by the app's mirror job. Waiting for setup by the owner; the direction reverses later, when the organisation becomes the source of truth.
 
-**Licence:** Planned MIT, copied from the app (ADR 0012).
+**Licence:** Not created; MIT, copied from the app.
 
 **Owns**
 

@@ -16,8 +16,10 @@ This is `unset-sh/<name>`: <one-line summary from repos.json>.
 - **Belongs here:** <the owns list, shortened>.
 - **Does not belong here:** <what> (that is `unset-sh/<repo>`); …
 - **Uses:** <repo> through <how>. **Used by:** <repo>.
-- **Licence:** everything written for unset.sh is AGPL-3.0-only; work we use from others keeps its own licence.
-  <Name anything here that is not AGPL yet, and why.>
+- **Licence:** <this repository's licence, as its repos.json entry states; anything not matching the rule yet>.
+- **Outside contributions:** <for a product repository:> none for now; do not merge a pull request from outside the
+  organisation. <for profile-recipes recipes and lexicon proposals:> accepted only with every commit signed off under
+  the DCO and the DCO check green.
 
 The map of every unset.sh repository is <https://github.com/unset-sh/.github/blob/main/MAP.md>. Read it before
 moving work between repositories or starting work that might belong elsewhere.

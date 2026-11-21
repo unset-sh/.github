@@ -7,6 +7,7 @@ Organisation profile and community health files for unset.sh, and the map of the
 | [`profile/README.md`](profile/README.md) | The organisation's front page on GitHub. Its repository list is generated |
 | [`repos.json`](repos.json) | The map: every repository, what it owns, what does not belong in it, and what it uses |
 | [`MAP.md`](MAP.md) | The map rendered for people and assistants, generated from `repos.json`, with the licence rule and the repositories that do not follow it yet |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | The default contributing guide for every repository without its own: what outside work is accepted, and the DCO sign-off |
 | [`docs/claude-md.md`](docs/claude-md.md) | The section every repository's `CLAUDE.md` starts with |
 | [`scripts/`](scripts/) | The renderer, the drift check and their tests (Node, no dependencies) |
 

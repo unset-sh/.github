@@ -1,6 +1,6 @@
 {
   "org": "unset-sh",
-  "licenceRule": "Everything unset.sh writes is AGPL-3.0-only. Code, fonts and other work we use from others keep their own licence.",
+  "licenceRule": "Licence is set per repository (Alex, 2026-11-21). Product repositories are AGPL-3.0-only and take no outside code for now. Work meant to be copied stays permissive: the profile-recipes recipes are CC0-1.0 and the lexicon schemas are MIT, and those two take outside work with a DCO sign-off only. Third-party work keeps its own licence. There is no contributor agreement.",
   "repos": [
     {
       "name": "unset",
@@ -59,7 +59,7 @@
       ],
       "licence": {
         "spdx": null,
-        "current": "AGPL-3.0-only, except shared/ and the lexicon schemas, which are MIT (ADR 0012)",
+        "current": "AGPL-3.0-only; the lexicon schemas are MIT (as the rule wants); shared/ is MIT under ADR 0012",
         "followsRule": false
       }
     },
@@ -81,9 +81,9 @@
       ],
       "uses": [],
       "licence": {
-        "spdx": null,
-        "current": "None yet",
-        "followsRule": false
+        "spdx": "AGPL-3.0",
+        "current": "AGPL-3.0-only",
+        "followsRule": true
       }
     },
     {
@@ -113,7 +113,7 @@
       "uses": [],
       "licence": {
         "spdx": null,
-        "current": "None on main; the draft in brand#1 proposes MIT for files, OFL-1.1 for the fonts (third-party) and all rights reserved for the mark and icons",
+        "current": "Not decided; waits for the branding pass. The fonts are third-party (OFL-1.1)",
         "followsRule": false
       }
     },
@@ -149,7 +149,7 @@
       ],
       "licence": {
         "spdx": null,
-        "current": "None yet",
+        "current": "None yet; should be AGPL-3.0-only",
         "followsRule": false
       }
     },
@@ -181,7 +181,7 @@
       ],
       "licence": {
         "spdx": "MIT",
-        "current": "MIT for tooling, CC0-1.0 for recipes and sample content",
+        "current": "Recipes CC0-1.0 (as the rule wants); tooling MIT, to move to AGPL-3.0-only",
         "followsRule": false
       }
     },
@@ -208,7 +208,7 @@
       ],
       "licence": {
         "spdx": null,
-        "current": "None yet (empty); holds copies of other repositories' docs",
+        "current": "None yet; holds copies of other repositories' docs, which keep their source's licence",
         "followsRule": false
       }
     },
@@ -240,7 +240,7 @@
       "hideFromProfile": true,
       "licence": {
         "spdx": null,
-        "current": "None yet (empty); the official PDS it builds on is third-party and keeps its own licence",
+        "current": "None yet; should be AGPL-3.0-only. The official PDS it builds on keeps its own licence",
         "followsRule": false
       }
     },
@@ -266,8 +266,8 @@
       ],
       "licence": {
         "spdx": null,
-        "current": "Planned MIT, copied from the app (ADR 0012)",
-        "followsRule": false
+        "current": "Not created; MIT, copied from the app",
+        "followsRule": true
       }
     },
     {
