@@ -21,6 +21,7 @@ issue when they differ.
 | `unset-sh/lexicons` | Approved, waiting for setup | A one-way, read-only copy of the sh.unset.* lexicon schemas, pushed by the app's mirror job. Waiting for setup by the owner; the direction reverses later, when the organisation becomes the source of truth. |
 | `unset-sh/messaging` | Proposed, not approved | The private messaging product on unset.cc: one-to-one chat on Matrix today, later communities, channels, roles and voice. Plan drafted, awaiting approval; not created. |
 | `unset-sh/server-kit` | Proposed, not approved | Proposed: the generic security code the app and messaging both need (HTTP kit and CSRF gate, egress guard, sealed storage, signed admin envelope, config, log). Not approved yet. |
+| `unset-sh/agent-kit` | Proposed, not approved | Proposed: the rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. Name not settled (agent-kit or agents); awaiting approval. |
 
 ## Which way dependencies point
 
@@ -39,6 +40,7 @@ flowchart LR
   r_lexicons["lexicons (pending)"]
   r_messaging["messaging (proposed)"]
   r_server_kit["server-kit (proposed)"]
+  r_agent_kit["agent-kit (proposed)"]
   r_brand --> r_unset
   r_presentation --> r_unset
   r_messaging --> r_unset
@@ -273,3 +275,23 @@ Proposed: the generic security code the app and messaging both need (HTTP kit an
 **Does not belong here**
 
 - Anything with product meaning: [`Undefined6799/unset`](https://github.com/Undefined6799/unset) or messaging
+
+## agent-kit
+
+`unset-sh/agent-kit`. Proposed, not approved.
+
+Proposed: the rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. Name not settled (agent-kit or agents); awaiting approval.
+
+**Licence:** Not created; AGPL-3.0-only.
+
+**Owns**
+
+- Organisation-wide assistant rules and the three generic engineering documents
+- The CLAUDE.md and AGENTS.md templates
+- Shared skills and subagents, the model and effort router text, and the sync script
+
+**Does not belong here**
+
+- A repository's own rules: that repository's CLAUDE.md
+- The organisation map: [`unset-sh/.github`](https://github.com/unset-sh/.github)
+- Decision records: the organisation's decision records

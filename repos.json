@@ -337,6 +337,37 @@
         "current": "Not created; AGPL-3.0-only for the whole kit",
         "followsRule": true
       }
+    },
+    {
+      "name": "agent-kit",
+      "status": "proposed",
+      "visibility": "public",
+      "summary": "Proposed: the rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. Name not settled (agent-kit or agents); awaiting approval.",
+      "owns": [
+        "Organisation-wide assistant rules and the three generic engineering documents",
+        "The CLAUDE.md and AGENTS.md templates",
+        "Shared skills and subagents, the model and effort router text, and the sync script"
+      ],
+      "notHere": [
+        {
+          "what": "A repository's own rules",
+          "where": "that repository's CLAUDE.md"
+        },
+        {
+          "what": "The organisation map",
+          "where": ".github"
+        },
+        {
+          "what": "Decision records",
+          "where": "the organisation's decision records"
+        }
+      ],
+      "uses": [],
+      "licence": {
+        "spdx": null,
+        "current": "Not created; AGPL-3.0-only",
+        "followsRule": true
+      }
     }
   ]
 }
