@@ -30,7 +30,7 @@ An AT Protocol identity and profile app, built privacy first with a small core t
 | [`unset-sh/profile-recipes`](https://github.com/unset-sh/profile-recipes) | Persona profile layouts (recipes) with a guide an AI assistant follows to build someone's profile, plus sample records checked against the lexicons |
 | [`unset-sh/docs`](https://github.com/unset-sh/docs) | Every repository's human docs, aggregated, and the docs.unset.sh site built from them on GitHub Pages |
 
-Coming: `lexicons`, `messaging`.
+Coming: `lexicons`.
 
 How they fit together: [the organisation map](https://github.com/unset-sh/.github/blob/main/MAP.md).
 

@@ -19,7 +19,7 @@ issue when they differ.
 | [`unset-sh/docs`](https://github.com/unset-sh/docs) | Active | Every repository's human docs, aggregated, and the docs.unset.sh site built from them on GitHub Pages. Nothing here is written by hand: each source repository's CI pushes its own top folder. Waiting for its first push. |
 | [`unset-sh/pds`](https://github.com/unset-sh/pds) | Active | The home for unset.sh's PDS image and everything that customises the PDS: the build on top of the official image, the theme for its sign-in and account pages, and their pins. Empty for now; until it moves, the image is built in the app repository (deployment/pds/). |
 | `unset-sh/lexicons` | Approved, waiting for setup | A one-way, read-only copy of the sh.unset.* lexicon schemas, pushed by the app's mirror job. Waiting for setup by the owner; the direction reverses later, when the organisation becomes the source of truth. |
-| `unset-sh/messaging` | Planned, not created | The chat app on unset.cc, moving out of the app repository; will grow into a community app with channels, roles and voice. Plan drafted, not created yet. |
+| `unset-sh/messaging` | Proposed, not approved | The private messaging product on unset.cc: one-to-one chat on Matrix today, later communities, channels, roles and voice. Plan drafted, awaiting approval; not created. |
 | `unset-sh/server-kit` | Proposed, not approved | Proposed: the generic security code the app and messaging both need (HTTP kit and CSRF gate, egress guard, sealed storage, signed admin envelope, config, log). Not approved yet. |
 
 ## Which way dependencies point
@@ -37,7 +37,7 @@ flowchart LR
   r_docs["docs"]
   r_pds["pds"]
   r_lexicons["lexicons (pending)"]
-  r_messaging["messaging (planned)"]
+  r_messaging["messaging (proposed)"]
   r_server_kit["server-kit (proposed)"]
   r_brand --> r_unset
   r_presentation --> r_unset
@@ -49,6 +49,7 @@ flowchart LR
   r_unset --> r_docs
   r_brand --> r_pds
   r_unset --> r_lexicons
+  r_brand --> r_messaging
   r_server_kit --> r_messaging
 ```
 
@@ -62,7 +63,8 @@ flowchart LR
 - `unset` → `docs`: pushes docs/human and docs/site into unset/ with its own deploy key
 - `brand` → `pds`: theme colours and fonts at an exact version (after the move)
 - `unset` → `lexicons`: pushes the schemas with its own deploy key
-- `server-kit` → `messaging`: pinned release (if server-kit is approved)
+- `brand` → `messaging`: @unset-sh/brand at an exact version
+- `server-kit` → `messaging`: pinned kit packages (if server-kit is approved)
 
 ## Licences
 
@@ -234,21 +236,27 @@ A one-way, read-only copy of the sh.unset.* lexicon schemas, pushed by the app's
 
 ## messaging
 
-`unset-sh/messaging`. Planned, not created.
+`unset-sh/messaging`. Proposed, not approved.
 
-The chat app on unset.cc, moving out of the app repository; will grow into a community app with channels, roles and voice. Plan drafted, not created yet.
+The private messaging product on unset.cc: one-to-one chat on Matrix today, later communities, channels, roles and voice. Plan drafted, awaiting approval; not created.
 
-**Licence:** Not created; it starts as AGPL-3.0-only.
+**Licence:** Not created; AGPL-3.0-only.
 
 **Owns**
 
-- The chat client, its door and admin process, the Matrix adapter, its own tables and deployment
+- The chat client and the door (the public process on unset.cc)
+- The admin service that alone holds the MAS credential
+- Messaging rules, the Matrix adapter and the Synapse policy module
+- The Synapse image and the reviewed Synapse and MAS configs
+- Its own database tables
 - @unset-sh/messaging-contract: the only thing the app pins
 
 **Does not belong here**
 
-- Identity, profiles and sign-in: [`Undefined6799/unset`](https://github.com/Undefined6799/unset)
-- Generic security code (HTTP kit, CSRF gate, egress guard, sealing): `unset-sh/server-kit`
+- Identity and sign-in: [`Undefined6799/unset`](https://github.com/Undefined6799/unset)
+- Generic server code (HTTP kit, CSRF gate, egress guard, sealing): `unset-sh/server-kit`
+- Design tokens, fonts and icons: [`unset-sh/brand`](https://github.com/unset-sh/brand)
+- Deploying the whole stack: [`Undefined6799/unset`](https://github.com/Undefined6799/unset) (until a deploy repository is decided)
 
 ## server-kit
 

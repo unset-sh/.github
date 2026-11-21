@@ -272,32 +272,48 @@
     },
     {
       "name": "messaging",
-      "status": "planned",
+      "status": "proposed",
       "visibility": "public",
-      "summary": "The chat app on unset.cc, moving out of the app repository; will grow into a community app with channels, roles and voice. Plan drafted, not created yet.",
+      "summary": "The private messaging product on unset.cc: one-to-one chat on Matrix today, later communities, channels, roles and voice. Plan drafted, awaiting approval; not created.",
       "owns": [
-        "The chat client, its door and admin process, the Matrix adapter, its own tables and deployment",
+        "The chat client and the door (the public process on unset.cc)",
+        "The admin service that alone holds the MAS credential",
+        "Messaging rules, the Matrix adapter and the Synapse policy module",
+        "The Synapse image and the reviewed Synapse and MAS configs",
+        "Its own database tables",
         "@unset-sh/messaging-contract: the only thing the app pins"
       ],
       "notHere": [
         {
-          "what": "Identity, profiles and sign-in",
+          "what": "Identity and sign-in",
           "where": "unset"
         },
         {
-          "what": "Generic security code (HTTP kit, CSRF gate, egress guard, sealing)",
+          "what": "Generic server code (HTTP kit, CSRF gate, egress guard, sealing)",
           "where": "server-kit"
+        },
+        {
+          "what": "Design tokens, fonts and icons",
+          "where": "brand"
+        },
+        {
+          "what": "Deploying the whole stack",
+          "where": "unset (until a deploy repository is decided)"
         }
       ],
       "uses": [
         {
+          "repo": "brand",
+          "how": "@unset-sh/brand at an exact version"
+        },
+        {
           "repo": "server-kit",
-          "how": "pinned release (if server-kit is approved)"
+          "how": "pinned kit packages (if server-kit is approved)"
         }
       ],
       "licence": {
         "spdx": null,
-        "current": "Not created; it starts as AGPL-3.0-only",
+        "current": "Not created; AGPL-3.0-only",
         "followsRule": true
       }
     },
