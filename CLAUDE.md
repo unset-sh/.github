@@ -1,0 +1,23 @@
+# CLAUDE.md: unset-sh/.github
+
+## Where this repository fits
+
+This is `unset-sh/.github`: the organisation's front page and the map of its repositories.
+
+- **Belongs here:** the profile page, `repos.json` and its generated `MAP.md`, the drift check, and community health
+  files shared by every repository.
+- **Does not belong here:** code, docs or assets of any product; they live in the repository that owns them.
+
+## Rules
+
+- `repos.json` is the only hand-written source of the map. `MAP.md` and the block between the `org-map` markers in
+  `profile/README.md` are generated: edit `repos.json`, run `npm run map`, commit both. `npm run check` must pass.
+- A repository's `description` in `repos.json` is exactly what GitHub shows for it (`""` when it has none). When the
+  two differ, decide which is wrong; changing the GitHub description is the owner's call.
+- Statuses: `active` exists; `pending` is approved and waiting for the owner to set it up; `planned` is agreed but not
+  created; `proposed` is not approved; `archived` is archived on GitHub. Never create an organisation repository
+  without the owner's approval for that repository.
+- Dependencies point one way (`uses`); a cycle fails the check. When a new edge would create one, stop and ask.
+- Everything outside the generated block in `profile/README.md` is written by the owner. Change it only when asked.
+- The owner is named only as "Alex" or by the GitHub login `Undefined6799`; their surname never appears.
+- Node 26 (`.nvmrc`), no dependencies, `node:test` only. Actions are pinned by full commit SHA.

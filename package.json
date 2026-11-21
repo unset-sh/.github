@@ -1,0 +1,10 @@
+{
+  "name": "unset-sh-github",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "map": "node scripts/map.mjs --write",
+    "check": "node --test \"scripts/*.test.mjs\" && node scripts/map.mjs --check",
+    "drift": "node scripts/drift.mjs"
+  }
+}

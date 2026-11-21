@@ -1,0 +1,82 @@
+name: org-map
+
+# check: on every pull request and push, repos.json is valid and MAP.md and the
+#        profile page match it.
+# drift: every day and on demand, compares repos.json with the organisation's
+#        public repositories and keeps one issue labelled org-map-drift open
+#        while they differ, closing it once they match again.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Check the organisation map
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+      - run: npm run check
+
+  drift:
+    name: Compare the map with GitHub
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+      - name: Compare and keep the drift issue current
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set +e
+          node scripts/drift.mjs "$RUNNER_TEMP/drift.md"
+          status=$?
+          set -e
+          open=$(gh issue list --label org-map-drift --state open --json number --jq '.[0].number // empty')
+          if [ "$status" -eq 0 ]; then
+            if [ -n "$open" ]; then gh issue close "$open" --comment "The map matches GitHub again."; fi
+            exit 0
+          fi
+          if [ "$status" -ne 3 ]; then
+            echo "::error::The drift check itself failed (exit $status)."
+            exit "$status"
+          fi
+          gh label create org-map-drift --color D93F0B --description "repos.json no longer matches GitHub" --force
+          if [ -n "$open" ]; then
+            gh issue edit "$open" --body-file "$RUNNER_TEMP/drift.md"
+          else
+            gh issue create --title "Organisation map is out of date" --label org-map-drift --body-file "$RUNNER_TEMP/drift.md"
+          fi
+          echo "::warning::The organisation map no longer matches GitHub; see the org-map-drift issue."

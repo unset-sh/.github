@@ -17,3 +17,21 @@
 An AT Protocol identity and profile app, built privacy first with a small core that is easy to audit.
 
 **Status:** early development, not yet open to members.
+
+<!-- org-map:start (generated from repos.json; edit that, then run npm run map) -->
+
+### Repositories
+
+| | |
+| --- | --- |
+| [`Undefined6799/unset`](https://github.com/Undefined6799/unset) | The unset.sh app: web, admin, public API, indexer, media proxy, their database and deployment |
+| [`unset-sh/brand`](https://github.com/unset-sh/brand) | Fixed files that say what unset.sh looks like, as pinned copies of the design sheet |
+| [`unset-sh/presentation`](https://github.com/unset-sh/presentation) | Templates and the one rendering path for preview images and embeds, with a gallery of hard cases |
+| [`unset-sh/profile-recipes`](https://github.com/unset-sh/profile-recipes) | Persona profile layouts (recipes) with a guide an AI assistant follows to build someone's profile, plus sample records checked against the lexicons |
+| [`unset-sh/docs`](https://github.com/unset-sh/docs) | Every repository's human docs, aggregated, and the docs.unset.sh site built from them on GitHub Pages |
+
+Coming: `lexicons`, `messaging`.
+
+How they fit together: [the organisation map](https://github.com/unset-sh/.github/blob/main/MAP.md).
+
+<!-- org-map:end -->
