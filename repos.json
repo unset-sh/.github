@@ -162,7 +162,7 @@
     {
       "name": "docs",
       "status": "active",
-      "description": "The unset.sh documentation website (Hugo)",
+      "description": "The unset.sh documentation website",
       "summary": "Every repository's human docs, aggregated, and the docs.unset.sh site built from them on GitHub Pages. Nothing here is written by hand: each source repository's CI pushes its own top folder. Waiting for its first push.",
       "owns": [
         "One top folder per source repository, replaced only by that repository's docs job",
