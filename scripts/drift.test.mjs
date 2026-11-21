@@ -6,8 +6,8 @@ const map = {
   org: "o",
   repos: [
     { name: "app", owner: "someone", status: "active" },
-    { name: "brand", status: "active", description: "Brand" },
-    { name: "old", status: "active", description: "" },
+    { name: "brand", status: "active", description: "Brand", licence: { spdx: null } },
+    { name: "old", status: "active", description: "", licence: { spdx: null } },
     { name: "soon", status: "planned" },
     { name: "secret", status: "active", visibility: "private", description: "x" },
   ],
@@ -51,4 +51,10 @@ test("the report lists findings and skipped private repositories", () => {
   assert.match(text, /- one/);
   assert.match(text, /Not checked \(private\): `secret`/);
   assert.match(text, /Found by https:\/\/run/);
+});
+
+test("a licence GitHub detects that the map does not record is reported", () => {
+  const { findings } = compare(map, [gh("brand", { description: "Brand", license: { spdx_id: "MIT" } }), gh("old")]);
+  assert.equal(findings.length, 1);
+  assert.match(findings[0], /`brand` licence differs\. GitHub detects "MIT"; map: null/);
 });

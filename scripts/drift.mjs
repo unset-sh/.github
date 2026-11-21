@@ -42,6 +42,12 @@ export function compare(map, githubRepos) {
     if (!gh.archived && repo.status === "archived") {
       findings.push(`\`${repo.name}\` is marked archived in the map but is not archived on GitHub.`);
     }
+    const licence = gh.license?.spdx_id ?? null;
+    if (licence !== repo.licence.spdx) {
+      findings.push(
+        `\`${repo.name}\` licence differs. GitHub detects ${JSON.stringify(licence)}; map: ${JSON.stringify(repo.licence.spdx)}. Update the map's licence, and check it against the licence rule.`,
+      );
+    }
     const description = gh.description ?? "";
     if (description !== repo.description) {
       findings.push(

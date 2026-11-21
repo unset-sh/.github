@@ -17,6 +17,9 @@ This is `unset-sh/.github`: the organisation's front page and the map of its rep
 - Statuses: `active` exists; `pending` is approved and waiting for the owner to set it up; `planned` is agreed but not
   created; `proposed` is not approved; `archived` is archived on GitHub. Never create an organisation repository
   without the owner's approval for that repository.
+- Licence rule (Alex, 2026-11-21): everything unset.sh writes is AGPL-3.0-only; third-party work keeps its own licence.
+  Each entry's `licence` records what the repository has today (`spdx` exactly as GitHub detects it, or null) and
+  whether it follows the rule. Record a mismatch; never relicense published work without the owner's decision.
 - Dependencies point one way (`uses`); a cycle fails the check. When a new edge would create one, stop and ask.
 - Everything outside the generated block in `profile/README.md` is written by the owner. Change it only when asked.
 - The owner is named only as "Alex" or by the GitHub login `Undefined6799`; their surname never appears.

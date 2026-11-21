@@ -1,5 +1,6 @@
 {
   "org": "unset-sh",
+  "licenceRule": "Everything unset.sh writes is AGPL-3.0-only. Code, fonts and other work we use from others keep their own licence.",
   "repos": [
     {
       "name": "unset",
@@ -55,7 +56,12 @@
           "repo": "pds",
           "how": "the PDS image by pinned digest (after the move)"
         }
-      ]
+      ],
+      "licence": {
+        "spdx": null,
+        "current": "AGPL-3.0-only, except shared/ and the lexicon schemas, which are MIT (ADR 0012)",
+        "followsRule": false
+      }
     },
     {
       "name": ".github",
@@ -73,7 +79,12 @@
           "where": "the repository that owns them, from this map"
         }
       ],
-      "uses": []
+      "uses": [],
+      "licence": {
+        "spdx": null,
+        "current": "None yet",
+        "followsRule": false
+      }
     },
     {
       "name": "brand",
@@ -99,7 +110,12 @@
           "where": "the design sheet first"
         }
       ],
-      "uses": []
+      "uses": [],
+      "licence": {
+        "spdx": null,
+        "current": "None on main; the draft in brand#1 proposes MIT for files, OFL-1.1 for the fonts (third-party) and all rights reserved for the mark and icons",
+        "followsRule": false
+      }
     },
     {
       "name": "presentation",
@@ -130,7 +146,12 @@
           "repo": "brand",
           "how": "@unset-sh/brand at an exact version"
         }
-      ]
+      ],
+      "licence": {
+        "spdx": null,
+        "current": "None yet",
+        "followsRule": false
+      }
     },
     {
       "name": "profile-recipes",
@@ -157,7 +178,12 @@
           "repo": "unset",
           "how": "lexicon schemas and editor limits, copied at a pinned commit"
         }
-      ]
+      ],
+      "licence": {
+        "spdx": "MIT",
+        "current": "MIT for tooling, CC0-1.0 for recipes and sample content",
+        "followsRule": false
+      }
     },
     {
       "name": "docs",
@@ -179,7 +205,12 @@
           "repo": "unset",
           "how": "pushes docs/human and docs/site into unset/ with its own deploy key"
         }
-      ]
+      ],
+      "licence": {
+        "spdx": null,
+        "current": "None yet (empty); holds copies of other repositories' docs",
+        "followsRule": false
+      }
     },
     {
       "name": "pds",
@@ -206,7 +237,12 @@
           "how": "theme colours and fonts at an exact version (after the move)"
         }
       ],
-      "hideFromProfile": true
+      "hideFromProfile": true,
+      "licence": {
+        "spdx": null,
+        "current": "None yet (empty); the official PDS it builds on is third-party and keeps its own licence",
+        "followsRule": false
+      }
     },
     {
       "name": "lexicons",
@@ -227,7 +263,12 @@
           "repo": "unset",
           "how": "pushes the schemas with its own deploy key"
         }
-      ]
+      ],
+      "licence": {
+        "spdx": null,
+        "current": "Planned MIT, copied from the app (ADR 0012)",
+        "followsRule": false
+      }
     },
     {
       "name": "messaging",
@@ -253,7 +294,12 @@
           "repo": "server-kit",
           "how": "pinned release (if server-kit is approved)"
         }
-      ]
+      ],
+      "licence": {
+        "spdx": null,
+        "current": "Not created; it starts as AGPL-3.0-only",
+        "followsRule": true
+      }
     },
     {
       "name": "server-kit",
@@ -269,7 +315,12 @@
           "where": "unset or messaging"
         }
       ],
-      "uses": []
+      "uses": [],
+      "licence": {
+        "spdx": null,
+        "current": "Not created; each part keeps the licence it has in the app today (AGPL or MIT)",
+        "followsRule": false
+      }
     }
   ]
 }

@@ -6,7 +6,17 @@ import { PROFILE_END, PROFILE_START, renderMap, renderProfileSection, spliceProf
 const real = JSON.parse(await readFile(new URL("../repos.json", import.meta.url), "utf8"));
 
 function repo(overrides = {}) {
-  return { name: "brand", status: "active", description: "d", summary: "s.", owns: [], notHere: [], uses: [], ...overrides };
+  return {
+    name: "brand",
+    status: "active",
+    description: "d",
+    summary: "s.",
+    licence: { spdx: null, current: "None yet", followsRule: false },
+    owns: [],
+    notHere: [],
+    uses: [],
+    ...overrides,
+  };
 }
 
 test("repos.json is valid", () => {
@@ -14,21 +24,21 @@ test("repos.json is valid", () => {
 });
 
 test("a repository listed twice is refused", () => {
-  assert.match(validate({ org: "o", repos: [repo(), repo()] }).join(), /listed twice/);
+  assert.match(validate({ org: "o", licenceRule: "AGPL", repos: [repo(), repo()] }).join(), /listed twice/);
 });
 
 test("an unknown status is refused", () => {
-  assert.match(validate({ org: "o", repos: [repo({ status: "live" })] }).join(), /status must be one of/);
+  assert.match(validate({ org: "o", licenceRule: "AGPL", repos: [repo({ status: "live" })] }).join(), /status must be one of/);
 });
 
 test("a use of a repository not in the map is refused", () => {
-  assert.match(validate({ org: "o", repos: [repo({ uses: [{ repo: "ghost", how: "x" }] })] }).join(), /unknown repo "ghost"/);
+  assert.match(validate({ org: "o", licenceRule: "AGPL", repos: [repo({ uses: [{ repo: "ghost", how: "x" }] })] }).join(), /unknown repo "ghost"/);
 });
 
 test("an existing organisation repository needs its GitHub description", () => {
-  assert.match(validate({ org: "o", repos: [repo({ description: undefined })] }).join(), /needs description/);
-  assert.deepEqual(validate({ org: "o", repos: [repo({ description: undefined, status: "planned" })] }), []);
-  assert.deepEqual(validate({ org: "o", repos: [repo({ description: undefined, owner: "someone" })] }), []);
+  assert.match(validate({ org: "o", licenceRule: "AGPL", repos: [repo({ description: undefined })] }).join(), /needs description/);
+  assert.deepEqual(validate({ org: "o", licenceRule: "AGPL", repos: [repo({ description: undefined, status: "planned" })] }), []);
+  assert.deepEqual(validate({ org: "o", licenceRule: "AGPL", repos: [repo({ description: undefined, owner: "someone" })] }), []);
 });
 
 test("the map lists every repository and every dependency edge", () => {
@@ -64,7 +74,25 @@ test("the profile section replaces only the text between its markers", () => {
 test("a dependency cycle is refused", () => {
   const errors = validate({
     org: "o",
+    licenceRule: "AGPL",
     repos: [repo({ name: "a", uses: [{ repo: "b", how: "x" }] }), repo({ name: "b", uses: [{ repo: "a", how: "x" }] })],
   });
   assert.match(errors.join(), /dependency cycle: a → b → a/);
+});
+
+test("every repository states its licence against the rule", () => {
+  assert.match(validate({ org: "o", licenceRule: "AGPL", repos: [repo({ licence: undefined })] }).join(), /licence needs current/);
+  assert.match(validate({ org: "o", repos: [repo()] }).join(), /licenceRule must be/);
+});
+
+test("the map lists the repositories whose licence does not follow the rule", () => {
+  const text = renderMap({
+    org: "o",
+    licenceRule: "All AGPL.",
+    repos: [repo(), repo({ name: "ok", licence: { spdx: "AGPL-3.0", current: "AGPL-3.0-only", followsRule: true } })],
+  });
+  const section = text.slice(text.indexOf("## Licences"), text.indexOf("## brand"));
+  assert.match(section, /All AGPL\./);
+  assert.match(section, /\| `brand` \| None yet \|/);
+  assert.ok(!section.includes("`ok`"));
 });

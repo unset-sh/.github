@@ -28,6 +28,7 @@ const paths = {
 export function validate(map) {
   const errors = [];
   if (typeof map.org !== "string" || map.org === "") errors.push("org must be a non-empty string");
+  if (typeof map.licenceRule !== "string" || map.licenceRule === "") errors.push("licenceRule must be a non-empty string");
   if (!Array.isArray(map.repos)) return [...errors, "repos must be an array"];
   const names = new Set();
   for (const repo of map.repos) {
@@ -42,6 +43,12 @@ export function validate(map) {
     }
     if (typeof repo.summary !== "string" || repo.summary === "") errors.push(`${at}: summary must be a non-empty string`);
     if (repo.hideFromProfile !== undefined && typeof repo.hideFromProfile !== "boolean") errors.push(`${at}: hideFromProfile must be true or false`);
+    const licence = repo.licence;
+    if (typeof licence?.current !== "string" || licence.current === "" || typeof licence.followsRule !== "boolean") {
+      errors.push(`${at}: licence needs current (text) and followsRule (true or false)`);
+    } else if (licence.spdx !== null && typeof licence.spdx !== "string") {
+      errors.push(`${at}: licence.spdx must be the identifier GitHub detects, or null`);
+    }
     for (const key of ["owns", "notHere", "uses"]) {
       if (!Array.isArray(repo[key])) errors.push(`${at}: ${key} must be an array`);
     }
@@ -126,8 +133,16 @@ export function renderMap(map) {
   for (const repo of map.repos) {
     for (const use of repo.uses) lines.push(`- \`${use.repo}\` → \`${repo.name}\`: ${use.how}`);
   }
+  const offRule = map.repos.filter((r) => !r.licence.followsRule);
+  lines.push("", "## Licences", "", map.licenceRule);
+  if (offRule.length > 0) {
+    lines.push("", "Not following the rule yet (changing a published licence needs the owner's decision):", "");
+    lines.push("| Repository | Licence today |", "| --- | --- |");
+    for (const repo of offRule) lines.push(`| \`${repo.name}\` | ${repo.licence.current} |`);
+  }
   for (const repo of map.repos) {
     lines.push("", `## ${repo.name}`, "", `${link(map, repo)}. ${STATUSES[repo.status]}.`, "", repo.summary);
+    lines.push("", `**Licence:** ${repo.licence.current}.`);
     if (repo.owns.length > 0) {
       lines.push("", "**Owns**", "", ...repo.owns.map((item) => `- ${item}`));
     }
