@@ -80,7 +80,6 @@ Not following the rule yet (changing a published licence needs the owner's decis
 | `docs` | None yet (empty); holds copies of other repositories' docs |
 | `pds` | None yet (empty); the official PDS it builds on is third-party and keeps its own licence |
 | `lexicons` | Planned MIT, copied from the app (ADR 0012) |
-| `server-kit` | Not created; each part keeps the licence it has in the app today (AGPL or MIT) |
 
 ## unset
 
@@ -257,7 +256,7 @@ The chat app on unset.cc, moving out of the app repository; will grow into a com
 
 Proposed: the generic security code the app and messaging both need (HTTP kit and CSRF gate, egress guard, sealed storage, signed admin envelope, config, log). Not approved yet.
 
-**Licence:** Not created; each part keeps the licence it has in the app today (AGPL or MIT).
+**Licence:** Not created; AGPL-3.0-only for the whole kit.
 
 **Owns**
 

@@ -318,8 +318,8 @@
       "uses": [],
       "licence": {
         "spdx": null,
-        "current": "Not created; each part keeps the licence it has in the app today (AGPL or MIT)",
-        "followsRule": false
+        "current": "Not created; AGPL-3.0-only for the whole kit",
+        "followsRule": true
       }
     }
   ]
