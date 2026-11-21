@@ -1,7 +1,8 @@
 # The CLAUDE.md section every repository starts with
 
-Every repository in the organisation has a `CLAUDE.md` at its root (assistants other than Claude read `AGENTS.md`;
-a repository that has one makes `CLAUDE.md` import it with `@AGENTS.md`). It starts with the section below, filled
+Every repository in the organisation has a `CLAUDE.md` at its root for anyone, person or assistant, working on the
+repository itself. (An `AGENTS.md` written for some other job, such as profile-recipes' rules for applying a recipe,
+stays separate: link it, do not import it.) It starts with the section below, filled
 in from that repository's entry in [`repos.json`](../repos.json), so an assistant knows where it is before it
 touches anything. The rest of the file is that repository's own rules.
 
