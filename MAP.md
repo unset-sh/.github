@@ -17,7 +17,7 @@ issue when they differ.
 | [`unset-sh/presentation`](https://github.com/unset-sh/presentation) | Active | Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/presentation on GitHub Packages; no running service. |
 | [`unset-sh/profile-recipes`](https://github.com/unset-sh/profile-recipes) | Active | Persona profile layouts (recipes) with a guide an AI assistant follows to build someone's profile, plus sample records checked against the lexicons. |
 | [`unset-sh/docs`](https://github.com/unset-sh/docs) | Active | Every repository's human docs, aggregated, and the docs.unset.sh site built from them on GitHub Pages. Nothing here is written by hand: each source repository's CI pushes its own top folder. Waiting for its first push. |
-| [`unset-sh/pds`](https://github.com/unset-sh/pds) | Active | Purpose not recorded yet. The repository has been empty since 2026-10-17. |
+| [`unset-sh/pds`](https://github.com/unset-sh/pds) | Active | The home for unset.sh's PDS image and everything that customises the PDS: the build on top of the official image, the theme for its sign-in and account pages, and their pins. Empty for now; until it moves, the image is built in the app repository (deployment/pds/). |
 | `unset-sh/lexicons` | Approved, waiting for setup | A one-way, read-only copy of the sh.unset.* lexicon schemas, pushed by the app's mirror job. Waiting for setup by the owner; the direction reverses later, when the organisation becomes the source of truth. |
 | `unset-sh/messaging` | Planned, not created | The chat app on unset.cc, moving out of the app repository; will grow into a community app with channels, roles and voice. Plan drafted, not created yet. |
 | `unset-sh/server-kit` | Proposed, not approved | Proposed: the generic security code the app and messaging both need (HTTP kit and CSRF gate, egress guard, sealed storage, signed admin envelope, config, log). Not approved yet. |
@@ -43,9 +43,11 @@ flowchart LR
   r_presentation --> r_unset
   r_messaging --> r_unset
   r_server_kit --> r_unset
+  r_pds --> r_unset
   r_brand --> r_presentation
   r_unset --> r_profile_recipes
   r_unset --> r_docs
+  r_brand --> r_pds
   r_unset --> r_lexicons
   r_server_kit --> r_messaging
 ```
@@ -54,9 +56,11 @@ flowchart LR
 - `presentation` → `unset`: @unset-sh/presentation at an exact version (after the rewrite)
 - `messaging` → `unset`: @unset-sh/messaging-contract at an exact version (planned)
 - `server-kit` → `unset`: pinned release (if approved)
+- `pds` → `unset`: the PDS image by pinned digest (after the move)
 - `brand` → `presentation`: @unset-sh/brand at an exact version
 - `unset` → `profile-recipes`: lexicon schemas and editor limits, copied at a pinned commit
 - `unset` → `docs`: pushes docs/human and docs/site into unset/ with its own deploy key
+- `brand` → `pds`: theme colours and fonts at an exact version (after the move)
 - `unset` → `lexicons`: pushes the schemas with its own deploy key
 - `server-kit` → `messaging`: pinned release (if server-kit is approved)
 
@@ -79,6 +83,7 @@ The unset.sh app: web, admin, public API, indexer, media proxy, their database a
 - Preview images and embeds drawn from data: [`unset-sh/presentation`](https://github.com/unset-sh/presentation)
 - Ready-made profile layouts for AI-assisted setup: [`unset-sh/profile-recipes`](https://github.com/unset-sh/profile-recipes)
 - The chat app (unset.cc), once it moves: `unset-sh/messaging`
+- The PDS image and its customisation, once they move: [`unset-sh/pds`](https://github.com/unset-sh/pds)
 
 ## .github
 
@@ -168,7 +173,17 @@ Every repository's human docs, aggregated, and the docs.unset.sh site built from
 
 [`unset-sh/pds`](https://github.com/unset-sh/pds). Active.
 
-Purpose not recorded yet. The repository has been empty since 2026-10-17.
+The home for unset.sh's PDS image and everything that customises the PDS: the build on top of the official image, the theme for its sign-in and account pages, and their pins. Empty for now; until it moves, the image is built in the app repository (deployment/pds/).
+
+**Owns**
+
+- The first-party PDS image: built on the official bluesky-social/pds image, with its upstream source and package versions pinned
+- Customising the PDS: the theme for its sign-in and account pages, and any other change to the stock PDS
+
+**Does not belong here**
+
+- Running and deploying the PDS, and the process that holds its admin password (pds-admin): [`Undefined6799/unset`](https://github.com/Undefined6799/unset)
+- Colours, fonts and the mark the theme uses: [`unset-sh/brand`](https://github.com/unset-sh/brand)
 
 ## lexicons
 

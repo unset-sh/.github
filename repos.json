@@ -28,6 +28,10 @@
         {
           "what": "The chat app (unset.cc), once it moves",
           "where": "messaging"
+        },
+        {
+          "what": "The PDS image and its customisation, once they move",
+          "where": "pds"
         }
       ],
       "uses": [
@@ -46,6 +50,10 @@
         {
           "repo": "server-kit",
           "how": "pinned release (if approved)"
+        },
+        {
+          "repo": "pds",
+          "how": "the PDS image by pinned digest (after the move)"
         }
       ]
     },
@@ -177,10 +185,27 @@
       "name": "pds",
       "status": "active",
       "description": "",
-      "summary": "Purpose not recorded yet. The repository has been empty since 2026-10-17.",
-      "owns": [],
-      "notHere": [],
-      "uses": [],
+      "summary": "The home for unset.sh's PDS image and everything that customises the PDS: the build on top of the official image, the theme for its sign-in and account pages, and their pins. Empty for now; until it moves, the image is built in the app repository (deployment/pds/).",
+      "owns": [
+        "The first-party PDS image: built on the official bluesky-social/pds image, with its upstream source and package versions pinned",
+        "Customising the PDS: the theme for its sign-in and account pages, and any other change to the stock PDS"
+      ],
+      "notHere": [
+        {
+          "what": "Running and deploying the PDS, and the process that holds its admin password (pds-admin)",
+          "where": "unset"
+        },
+        {
+          "what": "Colours, fonts and the mark the theme uses",
+          "where": "brand"
+        }
+      ],
+      "uses": [
+        {
+          "repo": "brand",
+          "how": "theme colours and fonts at an exact version (after the move)"
+        }
+      ],
       "hideFromProfile": true
     },
     {
