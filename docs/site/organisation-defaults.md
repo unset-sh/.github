@@ -5,14 +5,14 @@ weight: 5
 type: docs
 params:
   doc_kind: explanation
-  checked_source_revision: "ORG_SETUP_REVISION"
+  checked_source_revision: "0ad6db5b25ba484a1812b16bdbdbf5c266c0ee53"
 ---
 
 `unset-sh/.github` owns the organisation profile, shared community policies, issue forms and pull-request template.
 GitHub presents these defaults in other unset-sh repositories when those repositories do not provide their own
 equivalent files. The defaults are maintained here; GitHub does not copy them into each repository's Git history.
 
-This page describes the setup at `ORG_SETUP_REVISION`. The files become available as defaults when their pull
+This page describes the setup at `0ad6db5b25ba484a1812b16bdbdbf5c266c0ee53`. The files become available as defaults when their pull
 request reaches this public repository's default branch. Repository settings and workflow adoption have their own
 scope; adding a default file does not configure every repository.
 
@@ -33,9 +33,9 @@ All paths below are relative to the `unset-sh/.github` repository:
 | `.github/VULNERABILITY_REPORT.yml` | Fields for private vulnerability reports where that feature is enabled |
 | `workflow-templates/` | Generated starter workflows offered through GitHub's workflow picker |
 
-The [contribution policy](https://github.com/unset-sh/.github/blob/ORG_SETUP_REVISION/CONTRIBUTING.md) retains the
+The [contribution policy](https://github.com/unset-sh/.github/blob/0ad6db5b25ba484a1812b16bdbdbf5c266c0ee53/CONTRIBUTING.md) retains the
 existing limits on outside code. Offering a feature form or a pull-request template does not expand what a
-repository accepts. The [accessibility policy](https://github.com/unset-sh/.github/blob/ORG_SETUP_REVISION/ACCESSIBILITY.md)
+repository accepts. The [accessibility policy](https://github.com/unset-sh/.github/blob/0ad6db5b25ba484a1812b16bdbdbf5c266c0ee53/ACCESSIBILITY.md)
 provides a reporting route; it is not a conformance assessment.
 
 ## How GitHub selects a default
@@ -61,7 +61,7 @@ available, or at `security@unset.sh`, following its security policy. The custom 
 private reporting; that is a separate repository setting.
 
 Conduct concerns use GitHub's reporting tools, as described in the
-[code of conduct](https://github.com/unset-sh/.github/blob/ORG_SETUP_REVISION/CODE_OF_CONDUCT.md). Reporting to
+[code of conduct](https://github.com/unset-sh/.github/blob/0ad6db5b25ba484a1812b16bdbdbf5c266c0ee53/CODE_OF_CONDUCT.md). Reporting to
 GitHub Support and reporting to repository administrators are separate options; the latter appears only where
 enabled. The organisation does not publish a separate conduct mailbox or promise a support response time.
 
@@ -101,6 +101,6 @@ history or another repository's own files.
 
 ## Source and publication
 
-The policies, forms and template are in [the checked source tree](https://github.com/unset-sh/.github/tree/ORG_SETUP_REVISION).
+The policies, forms and template are in [the checked source tree](https://github.com/unset-sh/.github/tree/0ad6db5b25ba484a1812b16bdbdbf5c266c0ee53).
 This explanation lives in `docs/site/` and is exported into `unset-sh/docs:github/` with its source revision and
 hashes. See [Export the public documentation](export-docs.md) for the separate import and publication steps.

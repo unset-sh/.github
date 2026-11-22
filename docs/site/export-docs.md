@@ -5,12 +5,12 @@ weight: 15
 type: docs
 params:
   doc_kind: guide
-  checked_source_revision: "ORG_SETUP_REVISION"
+  checked_source_revision: "0ad6db5b25ba484a1812b16bdbdbf5c266c0ee53"
 ---
 
 The documentation exporter packages the selected public pages from an exact Git commit. Use it to prepare a reviewed import into `unset-sh/docs`, or download the equivalent artifact from the documentation export workflow.
 
-This guide describes the **unreleased implementation at `ORG_SETUP_REVISION`**. Creating an export does not publish it. The organisation documentation website is live. Publication of this additional section remains pending its reviewed [import in docs PR #2](https://github.com/unset-sh/docs/pull/2).
+This guide describes the **unreleased implementation at `0ad6db5b25ba484a1812b16bdbdbf5c266c0ee53`**. Creating an export does not publish it. The organisation documentation website is live. Publication of this additional section remains pending its reviewed [import in docs PR #2](https://github.com/unset-sh/docs/pull/2).
 
 ## Before you start
 
@@ -50,7 +50,7 @@ If the command refuses an existing output directory, choose another fresh destin
 
 ## Use the workflow artifact
 
-The [documentation export workflow](https://github.com/unset-sh/.github/blob/ORG_SETUP_REVISION/automation/docs-export.yml) runs on pull requests, pushes to `main`, and manual dispatch. It runs the repository checks, exports the commit identified by `github.sha`, and uploads an artifact named `github-docs-<commit>` for 14 days. The downloaded artifact preserves the `github/` section folder. Inspect its recorded source revision before preparing an import.
+The [documentation export workflow](https://github.com/unset-sh/.github/blob/0ad6db5b25ba484a1812b16bdbdbf5c266c0ee53/automation/docs-export.yml) runs on pull requests, pushes to `main`, and manual dispatch. It runs the repository checks, exports the commit identified by `github.sha`, and uploads an artifact named `github-docs-<commit>` for 14 days. The downloaded artifact preserves the `github/` section folder. Inspect its recorded source revision before preparing an import.
 
 The job uses a read-only repository token and no cross-repository write secret. It produces an artifact for review; it does not push to `unset-sh/docs` or deploy the website.
 
@@ -62,4 +62,4 @@ The source mapping is explicit: `unset-sh/.github:docs/site/` becomes `unset-sh/
 
 ## Source and evidence
 
-The command is declared in [`package.json`](https://github.com/unset-sh/.github/blob/ORG_SETUP_REVISION/package.json) and implemented by [`scripts/export-docs.mjs`](https://github.com/unset-sh/.github/blob/ORG_SETUP_REVISION/scripts/export-docs.mjs). The workflow source is [`automation/docs-export.yml`](https://github.com/unset-sh/.github/blob/ORG_SETUP_REVISION/automation/docs-export.yml). These instructions describe the committed-tree export contract. A successful local export or uploaded artifact is evidence of packaging only, not an observed website deployment.
+The command is declared in [`package.json`](https://github.com/unset-sh/.github/blob/0ad6db5b25ba484a1812b16bdbdbf5c266c0ee53/package.json) and implemented by [`scripts/export-docs.mjs`](https://github.com/unset-sh/.github/blob/0ad6db5b25ba484a1812b16bdbdbf5c266c0ee53/scripts/export-docs.mjs). The workflow source is [`automation/docs-export.yml`](https://github.com/unset-sh/.github/blob/0ad6db5b25ba484a1812b16bdbdbf5c266c0ee53/automation/docs-export.yml). These instructions describe the committed-tree export contract. A successful local export or uploaded artifact is evidence of packaging only, not an observed website deployment.

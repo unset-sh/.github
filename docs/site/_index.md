@@ -10,12 +10,12 @@ menus:
     weight: 40
 params:
   doc_kind: overview
-  checked_source_revision: "ORG_SETUP_REVISION"
+  checked_source_revision: "0ad6db5b25ba484a1812b16bdbdbf5c266c0ee53"
 ---
 
 The `unset-sh/.github` repository owns shared GitHub Actions, the organisation map, and community defaults. Its workflows provide a common check and a protected release process. Each consuming repository keeps its own event triggers, build commands, tests, and configuration.
 
-The shared workflows are **unreleased, at version 0.0.0**. The release workflow publishes nothing at that version. These pages describe the implementation at `ORG_SETUP_REVISION`; they do not claim that another repository has adopted it or that a production release has succeeded.
+The shared workflows are **unreleased, at version 0.0.0**. The release workflow publishes nothing at that version. These pages describe the implementation at `0ad6db5b25ba484a1812b16bdbdbf5c266c0ee53`; they do not claim that another repository has adopted it or that a production release has succeeded.
 
 ## Learn and use
 
@@ -36,8 +36,8 @@ The shared workflows are **unreleased, at version 0.0.0**. The release workflow 
 
 ## Source and publication
 
-These pages are maintained in [`unset-sh/.github/docs/site/`](https://github.com/unset-sh/.github/tree/ORG_SETUP_REVISION/docs/site). The documentation section mapping is `.github:docs/site/` to `unset-sh/docs:github/`: the visible section uses `github` because `.github` is a reserved framework directory.
+These pages are maintained in [`unset-sh/.github/docs/site/`](https://github.com/unset-sh/.github/tree/0ad6db5b25ba484a1812b16bdbdbf5c266c0ee53/docs/site). The documentation section mapping is `.github:docs/site/` to `unset-sh/docs:github/`: the visible section uses `github` because `.github` is a reserved framework directory.
 
 The [export command and workflow](export-docs.md) produce a section from an exact commit, including its licence and source provenance. The workflow makes that export available as a downloadable artifact after checks; it does not write to the documentation repository. The organisation docs framework is live. This additional section remains pending its reviewed [import in docs PR #2](https://github.com/unset-sh/docs/pull/2), which records the section-name exception.
 
-The [repository README](https://github.com/unset-sh/.github/blob/ORG_SETUP_REVISION/README.md) also covers the organisation map. The [source licence](https://github.com/unset-sh/.github/blob/ORG_SETUP_REVISION/LICENSE) is AGPL-3.0-only.
+The [repository README](https://github.com/unset-sh/.github/blob/0ad6db5b25ba484a1812b16bdbdbf5c266c0ee53/README.md) also covers the organisation map. The [source licence](https://github.com/unset-sh/.github/blob/0ad6db5b25ba484a1812b16bdbdbf5c266c0ee53/LICENSE) is AGPL-3.0-only.
