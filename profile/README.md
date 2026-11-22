@@ -34,7 +34,7 @@
 </tr>
 <tr>
 <td width="100%" valign="bottom">
-<a href="https://docs.unset.sh">Docs</a> &nbsp;·&nbsp; <a href="https://unset.sh">unset.sh</a>
+<a href="https://docs.unset.sh">Documentation</a> &nbsp;·&nbsp; <a href="https://unset.sh">unset.sh</a>
 </td>
 </tr>
 </tbody>
@@ -99,7 +99,7 @@
 </tr>
 <tr>
 <td width="50%" valign="bottom">
-<a href="https://github.com/unset-sh/.github/blob/main/MAP.md">Docs</a>
+<a href="https://github.com/unset-sh/.github/blob/main/MAP.md">Organisation map</a>
 </td>
 <td width="50%" valign="bottom">
 <a href="https://docs.unset.sh">docs.unset.sh</a>

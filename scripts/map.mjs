@@ -189,7 +189,10 @@ function profileCardParts(map, repo) {
     ? `<a href="https://github.com/${name}"><strong>${escapeHtml(repo.name)}</strong></a>`
     : `<strong>${escapeHtml(repo.name)}</strong>`;
   const links = [];
-  if (repo.links?.docs) links.push(`<a href="${escapeHtml(repo.links.docs)}">Docs</a>`);
+  if (repo.links?.docs) {
+    const label = repo.links.docs === MAP_URL ? "Organisation map" : "Documentation";
+    links.push(`<a href="${escapeHtml(repo.links.docs)}">${label}</a>`);
+  }
   if (repo.links?.site) links.push(`<a href="${escapeHtml(repo.links.site)}">${escapeHtml(new URL(repo.links.site).host)}</a>`);
   if (repo.links?.package) links.push(`<code>${escapeHtml(repo.links.package)}</code>`);
   return {
