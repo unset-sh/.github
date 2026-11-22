@@ -1,0 +1,25 @@
+name: Question or help
+description: Ask how to use a project or understand its documentation.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Check the [documentation](https://docs.unset.sh) and [support guidance](https://github.com/unset-sh/.github/blob/main/SUPPORT.md) first.
+        Remove secrets and private personal data from your question, logs and screenshots. Report possible vulnerabilities through the [security policy](https://github.com/unset-sh/.github/blob/main/SECURITY.md).
+  - type: textarea
+    id: question
+    attributes:
+      label: What would you like help with?
+      description: Explain what you want to do and the part you are unsure about.
+    validations:
+      required: true
+  - type: textarea
+    id: tried
+    attributes:
+      label: What have you tried or read?
+      description: Optional documentation links, commands or approaches, including what happened.
+  - type: input
+    id: environment
+    attributes:
+      label: Version and environment, if relevant
+      description: Include the release or commit and relevant browser, operating system or runtime versions when known.

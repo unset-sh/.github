@@ -3,6 +3,10 @@
 Thank you for your interest. This file applies to every unset.sh repository that does not have its own
 `CONTRIBUTING.md`.
 
+Please follow the [Code of conduct](https://github.com/unset-sh/.github/blob/main/CODE_OF_CONDUCT.md). For usage
+questions, see [Support](https://github.com/unset-sh/.github/blob/main/SUPPORT.md); accessibility barriers can be
+reported through the [accessibility guidance](https://github.com/unset-sh/.github/blob/main/ACCESSIBILITY.md).
+
 ## What we accept from outside the organisation
 
 Most unset.sh repositories are products under AGPL-3.0-only and **do not take outside code for now**. Please open an
@@ -34,5 +38,6 @@ licence agreement.
 
 ## Security
 
-Please do not report a security problem in a public issue. Use the repository's **Security** tab ("Report a
-vulnerability") instead.
+Please do not report a security problem in a public issue. Follow the affected repository's security policy or
+the organisation's [Security reporting](https://github.com/unset-sh/.github/blob/main/SECURITY.md) instructions.
+Use its private **Report a vulnerability** option when available, or email **security@unset.sh**.

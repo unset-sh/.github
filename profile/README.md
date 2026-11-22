@@ -12,7 +12,9 @@
 <a href="https://unset.sh"><strong>Website</strong></a> &nbsp;·&nbsp;
 <a href="https://docs.unset.sh"><strong>Docs</strong></a> &nbsp;·&nbsp;
 <a href="https://github.com/unset-sh/.github/blob/main/MAP.md"><strong>Organisation map</strong></a> &nbsp;·&nbsp;
-<a href="https://github.com/unset-sh/.github/blob/main/CONTRIBUTING.md"><strong>Contributing</strong></a>
+<a href="https://github.com/unset-sh/.github/blob/main/CONTRIBUTING.md"><strong>Contributing</strong></a> &nbsp;·&nbsp;
+<a href="https://github.com/unset-sh/.github/blob/main/SUPPORT.md"><strong>Help</strong></a> &nbsp;·&nbsp;
+<a href="https://github.com/unset-sh/.github/blob/main/SECURITY.md"><strong>Security</strong></a>
 </p>
 
 <p align="center">
@@ -70,10 +72,10 @@ Ready-made profile layouts an AI assistant can build for you
 </td>
 <td width="50%" valign="top">
 
-<strong>lexicons</strong><br>
+<a href="https://github.com/unset-sh/lexicons"><strong>lexicons</strong></a><br>
 The sh.unset.* record schemas, published for anyone to use
 <br><br>
-<sub>Coming soon</sub>
+<a href="https://github.com/unset-sh/lexicons">Code</a>
 
 </td>
 </tr>
@@ -88,11 +90,21 @@ Documentation, shared code, and the rules every repository follows.
 <td width="50%" valign="top">
 
 <a href="https://github.com/unset-sh/.github"><strong>.github</strong></a><br>
-Organisation profile, map and automation
+Organisation profile, map and community defaults
 <br><br>
 <a href="https://github.com/unset-sh/.github">Code</a> &nbsp;·&nbsp; <a href="https://github.com/unset-sh/.github/blob/main/MAP.md">Docs</a>
 
 </td>
+<td width="50%" valign="top">
+
+<a href="https://github.com/unset-sh/tooling"><strong>tooling</strong></a><br>
+Shared developer tooling and reusable workflows
+<br><br>
+<a href="https://github.com/unset-sh/tooling">Code</a>
+
+</td>
+</tr>
+<tr>
 <td width="50%" valign="top">
 
 <a href="https://github.com/unset-sh/docs"><strong>docs</strong></a><br>
@@ -101,6 +113,7 @@ Organisation documentation, repository ownership and learning guides
 <a href="https://github.com/unset-sh/docs">Code</a> &nbsp;·&nbsp; <a href="https://docs.unset.sh">docs.unset.sh</a>
 
 </td>
+<td width="50%"></td>
 </tr>
 </table>
 

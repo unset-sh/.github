@@ -1,0 +1,28 @@
+name: Feature request
+description: Explain a problem or suggest an improvement.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Search existing issues for the same idea. Remove secrets and private personal data from examples.
+        Please read the [contribution policy](https://github.com/unset-sh/.github/blob/main/CONTRIBUTING.md) before preparing a code change.
+        Report possible vulnerabilities through the [security policy](https://github.com/unset-sh/.github/blob/main/SECURITY.md).
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: Describe what you are trying to do, who is affected and what gets in the way.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: What would a useful result look like?
+      description: Explain the behaviour or outcome you need. A proposed implementation is optional.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives or examples
+      description: Optional workarounds, alternatives you considered, or relevant examples.

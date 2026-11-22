@@ -1,0 +1,23 @@
+# Choose a reviewed release of unset-sh/tooling and replace APPROVED_COMMIT_SHA
+# with its full 40-character commit before installing this caller.
+# Usage and inputs: https://github.com/unset-sh/tooling/blob/main/docs/site/use-workflows.md
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [$default-branch]
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    uses: unset-sh/tooling/.github/workflows/ci-check.yml@APPROVED_COMMIT_SHA
+    permissions:
+      contents: read
+    with:
+      install: false # Set true for npm ci --ignore-scripts; keep false with no dependencies.
