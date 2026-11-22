@@ -137,8 +137,10 @@ test("the map lists the repositories whose licence does not follow the rule", ()
   assert.ok(!section.includes("`ok`"));
 });
 
-test("a group of one keeps its compact introduction", () => {
+test("a group of one gets a full-width card without an empty neighbour", () => {
   const section = renderProfileSection({ org: "o", groups: G, repos: [repo()] });
-  assert.ok(section.includes('<a href="https://github.com/o/brand"><strong>brand</strong></a> &nbsp;d'));
-  assert.ok(!section.includes("<table>"));
+  assert.ok(section.includes('<a href="https://github.com/o/brand"><strong>brand</strong></a>'));
+  assert.ok(section.includes('<td width="880" valign="top">'));
+  assert.equal(section.match(/<td /g).length, 1);
+  assert.ok(section.includes('<p>d</p>'));
 });

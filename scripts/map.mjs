@@ -175,10 +175,10 @@ function escapeHtml(text) {
 
 function profileIcon(name) {
   if (name === "unset-mark") {
-    return `<picture><source media="(prefers-color-scheme: dark)" srcset="${BRAND_ASSETS}/unset-mark-platinum.svg"><img src="${BRAND_ASSETS}/unset-mark-onyx.svg" width="60" alt=""></picture> &nbsp;`;
+    return `<picture><source media="(prefers-color-scheme: dark)" srcset="${BRAND_ASSETS}/unset-mark-platinum.svg"><img src="${BRAND_ASSETS}/unset-mark-onyx.svg" width="60" alt=""></picture>`;
   }
   return PROFILE_ICONS.has(name)
-    ? `<picture><img src="./icons/${name}.svg" width="24" height="24" alt=""></picture> &nbsp;`
+    ? `<picture><img src="./icons/${name}.svg" width="24" height="24" alt=""></picture>`
     : "";
 }
 
@@ -188,45 +188,41 @@ function profileCardParts(map, repo) {
   const label = created
     ? `<a href="https://github.com/${name}"><strong>${escapeHtml(repo.name)}</strong></a>`
     : `<strong>${escapeHtml(repo.name)}</strong>`;
-  const title = profileIcon(repo.icon) + label;
   const links = [];
   if (repo.links?.docs) links.push(`<a href="${escapeHtml(repo.links.docs)}">Docs</a>`);
   if (repo.links?.site) links.push(`<a href="${escapeHtml(repo.links.site)}">${escapeHtml(new URL(repo.links.site).host)}</a>`);
   if (repo.links?.package) links.push(`<code>${escapeHtml(repo.links.package)}</code>`);
   return {
-    title,
+    title: label,
+    icon: profileIcon(repo.icon),
     text: escapeHtml(repo.tagline ?? repo.description ?? repo.summary),
     links: links.join(" &nbsp;·&nbsp; "),
     status: created ? "" : escapeHtml(STATUSES[repo.status]),
   };
 }
 
-function profileCards(map, repos) {
+function profileCards(map, repos, columns = 2) {
   const cards = repos.map((repo) => profileCardParts(map, repo));
   const hasFooter = cards.some((card) => card.links !== "");
   const lines = ["<tbody>", "<tr>"];
-  for (const { title, text, links, status } of cards) {
+  for (const { title, icon, text, links, status } of cards) {
     const span = hasFooter && !links ? ' rowspan="2"' : "";
-    lines.push(`<td width="440" valign="top"${span}>`, `<h3>${title}</h3>`, `<p>${text}</p>`);
+    const heading = icon ? `${icon}${columns === 2 ? "<br>" : " &nbsp;"}${title}` : title;
+    lines.push(`<td width="${880 / columns}" valign="top"${span}>`, `<h3>${heading}</h3>`, `<p>${text}</p>`);
     if (status) lines.push(`<p><sub>${status}</sub></p>`);
     lines.push("</td>");
   }
-  if (cards.length === 1) lines.push(`<td width="440"${hasFooter ? ' rowspan="2"' : ""}></td>`);
+  if (cards.length < columns) lines.push(`<td width="440"${hasFooter ? ' rowspan="2"' : ""}></td>`);
   lines.push("</tr>");
   if (hasFooter) {
     lines.push("<tr>");
     for (const { links } of cards) {
-      if (links) lines.push('<td width="50%" valign="bottom">', `<sub>${links}</sub>`, "</td>");
+      if (links) lines.push(`<td width="${100 / columns}%" valign="bottom">`, links, "</td>");
     }
     lines.push("</tr>");
   }
   lines.push("</tbody>");
   return lines;
-}
-
-function profileLine(map, repo) {
-  const { title, text, links, status } = profileCardParts(map, repo);
-  return [`${title} &nbsp;${text}`, ...(status ? [`<br><sub>${status}</sub>`] : []), ...(links ? ["<br>", links] : []), ""];
 }
 
 // Repositories the profile page shows: existing ones not hidden, and approved ones not created yet.
@@ -240,14 +236,11 @@ export function renderProfileSection(map) {
   for (const group of map.groups) {
     const repos = shown.filter((r) => r.group === group.id);
     if (repos.length === 0) continue;
-    lines.push(`## ${group.title}`, "", group.blurb, "");
-    if (repos.length === 1) {
-      lines.push(...profileLine(map, repos[0]));
-      continue;
-    }
+    lines.push(`## ${group.title}`, "");
     lines.push("<table>");
+    const columns = repos.length === 1 ? 1 : 2;
     for (let i = 0; i < repos.length; i += 2) {
-      lines.push(...profileCards(map, repos.slice(i, i + 2)));
+      lines.push(...profileCards(map, repos.slice(i, i + 2), columns));
     }
     lines.push("</table>", "");
   }

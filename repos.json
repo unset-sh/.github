@@ -29,7 +29,7 @@
       "owner": "Undefined6799",
       "status": "active",
       "group": "product",
-      "tagline": "The app: your identity and profile on the AT Protocol",
+      "tagline": "Your identity and profile on the AT Protocol.",
       "summary": "The unset.sh app: web, admin, public API, indexer, media proxy, their database and deployment. Lives outside the organisation for now and will be largely rewritten, then wired to the repositories below by pinned releases.",
       "links": {
         "site": "https://unset.sh",
@@ -97,7 +97,7 @@
       "status": "active",
       "group": "building",
       "description": "Organisation profile and community health files for unset.sh",
-      "tagline": "This page, the organisation map and the default contributing guide",
+      "tagline": "Organisation map and contribution guidelines.",
       "summary": "The organisation's front page and this map.",
       "links": {
         "docs": "https://github.com/unset-sh/.github/blob/main/MAP.md"
@@ -126,7 +126,7 @@
       "status": "active",
       "group": "look",
       "description": "unset.sh brand foundations: design tokens, fonts, the mark and icons",
-      "tagline": "Design tokens, fonts, the mark and icons",
+      "tagline": "Design tokens, fonts, the mark and icons.",
       "summary": "Fixed files that say what unset.sh looks like, as pinned copies of the design sheet. Ships the package @unset-sh/brand (data only) on GitHub Packages.",
       "links": {
         "package": "@unset-sh/brand"
@@ -163,7 +163,7 @@
       "status": "active",
       "group": "look",
       "description": "How unset.sh looks outside the app: preview images and embeds for profiles, posts and articles, rendered from supplied data",
-      "tagline": "Preview images and embeds for profiles, posts and articles",
+      "tagline": "Profile previews and rich embeds.",
       "summary": "Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/presentation on GitHub Packages; no running service.",
       "links": {
         "package": "@unset-sh/presentation"
@@ -205,7 +205,7 @@
       "status": "active",
       "group": "records",
       "description": "Ready-made profile layouts for unset.sh, with recipes an AI can follow to build yours.",
-      "tagline": "Ready-made profile layouts an AI assistant can build for you",
+      "tagline": "Profile layouts for AI-assisted setup.",
       "summary": "Persona profile layouts (recipes) with a guide an AI assistant follows to build someone's profile, plus sample records checked against the lexicons.",
       "owns": [
         "Recipes: recipe.json, GUIDE.md, sample records, assets and preview per persona",
@@ -240,7 +240,7 @@
       "status": "active",
       "group": "building",
       "description": "The unset.sh documentation website",
-      "tagline": "The documentation website, gathered from every repository",
+      "tagline": "Documentation gathered from every repository.",
       "summary": "Every repository's human docs, aggregated, and the docs.unset.sh site built from them on GitHub Pages. Nothing here is written by hand: each source repository's CI pushes its own top folder. Waiting for its first push.",
       "links": {
         "site": "https://docs.unset.sh"
@@ -307,7 +307,7 @@
       "status": "pending",
       "visibility": "public",
       "group": "records",
-      "tagline": "The sh.unset.* record schemas, published for anyone to use",
+      "tagline": "Shared sh.unset.* record schemas.",
       "summary": "A one-way, read-only copy of the sh.unset.* lexicon schemas, pushed by the app's mirror job. Waiting for setup by the owner; the direction reverses later, when the organisation becomes the source of truth.",
       "owns": [
         "The published copy of the sh.unset.* schemas, their docs and examples"
