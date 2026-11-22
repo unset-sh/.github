@@ -12,7 +12,7 @@ issue when they differ.
 | Repository | Status | What it is |
 | --- | --- | --- |
 | [`Undefined6799/unset`](https://github.com/Undefined6799/unset) | Active | The unset.sh app: web, admin, public API, indexer, media proxy, their database and deployment. Lives outside the organisation for now and will be largely rewritten, then wired to the repositories below by pinned releases. |
-| [`unset-sh/.github`](https://github.com/unset-sh/.github) | Active | The organisation's front page, repository map and community defaults. The agreed home for all organisation GitHub Actions implementations, including workflows specific to one repository, their supporting scripts, tests and starter templates. The migration from workflows and adoption by consuming repositories are pending. |
+| [`unset-sh/.github`](https://github.com/unset-sh/.github) | Active | The organisation's front page, repository map and community defaults. The agreed home for all organisation GitHub Actions implementations, including workflows specific to one repository, their supporting scripts, tests and starter templates. The implementation is under review in pull request #6; release and adoption by consuming repositories are pending. The former workflows repository is archived. |
 | [`unset-sh/brand`](https://github.com/unset-sh/brand) | Active | The editable visual contract for unset.sh. Ships static CSS, JSON, fonts, mark and icon data as @unset-sh/brand on GitHub Packages, and builds its Hugo guide with an interactive Svelte component gallery for GitHub Pages. |
 | [`unset-sh/presentation`](https://github.com/unset-sh/presentation) | Active | Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/presentation on GitHub Packages; no running service. |
 | [`unset-sh/profile-recipes`](https://github.com/unset-sh/profile-recipes) | Active | Persona profile layouts (recipes) with a guide an AI assistant follows to build someone's profile, plus sample records checked against the lexicons. |
@@ -22,7 +22,7 @@ issue when they differ.
 | `unset-sh/messaging` | Proposed, not approved | The private messaging product on unset.cc: one-to-one chat on Matrix today, later communities, channels, roles and voice. Plan drafted, awaiting approval; not created. |
 | `unset-sh/server-kit` | Proposed, not approved | Proposed: the generic security code the app and messaging both need (HTTP kit and CSRF gate, egress guard, sealed storage, signed admin envelope, config, log). Not approved yet. |
 | [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit) | Active | The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. Organisation decision records and the shared human documentation standard remain proposed in pull requests #5 and #7 respectively; neither addition is merged or released. |
-| [`unset-sh/workflows`](https://github.com/unset-sh/workflows) | Active | Approved for retirement into .github, the agreed home for organisation automation. Main currently contains only a README; pull request #1 proposes the check and release implementation. Preserving that work, completing its migration and adopting reviewed callers are pending. This repository is not archived. |
+| [`unset-sh/workflows`](https://github.com/unset-sh/workflows) | Archived | Archived after the decision to consolidate organisation automation in .github. Main contains only a README, with the original check and release proposal retained in pull request #1. The replacement implementation is under review in .github pull request #6; release and adoption by consuming repositories are pending. |
 
 ## Which way dependencies point
 
@@ -68,7 +68,7 @@ flowchart LR
 - `brand` → `presentation`: @unset-sh/brand at an exact version
 - `unset` → `profile-recipes`: lexicon schemas and editor limits, copied at a pinned commit
 - `brand` → `docs`: stable published @unset-sh/brand 0.1.x releases, each resolved to an immutable commit; compatible patch updates may rebuild and publish the site automatically after checks
-- `.github` → `docs`: repos.json at an exact commit revision for generated organisation map and ownership views; .github remains the source of truth
+- `.github` → `docs`: repos.json at an exact commit revision for generated organisation map and ownership views; .github remains the source of truth. A separate docs/site/ import into github/ is proposed in docs pull request #2 under the reserved-name exception; it is an additional source, not a replacement for the profile-recipes publishing prerequisite
 - `agent-kit` → `docs`: planned adoption of org-documentation through the existing sync workflow and lock after an approved kit release; the standard remains proposed in agent-kit pull request #7
 - `profile-recipes` → `docs`: source-owned docs/ exported into the profile-recipes/ section with its source revision and licences; the first source export and framework cutover are pending
 - `brand` → `pds`: theme colours and fonts at an exact version (after the move)
@@ -87,7 +87,7 @@ Not matching the rule yet (changing a published licence needs the owner's decisi
 | `unset` | AGPL-3.0-only; the lexicon schemas are MIT (as the rule wants); shared/ is MIT under ADR 0012 |
 | `docs` | No licence detected on main yet. The approved root framework licence is AGPL-3.0-only, pending its framework pull request; mirrored source documentation and third-party assets retain their own licences |
 | `pds` | None yet; should be AGPL-3.0-only. The official PDS it builds on keeps its own licence |
-| `workflows` | No licence detected on main; AGPL-3.0-only is proposed in the first implementation pull request |
+| `workflows` | No licence detected on archived main; the unpublished implementation in pull request #1 proposed AGPL-3.0-only |
 
 ## unset
 
@@ -116,7 +116,7 @@ The unset.sh app: web, admin, public API, indexer, media proxy, their database a
 
 [`unset-sh/.github`](https://github.com/unset-sh/.github). Active.
 
-The organisation's front page, repository map and community defaults. The agreed home for all organisation GitHub Actions implementations, including workflows specific to one repository, their supporting scripts, tests and starter templates. The migration from workflows and adoption by consuming repositories are pending.
+The organisation's front page, repository map and community defaults. The agreed home for all organisation GitHub Actions implementations, including workflows specific to one repository, their supporting scripts, tests and starter templates. The implementation is under review in pull request #6; release and adoption by consuming repositories are pending. The former workflows repository is archived.
 
 **Licence:** AGPL-3.0-only.
 
@@ -125,8 +125,8 @@ The organisation's front page, repository map and community defaults. The agreed
 - The organisation profile page (profile/README.md)
 - This map: repos.json, MAP.md and the daily check that compares them with GitHub
 - Community health files shared by every repository, when they are added
-- Organisation workflow implementations, supporting scripts and tests, versioned releases and starter templates, pending the automation migration
-- Human workflow guides and contracts in docs/site/, with an export to docs:github/, pending the automation migration
+- Organisation workflow implementations, supporting scripts and tests, versioned releases and starter templates, under review in pull request #6; release and caller adoption are pending
+- Human workflow guides and contracts in docs/site/, exported to docs:github/ under the reserved-name exception; implementation is under review in pull request #6 and the additional source import in docs pull request #2
 
 **Does not belong here**
 
@@ -188,7 +188,7 @@ Persona profile layouts (recipes) with a guide an AI assistant follows to build 
 - Recipes: recipe.json, GUIDE.md, sample records, assets and preview per persona
 - AGENTS.md: the rules an assistant follows when applying a recipe
 - The validator that checks recipes against a vendored lexicon snapshot and editor limits
-- Human documentation in docs/ and its source-owned export into docs:profile-recipes/, pending the source export pull request
+- Human documentation in docs/ and its source-owned export into docs:profile-recipes/, pending source export pull request #5
 
 **Does not belong here**
 
@@ -320,15 +320,15 @@ The rules, skills and templates every repository's assistant needs, released as 
 
 ## workflows
 
-[`unset-sh/workflows`](https://github.com/unset-sh/workflows). Active.
+[`unset-sh/workflows`](https://github.com/unset-sh/workflows). Archived.
 
-Approved for retirement into .github, the agreed home for organisation automation. Main currently contains only a README; pull request #1 proposes the check and release implementation. Preserving that work, completing its migration and adopting reviewed callers are pending. This repository is not archived.
+Archived after the decision to consolidate organisation automation in .github. Main contains only a README, with the original check and release proposal retained in pull request #1. The replacement implementation is under review in .github pull request #6; release and adoption by consuming repositories are pending.
 
-**Licence:** No licence detected on main; AGPL-3.0-only is proposed in the first implementation pull request.
+**Licence:** No licence detected on archived main; the unpublished implementation in pull request #1 proposed AGPL-3.0-only.
 
 **Owns**
 
-- The check and release proposal in pull request #1, its helper scripts, tests and review history until they are preserved in .github
+- The archived check and release proposal in pull request #1 and its original review history; the replacement implementation is under review in .github pull request #6
 
 **Does not belong here**
 

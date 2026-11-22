@@ -96,7 +96,7 @@
       "group": "building",
       "description": "Organisation profile and community health files for unset.sh",
       "tagline": "Organisation profile, map and automation",
-      "summary": "The organisation's front page, repository map and community defaults. The agreed home for all organisation GitHub Actions implementations, including workflows specific to one repository, their supporting scripts, tests and starter templates. The migration from workflows and adoption by consuming repositories are pending.",
+      "summary": "The organisation's front page, repository map and community defaults. The agreed home for all organisation GitHub Actions implementations, including workflows specific to one repository, their supporting scripts, tests and starter templates. The implementation is under review in pull request #6; release and adoption by consuming repositories are pending. The former workflows repository is archived.",
       "links": {
         "docs": "https://github.com/unset-sh/.github/blob/main/MAP.md"
       },
@@ -104,8 +104,8 @@
         "The organisation profile page (profile/README.md)",
         "This map: repos.json, MAP.md and the daily check that compares them with GitHub",
         "Community health files shared by every repository, when they are added",
-        "Organisation workflow implementations, supporting scripts and tests, versioned releases and starter templates, pending the automation migration",
-        "Human workflow guides and contracts in docs/site/, with an export to docs:github/, pending the automation migration"
+        "Organisation workflow implementations, supporting scripts and tests, versioned releases and starter templates, under review in pull request #6; release and caller adoption are pending",
+        "Human workflow guides and contracts in docs/site/, exported to docs:github/ under the reserved-name exception; implementation is under review in pull request #6 and the additional source import in docs pull request #2"
       ],
       "notHere": [
         {
@@ -215,7 +215,7 @@
         "Recipes: recipe.json, GUIDE.md, sample records, assets and preview per persona",
         "AGENTS.md: the rules an assistant follows when applying a recipe",
         "The validator that checks recipes against a vendored lexicon snapshot and editor limits",
-        "Human documentation in docs/ and its source-owned export into docs:profile-recipes/, pending the source export pull request"
+        "Human documentation in docs/ and its source-owned export into docs:profile-recipes/, pending source export pull request #5"
       ],
       "notHere": [
         {
@@ -296,7 +296,7 @@
         },
         {
           "repo": ".github",
-          "how": "repos.json at an exact commit revision for generated organisation map and ownership views; .github remains the source of truth"
+          "how": "repos.json at an exact commit revision for generated organisation map and ownership views; .github remains the source of truth. A separate docs/site/ import into github/ is proposed in docs pull request #2 under the reserved-name exception; it is an additional source, not a replacement for the profile-recipes publishing prerequisite"
         },
         {
           "repo": "agent-kit",
@@ -490,18 +490,18 @@
     },
     {
       "name": "workflows",
-      "status": "active",
+      "status": "archived",
       "visibility": "public",
       "group": "building",
       "description": "The CI check and the release workflow every unset.sh repository calls at a pinned commit",
-      "tagline": "Retiring into .github",
-      "summary": "Approved for retirement into .github, the agreed home for organisation automation. Main currently contains only a README; pull request #1 proposes the check and release implementation. Preserving that work, completing its migration and adopting reviewed callers are pending. This repository is not archived.",
+      "tagline": "Archived; automation moves to .github",
+      "summary": "Archived after the decision to consolidate organisation automation in .github. Main contains only a README, with the original check and release proposal retained in pull request #1. The replacement implementation is under review in .github pull request #6; release and adoption by consuming repositories are pending.",
       "hideFromProfile": true,
       "links": {
         "docs": "https://github.com/unset-sh/workflows/blob/main/README.md"
       },
       "owns": [
-        "The check and release proposal in pull request #1, its helper scripts, tests and review history until they are preserved in .github"
+        "The archived check and release proposal in pull request #1 and its original review history; the replacement implementation is under review in .github pull request #6"
       ],
       "notHere": [
         {
@@ -524,7 +524,7 @@
       "uses": [],
       "licence": {
         "spdx": null,
-        "current": "No licence detected on main; AGPL-3.0-only is proposed in the first implementation pull request",
+        "current": "No licence detected on archived main; the unpublished implementation in pull request #1 proposed AGPL-3.0-only",
         "followsRule": false
       }
     }
