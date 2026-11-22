@@ -112,56 +112,128 @@ function mermaidId(name) {
   return `r_${name.replace(/[^a-z0-9]/gi, "_")}`;
 }
 
-export function renderMap(map) {
+function mapAnchor(repo) {
+  return `repo-${repo.name.toLowerCase()}`;
+}
+
+function mapGroups(map) {
+  return map.groups.map((group) => ({ ...group, repos: map.repos.filter((repo) => repo.group === group.id) }))
+    .filter((group) => group.repos.length > 0);
+}
+
+function mapDirectory(groups) {
+  const lines = ["<table>"];
+  for (let i = 0; i < groups.length; i += 2) {
+    lines.push("<tbody>", "<tr>");
+    for (const group of groups.slice(i, i + 2)) {
+      lines.push('<td width="440" valign="top">', `<h3>${escapeHtml(group.title)}</h3>`, "<p>");
+      lines.push(group.repos.map((repo) =>
+        `<a href="#${escapeHtml(mapAnchor(repo))}"><strong>${escapeHtml(repo.name)}</strong></a> &nbsp;<sub>${escapeHtml(STATUSES[repo.status])}</sub>`
+      ).join("<br>\n"));
+      lines.push("</p>", "</td>");
+    }
+    if (i + 1 === groups.length) lines.push('<td width="440"></td>');
+    lines.push("</tr>", "</tbody>");
+  }
+  lines.push("</table>");
+  return lines;
+}
+
+function mapRepository(map, repo) {
+  // Keep old heading fragments (.github -> #github) outside the closed disclosure.
+  const legacyAnchor = repo.name.toLowerCase().replace(/[^\w-]/g, "");
   const lines = [
-    "# unset-sh organisation map",
+    `<a name="${escapeHtml(legacyAnchor)}"></a>`,
+    `<a name="${escapeHtml(mapAnchor(repo))}"></a>`,
+    "<details>",
+    `<summary><strong>${escapeHtml(repo.name)}</strong> &nbsp;<code>${escapeHtml(STATUSES[repo.status])}</code></summary>`,
+    "",
+    link(map, repo),
+    "",
+    repo.summary,
+  ];
+  if (repo.owns.length > 0) lines.push("", "**Owns**", "", ...repo.owns.map((item) => `- ${item}`));
+  if (repo.notHere.length > 0) {
+    lines.push("", "**Belongs elsewhere**", "", ...repo.notHere.map((item) => `- ${item.what}: ${where(map, item.where)}`));
+  }
+  lines.push("", `**Current licence:** ${repo.licence.current}`, "", "</details>", "");
+  return lines;
+}
+
+export function renderMap(map) {
+  const groups = mapGroups(map);
+  const counts = Object.keys(STATUSES).map((status) => {
+    const count = map.repos.filter((repo) => repo.status === status).length;
+    return count ? `${count} ${status === "pending" ? "awaiting setup" : status}` : null;
+  }).filter(Boolean);
+  const lines = [
+    '<a name="unset-sh-organisation-map"></a>',
+    "",
+    "# unset.sh / Organisation map",
     "",
     "<!-- Generated from repos.json by scripts/map.mjs. Edit repos.json, then run npm run map. -->",
     "",
-    "Which repository owns what, what does not belong in each, and which way the dependencies point. Read this before",
-    "starting work in any unset.sh repository, and update [`repos.json`](repos.json) in the same change that creates,",
-    "renames, archives or changes the scope of a repository. A daily check compares this map with GitHub and opens an",
-    "issue when they differ.",
+    "Find the right repository, trace its dependencies, and check what belongs there.",
+    "",
+    "[Repositories](#repositories) &nbsp;·&nbsp; [Dependencies](#dependencies) &nbsp;·&nbsp; [Ownership](#repository-boundaries) &nbsp;·&nbsp; [Licences](#licences)",
+    "",
+    `**${map.repos.length} repositories** &nbsp;·&nbsp; ${counts.join(" &nbsp;·&nbsp; ")}`,
+    "",
+    "<sub>Active means the repository exists. It does not mean its product or integration is ready.</sub>",
     "",
     "## Repositories",
     "",
-    "| Repository | Status | What it is |",
-    "| --- | --- | --- |",
+    "Choose a repository to jump to its ownership details.",
+    "",
+    ...mapDirectory(groups),
   ];
-  for (const repo of map.repos) {
-    lines.push(`| ${link(map, repo)} | ${STATUSES[repo.status]} | ${repo.summary} |`);
+  lines.push("", '<a name="which-way-dependencies-point"></a>', "", "## Dependencies", "",
+    "Arrows show recorded dependencies, including planned and conditional work. **A → B** means A supplies something B pins, copies or receives. The check refuses circular dependencies.",
+    "");
+  const connected = new Set(map.repos.flatMap((repo) => repo.uses.flatMap((use) => [repo.name, use.repo])));
+  if (connected.size > 0) {
+    lines.push("```mermaid", "flowchart TB");
+    for (const repo of map.repos.filter((repo) => connected.has(repo.name))) {
+      const label = NOT_CREATED.has(repo.status) ? `${repo.name} (${repo.status})` : repo.name;
+      lines.push(`  ${mermaidId(repo.name)}["${label}"]`);
+    }
+    for (const repo of map.repos) {
+      for (const use of repo.uses) lines.push(`  ${mermaidId(use.repo)} --> ${mermaidId(repo.name)}`);
+    }
+    lines.push("  classDef default fill:transparent,stroke:#888,stroke-width:1px", "  classDef uncreated stroke-dasharray:5 4");
+    const uncreated = map.repos.filter((repo) => connected.has(repo.name) && NOT_CREATED.has(repo.status));
+    if (uncreated.length) lines.push(`  class ${uncreated.map((repo) => mermaidId(repo.name)).join(",")} uncreated`);
+    if (connected.has("unset")) lines.push("  style r_unset stroke-width:2px");
+    lines.push("```", "");
+    if (uncreated.length) lines.push("Dashed outlines mark repositories that have not been created.", "");
   }
-  lines.push("", "## Which way dependencies point", "", "An arrow reads \"feeds\": the left side is pinned, copied or pushed into the right. Nothing points back, and the",
-    "check fails on a cycle.", "", "```mermaid", "flowchart LR");
-  for (const repo of map.repos) {
-    const label = NOT_CREATED.has(repo.status) ? `${repo.name} (${repo.status})` : repo.name;
-    lines.push(`  ${mermaidId(repo.name)}["${label}"]`);
+  const standalone = map.repos.filter((repo) => !connected.has(repo.name));
+  if (standalone.length) {
+    lines.push(`No dependency edges recorded: ${standalone.map((repo) => `[${repo.name}](#${mapAnchor(repo)})`).join(" · ")}.`, "");
   }
-  for (const repo of map.repos) {
-    for (const use of repo.uses) lines.push(`  ${mermaidId(use.repo)} --> ${mermaidId(repo.name)}`);
+  if (connected.size > 0) {
+    lines.push("<details>", '<summary><strong>Dependency details</strong> — pins, copies and handoffs</summary>', "");
+    for (const repo of map.repos) {
+      for (const use of repo.uses) lines.push(`- \`${use.repo}\` → \`${repo.name}\`: ${use.how}`);
+    }
+    lines.push("", "</details>", "");
   }
-  lines.push("```", "");
-  for (const repo of map.repos) {
-    for (const use of repo.uses) lines.push(`- \`${use.repo}\` → \`${repo.name}\`: ${use.how}`);
+  lines.push("## Repository boundaries", "",
+    "Expand a repository for its full scope, ownership, current licence and where other work belongs.", "");
+  for (const group of groups) {
+    lines.push(`### ${group.title}`, "");
+    for (const repo of group.repos) lines.push(...mapRepository(map, repo));
   }
   const offRule = map.repos.filter((r) => !r.licence.followsRule);
-  lines.push("", "## Licences", "", map.licenceRule);
+  lines.push("## Licences", "", map.licenceRule);
   if (offRule.length > 0) {
-    lines.push("", "Not matching the rule yet (changing a published licence needs the owner's decision):", "");
+    lines.push("", `**${offRule.length} repositories do not match the rule yet.** Changing a published licence needs the owner's decision.`, "");
     lines.push("| Repository | Licence today |", "| --- | --- |");
-    for (const repo of offRule) lines.push(`| \`${repo.name}\` | ${repo.licence.current} |`);
+    for (const repo of offRule) lines.push(`| [${repo.name}](#${mapAnchor(repo)}) | ${repo.licence.current} |`);
   }
-  for (const repo of map.repos) {
-    lines.push("", `## ${repo.name}`, "", `${link(map, repo)}. ${STATUSES[repo.status]}.`, "", repo.summary);
-    lines.push("", `**Licence:** ${repo.licence.current}.`);
-    if (repo.owns.length > 0) {
-      lines.push("", "**Owns**", "", ...repo.owns.map((item) => `- ${item}`));
-    }
-    if (repo.notHere.length > 0) {
-      lines.push("", "**Does not belong here**", "", ...repo.notHere.map((item) => `- ${item.what}: ${where(map, item.where)}`));
-    }
-  }
-  lines.push("");
+  lines.push("", "---", "", "<details>", "<summary>Maintaining this map</summary>", "",
+    "Read this map before starting work in any unset.sh repository. Update [`repos.json`](repos.json) in the same change that creates, renames, archives or changes the scope of a repository, then run `npm run map`.", "",
+    "A daily check compares this map with GitHub and opens an issue when they differ.", "", "</details>", "");
   return lines.join("\n");
 }
 

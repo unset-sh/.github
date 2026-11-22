@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { test } from "node:test";
-import { PROFILE_END, PROFILE_START, renderMap, renderProfileSection, spliceProfile, validate } from "./map.mjs";
+import { PROFILE_END, PROFILE_START, STATUSES, renderMap, renderProfileSection, spliceProfile, validate } from "./map.mjs";
 
 const G = [{ id: "g", title: "Group", blurb: "Blurb." }];
 const real = JSON.parse(await readFile(new URL("../repos.json", import.meta.url), "utf8"));
@@ -52,16 +52,41 @@ test("an existing organisation repository needs its GitHub description", () => {
   assert.deepEqual(validate({ org: "o", licenceRule: "AGPL", groups: G, repos: [repo({ description: undefined, owner: "someone" })] }), []);
 });
 
-test("the map lists every repository and every dependency edge", () => {
+test("the map preserves every repository's details behind visible anchors", () => {
   const text = renderMap(real);
-  for (const r of real.repos) assert.ok(text.includes(`## ${r.name}\n`), r.name);
-  for (const r of real.repos) for (const use of r.uses) assert.ok(text.includes(`\`${use.repo}\` → \`${r.name}\``));
+  for (const r of real.repos) {
+    const anchor = `<a name="repo-${r.name.toLowerCase()}"></a>\n<details>`;
+    assert.ok(text.includes(anchor), r.name);
+    assert.ok(text.includes(`href="#repo-${r.name.toLowerCase()}"`), r.name);
+    const section = text.slice(text.indexOf(anchor), text.indexOf("</details>", text.indexOf(anchor)));
+    assert.equal(text.split(r.summary).length - 1, 1, `${r.name} summary appears once`);
+    assert.ok(section.includes(r.summary), r.name);
+    assert.ok(section.includes(STATUSES[r.status]), r.name);
+    assert.ok(section.includes(r.licence.current), r.name);
+    for (const item of r.owns) assert.ok(section.includes(item), item);
+    for (const item of r.notHere) assert.ok(section.includes(item.what), item.what);
+  }
+  assert.ok(text.includes('<a name="github"></a>'));
+  assert.ok(text.includes('<a name="which-way-dependencies-point"></a>'));
+  assert.ok(text.includes(real.licenceRule));
+});
+
+test("the dependency view preserves edge direction and conditional explanations", () => {
+  const text = renderMap(real);
+  for (const r of real.repos) for (const use of r.uses) {
+    assert.ok(text.includes(`\`${use.repo}\` → \`${r.name}\`: ${use.how}`));
+  }
+  assert.ok(text.includes("r_brand --> r_unset"));
+  assert.ok(!text.includes("r_unset --> r_brand"));
+  assert.ok(text.includes("including planned and conditional work"));
+  assert.ok(text.includes("No dependency edges recorded: [.github](#repo-.github) · [agent-kit](#repo-agent-kit)."));
 });
 
 test("repositories not created yet are not linked", () => {
-  const text = renderMap({ org: "o", repos: [repo({ name: "later", status: "planned" })] });
+  const text = renderMap({ org: "o", groups: G, repos: [repo({ name: "later", status: "planned" })] });
   assert.ok(text.includes("`o/later`"));
   assert.ok(!text.includes("https://github.com/o/later"));
+  assert.ok(!text.includes("```mermaid"));
 });
 
 test("the profile section leaves out hidden and proposed repositories", () => {
@@ -128,13 +153,14 @@ test("every repository states its licence against the rule", () => {
 test("the map lists the repositories whose licence does not follow the rule", () => {
   const text = renderMap({
     org: "o",
+    groups: G,
     licenceRule: "All AGPL.",
     repos: [repo(), repo({ name: "ok", licence: { spdx: "AGPL-3.0", current: "AGPL-3.0-only", followsRule: true } })],
   });
-  const section = text.slice(text.indexOf("## Licences"), text.indexOf("## brand"));
+  const section = text.slice(text.indexOf("## Licences"));
   assert.match(section, /All AGPL\./);
-  assert.match(section, /\| `brand` \| None yet \|/);
-  assert.ok(!section.includes("`ok`"));
+  assert.ok(section.includes("| [brand](#repo-brand) | None yet |"));
+  assert.ok(!section.includes("#repo-ok"));
 });
 
 test("a group of one gets a full-width card without an empty neighbour", () => {
