@@ -74,7 +74,7 @@ flowchart LR
 - `.github` → `docs`: repos.json at an exact commit revision for generated organisation map and ownership views; .github remains the source of truth. Its source-owned docs/site/ maps to github/ under the reserved-name exception, with initial import tracked in docs pull request #2
 - `agent-kit` → `docs`: planned adoption of org-documentation through the existing sync workflow and lock after an approved kit release; the standard remains proposed in agent-kit pull request #7
 - `profile-recipes` → `docs`: source-owned docs/ exported automatically into the profile-recipes/ section with its source revision and licences; publication verified through source 1e64c46 to docs commit 2b4099f
-- `tooling` → `docs`: Source-owned docs/site/ for the tooling/ section with an exact source revision and licences, delivered through reviewed imports; a reviewed full-commit collector supplies the public workflow catalogue during site builds. Reusable workflow adoption remains explicit in each consumer
+- `tooling` → `docs`: Source-owned docs/ for the tooling/ section with an exact source revision and licences, delivered through reviewed imports; a reviewed full-commit collector supplies the public workflow catalogue during site builds. Reusable workflow adoption remains explicit in each consumer
 - `brand` → `pds`: theme colours and fonts at an exact version (after the move)
 - `unset` → `lexicons`: initial schemas copied from the merged application source at a recorded commit with per-file hashes; synchronization is manual and the proposed automatic mirror is not configured
 - `brand` → `messaging`: @unset-sh/brand at an exact version
@@ -148,9 +148,9 @@ Maintains shared CI, protected-release and documentation-export implementations,
 **Owns**
 
 - Shared CI, protected-release and documentation-export implementations, supporting scripts and tests; Pages and deployment implementations have not been centralised yet
-- Flat reusable entry points directly in .github/workflows/; category source folders and generation may organise the implementation without changing the native GitHub location
+- Flat reusable entry points directly in .github/workflows/; shared sources under workflows/shared/ and repository-specific sources under workflows/<repository>/ organise the implementation without changing the native GitHub location
 - Versioned tooling releases and the implementation of dependency-update proposals; automatic adoption requires explicit update PRs, checks, approvals, eligible auto-merge and downstream delivery, and is not configured yet. Owner release approvals remain required
-- Maintained human tooling guides and workflow contracts in docs/site/ for the docs:tooling/ section; initial delivery is tracked in docs pull request #5
+- Maintained human tooling guides and workflow contracts in docs/ for the docs:tooling/ section; initial delivery is tracked in docs pull request #5
 - Read-only public workflow discovery and immutable reusable-call resolution for the documentation workflow catalogue
 
 **Does not belong here**

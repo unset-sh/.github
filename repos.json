@@ -147,9 +147,9 @@
       "summary": "Maintains shared CI, protected-release and documentation-export implementations, supporting scripts and tests. The initial implementation is merged through pull request #1 at version 0.0.0; the first release and broader consumer adoption remain pending. Consumers retain their own events, permissions, inputs, build and test logic, and immutable caller pins.",
       "owns": [
         "Shared CI, protected-release and documentation-export implementations, supporting scripts and tests; Pages and deployment implementations have not been centralised yet",
-        "Flat reusable entry points directly in .github/workflows/; category source folders and generation may organise the implementation without changing the native GitHub location",
+        "Flat reusable entry points directly in .github/workflows/; shared sources under workflows/shared/ and repository-specific sources under workflows/<repository>/ organise the implementation without changing the native GitHub location",
         "Versioned tooling releases and the implementation of dependency-update proposals; automatic adoption requires explicit update PRs, checks, approvals, eligible auto-merge and downstream delivery, and is not configured yet. Owner release approvals remain required",
-        "Maintained human tooling guides and workflow contracts in docs/site/ for the docs:tooling/ section; initial delivery is tracked in docs pull request #5",
+        "Maintained human tooling guides and workflow contracts in docs/ for the docs:tooling/ section; initial delivery is tracked in docs pull request #5",
         "Read-only public workflow discovery and immutable reusable-call resolution for the documentation workflow catalogue"
       ],
       "notHere": [
@@ -374,7 +374,7 @@
         },
         {
           "repo": "tooling",
-          "how": "Source-owned docs/site/ for the tooling/ section with an exact source revision and licences, delivered through reviewed imports; a reviewed full-commit collector supplies the public workflow catalogue during site builds. Reusable workflow adoption remains explicit in each consumer"
+          "how": "Source-owned docs/ for the tooling/ section with an exact source revision and licences, delivered through reviewed imports; a reviewed full-commit collector supplies the public workflow catalogue during site builds. Reusable workflow adoption remains explicit in each consumer"
         }
       ],
       "licence": {
