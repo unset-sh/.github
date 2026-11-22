@@ -150,7 +150,7 @@
         "Flat reusable entry points directly in .github/workflows/; shared sources under workflows/shared/ and repository-specific sources under workflows/<repository>/ organise the implementation without changing the native GitHub location",
         "Versioned tooling releases and the implementation of dependency-update proposals; automatic adoption requires explicit update PRs, checks, approvals, eligible auto-merge and downstream delivery, and is not configured yet. Owner release approvals remain required",
         "Maintained human tooling guides and workflow contracts in docs/ for the docs:tooling/ section; initial delivery is tracked in docs pull request #5",
-        "Read-only public workflow discovery and immutable reusable-call resolution for the documentation workflow catalogue"
+        "Read-only public workflow discovery, digest-bound descriptions and immutable reusable-call resolution for the documentation workflow catalogue; shared refresh orchestration for registered map generators"
       ],
       "notHere": [
         {
@@ -317,7 +317,7 @@
       "owns": [
         "The root Hugo configuration, theme integration, layouts, navigation, front page and publication framework, changed by pull request",
         "Source-derived organisation map and ownership views from an exact .github revision",
-        "Workflow catalogue validation, accessible call and job views, and automatic refresh during the existing site publication workflow; collection is implemented in tooling",
+        "Map-specific validation, accessible organisation and workflow views, and a map registry whose generators run through the pinned shared refresh during site publication; workflow collection and shared orchestration are implemented in tooling",
         "One top folder per participating unset-sh repository; mirrored pages, examples and diagrams remain source-owned and are replaced only by that repository's docs job",
         "The site build commands, checks and GitHub Pages publication for docs.unset.sh; migration to central workflow implementations and reviewed callers is pending"
       ],
@@ -374,7 +374,7 @@
         },
         {
           "repo": "tooling",
-          "how": "Source-owned docs/ for the tooling/ section with an exact source revision and licences, delivered through reviewed imports; a reviewed full-commit collector supplies the public workflow catalogue during site builds. Reusable workflow adoption remains explicit in each consumer"
+          "how": "Source-owned docs/ for the tooling/ section with an exact source revision and licences, delivered through reviewed imports; a reviewed full-commit shared refresh runs registered map generators and supplies the public workflow catalogue before site builds. Reusable workflow adoption remains explicit in each consumer"
         }
       ],
       "licence": {
