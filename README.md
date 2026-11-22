@@ -61,8 +61,8 @@ with the workflow's token and are reported as unchecked.
 ## Documentation
 
 Human guidance belongs in `docs/site/`, follows the organisation documentation standard and exports to the
-`github/` section in `unset-sh/docs`. The organisation site is live; this source section remains under review in
-[docs PR #2](https://github.com/unset-sh/docs/pull/2). [Export organisation documentation](docs/site/export-docs.md)
+`github/` section in `unset-sh/docs`. The organisation site is live; [docs PR #2](https://github.com/unset-sh/docs/pull/2) records the initial
+import of this section. [Export organisation documentation](docs/site/export-docs.md)
 explains the caller and its output. Tooling maintains its own workflow contracts under its own `docs/site/`.
 
 AI plans, notes and supporting artifacts live in `unset-sh/agent-kit` under `notes/` and `artifacts/`.

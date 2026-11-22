@@ -32,7 +32,7 @@ chooses its events, permissions, inputs and reviewed workflow revision.
 
 ## Find shared developer tooling
 
-The [tooling guide](https://github.com/unset-sh/tooling/tree/0366edb2d04d5c24c19319770893b413d172567b/docs/site) covers reusable workflow
+The [tooling guide](https://github.com/unset-sh/tooling/tree/838a965d14d0887291046c279422becb7b0228f3/docs/site) covers reusable workflow
 inputs, source layout, release approval and documentation export. The initial implementation remains unreleased at
 version `0.0.0`. A repository's adoption is a separate reviewed change; creating a template or moving its implementation
 does not establish automatic updates, merging or delivery.
@@ -44,7 +44,7 @@ The mapping is `unset-sh/.github:docs/site/` to `unset-sh/docs:github/`, avoidin
 `.github` directory. The pinned [export caller](https://github.com/unset-sh/.github/blob/db0d794cf1761644ebc379fb2a36e50571f199a7/.github/workflows/docs-export.yml)
 produces a read-only artifact after checks, with its source revision, licence and file hashes. It does not publish it.
 
-The organisation documentation website is live. This section remains pending the reviewed
-[import in docs PR #2](https://github.com/unset-sh/docs/pull/2). The
+The organisation documentation website is live. [Docs PR #2](https://github.com/unset-sh/docs/pull/2) records
+the initial import of this section; later updates follow the same source-owned export and review process. The
 [repository README](https://github.com/unset-sh/.github/blob/db0d794cf1761644ebc379fb2a36e50571f199a7/README.md) also documents the repository map.
 The [source licence](https://github.com/unset-sh/.github/blob/db0d794cf1761644ebc379fb2a36e50571f199a7/LICENSE) is AGPL-3.0-only.

@@ -9,8 +9,8 @@ params:
 ---
 
 Use the pinned documentation caller to prepare this repository's public pages for a reviewed import into `unset-sh/docs`.
-The organisation website is live; the additional `github/` section remains pending
-[docs PR #2](https://github.com/unset-sh/docs/pull/2). An export artifact establishes packaging, not publication.
+The organisation website is live. [Docs PR #2](https://github.com/unset-sh/docs/pull/2) records the initial
+`github/` section import. Verify each subsequent import and deployment separately from its export artifact.
 
 ## Download the workflow artifact
 
@@ -39,7 +39,7 @@ node /absolute/tooling/scripts/export-docs.mjs \
   --out /absolute/fresh-output
 ```
 
-The [shared exporter guide](https://github.com/unset-sh/tooling/blob/0366edb2d04d5c24c19319770893b413d172567b/docs/site/export-docs.md)
+The [shared exporter guide](https://github.com/unset-sh/tooling/blob/838a965d14d0887291046c279422becb7b0228f3/docs/site/export-docs.md)
 defines the complete source and output contract. The result contains only the selected commit's public pages, its
 licence and generated provenance:
 

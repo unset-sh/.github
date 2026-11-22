@@ -40,8 +40,8 @@ This is `unset-sh/.github`: the organisation's front page, repository map, commu
   the check to pass before packaging and has contents-read access only. Automatic adoption is not implemented.
 - Human guidance lives in docs/site/ and exports to unset-sh/docs:github/ using tooling's exporter. Update the
   relevant guide with a behaviour change. AI notes and artifacts stay in agent-kit under notes/ and artifacts/.
-- Do not merge your own implementation PR. The tooling proposal must be reviewed and merged before this
-  repository's bootstrap caller is merged; record unverified runtime behaviour rather than inventing success.
+- Do not merge your own implementation PR. Bootstrap callers must pin reviewed tooling commits that have
+  landed on its main branch; record unverified runtime behaviour rather than inventing success.
 
 ## Community defaults
 
