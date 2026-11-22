@@ -1,6 +1,0 @@
-{
-  "name": "unset.sh release",
-  "description": "Publish from reviewed main through the protected release environment. Set a reviewed full commit pin before use.",
-  "categories": ["Deployment"],
-  "filePatterns": ["package.json$"]
-}

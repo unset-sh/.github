@@ -90,11 +90,21 @@ Documentation, shared code, and the rules every repository follows.
 <td width="50%" valign="top">
 
 <a href="https://github.com/unset-sh/.github"><strong>.github</strong></a><br>
-Organisation profile, map and automation
+Organisation profile, map and community defaults
 <br><br>
 <a href="https://github.com/unset-sh/.github">Code</a> &nbsp;·&nbsp; <a href="https://github.com/unset-sh/.github/blob/main/MAP.md">Docs</a>
 
 </td>
+<td width="50%" valign="top">
+
+<a href="https://github.com/unset-sh/tooling"><strong>tooling</strong></a><br>
+Shared developer tooling; first implementation pending
+<br><br>
+<a href="https://github.com/unset-sh/tooling">Code</a>
+
+</td>
+</tr>
+<tr>
 <td width="50%" valign="top">
 
 <a href="https://github.com/unset-sh/docs"><strong>docs</strong></a><br>
@@ -103,6 +113,7 @@ Organisation documentation, repository ownership and learning guides
 <a href="https://github.com/unset-sh/docs">Code</a> &nbsp;·&nbsp; <a href="https://docs.unset.sh">docs.unset.sh</a>
 
 </td>
+<td width="50%"></td>
 </tr>
 </table>
 

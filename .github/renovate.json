@@ -6,10 +6,5 @@
   ],
   "minimumReleaseAge": "7 days",
   "internalChecksFilter": "strict",
-  "automerge": false,
-  "github-actions": {
-    "managerFilePatterns": [
-      "/^(ci|releases|automation|pages|deployments|code-scanning|templates)\\/[^/]+\\.yml$/"
-    ]
-  }
+  "automerge": false
 }

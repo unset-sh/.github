@@ -95,8 +95,8 @@
       "status": "active",
       "group": "building",
       "description": "Organisation profile and community health files for unset.sh",
-      "tagline": "Organisation profile, map and automation",
-      "summary": "The organisation's front page, repository map and community defaults. The agreed home for all organisation GitHub Actions implementations, including workflows specific to one repository, their supporting scripts, tests and starter templates. The implementation is under review in pull request #6; release and adoption by consuming repositories are pending. The former workflows repository is archived.",
+      "tagline": "Organisation profile, map and community defaults",
+      "summary": "The organisation's front page, repository map, community defaults and native starter workflow catalogue. Local map validation stays here, with small pinned read-only callers for shared checks and documentation export from tooling. The expanded defaults and callers are under review in pull request #6; the tooling implementation must be reviewed and merged before those callers are adopted.",
       "links": {
         "docs": "https://github.com/unset-sh/.github/blob/main/MAP.md"
       },
@@ -104,13 +104,17 @@
         "The organisation profile page (profile/README.md)",
         "This map: repos.json, MAP.md and the daily check that compares them with GitHub",
         "Organisation community defaults: contribution, conduct, security, support and accessibility policies; public and private report forms and a general pull-request template",
-        "Organisation workflow implementations, supporting scripts and tests, versioned releases and starter templates, under review in pull request #6; release and caller adoption are pending",
-        "Human workflow guides and contracts in docs/site/, including documentation publishing-key setup, verification, rotation and retirement; export to docs:github/ under the reserved-name exception is under review in pull request #6, with the additional source import in docs pull request #2"
+        "Native starter workflow templates in workflow-templates/, local metadata validation and small callers with explicit events, permissions, inputs and reviewed tooling pins; caller adoption is pending pull request #6",
+        "Human guidance for organisation defaults and starter templates in docs/site/, plus a pointer to tooling's maintained publishing-key guide; export to docs:github/ under the reserved-name exception is under review in pull request #6, with the additional source import in docs pull request #2"
       ],
       "notHere": [
         {
           "what": "Code, docs or assets of any product",
           "where": "the repository that owns them, from this map"
+        },
+        {
+          "what": "Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests",
+          "where": "tooling (agreed ownership; implementation pending its first pull request)"
         },
         {
           "what": "A consuming repository's build and test commands, event triggers and small workflow callers",
@@ -121,11 +125,55 @@
           "where": "agent-kit (agreed ownership; implementation pending pull request #8)"
         }
       ],
-      "uses": [],
+      "uses": [
+        {
+          "repo": "tooling",
+          "how": "small read-only CI and documentation-export callers at reviewed full commit pins, proposed in pull request #6; adoption waits for the tooling implementation to be reviewed and merged, and automatic update propagation is not configured"
+        }
+      ],
       "licence": {
         "spdx": "AGPL-3.0",
         "current": "AGPL-3.0-only",
         "followsRule": true
+      }
+    },
+    {
+      "name": "tooling",
+      "status": "active",
+      "visibility": "public",
+      "group": "building",
+      "description": "Shared developer tooling and GitHub Actions implementations for unset.sh",
+      "tagline": "Shared developer tooling; first implementation pending",
+      "summary": "The public repository approved for maintained shared CI, release, deployment and documentation-export implementations, their supporting scripts and tests. Main contains only the initial README; the first implementation pull request, release and consumer adoption are pending. Consumers retain their own events, permissions, inputs, build and test logic, and immutable caller pins.",
+      "owns": [
+        "Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests; initial implementation pending its first pull request",
+        "Flat reusable entry points directly in .github/workflows/; category source folders and generation may organise the implementation without changing the native GitHub location",
+        "Versioned tooling releases and the implementation of dependency-update proposals; automatic adoption requires explicit update PRs, checks, approvals, eligible auto-merge and downstream delivery, and is not configured yet. Owner release approvals remain required",
+        "Maintained human tooling guides and workflow contracts in docs/site/, exported to docs:tooling/; the initial import is pending"
+      ],
+      "notHere": [
+        {
+          "what": "The organisation profile, repository map, community defaults and native starter workflow templates",
+          "where": ".github"
+        },
+        {
+          "what": "A consumer's events, permissions, inputs, build and test commands, product code and pinned workflow callers",
+          "where": "the consuming repository"
+        },
+        {
+          "what": "The documentation site framework and publication configuration",
+          "where": "docs"
+        },
+        {
+          "what": "AI working notes, supporting artifacts, shared assistant rules and organisation decision records",
+          "where": "agent-kit"
+        }
+      ],
+      "uses": [],
+      "licence": {
+        "spdx": null,
+        "current": "No licence detected on main; AGPL-3.0-only is proposed with the initial implementation",
+        "followsRule": false
       }
     },
     {
@@ -235,8 +283,12 @@
           "where": "docs"
         },
         {
-          "what": "Organisation workflow implementations and starter templates",
-          "where": ".github (agreed ownership; migration pending)"
+          "what": "Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests",
+          "where": "tooling (agreed ownership; implementation pending its first pull request)"
+        },
+        {
+          "what": "Organisation community defaults and native starter workflow templates",
+          "where": ".github"
         }
       ],
       "uses": [
@@ -289,8 +341,12 @@
           "where": "agent-kit (agreed ownership; implementation pending pull request #8)"
         },
         {
-          "what": "Organisation workflow implementations and starter templates",
-          "where": ".github (agreed ownership; migration pending)"
+          "what": "Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests",
+          "where": "tooling (agreed ownership; implementation pending its first pull request)"
+        },
+        {
+          "what": "Organisation community defaults and native starter workflow templates",
+          "where": ".github"
         },
         {
           "what": "Application documentation from outside the unset-sh organisation",
@@ -313,6 +369,10 @@
         {
           "repo": "profile-recipes",
           "how": "source-owned docs/ exported automatically into the profile-recipes/ section with its source revision and licences; publication verified through source 1e64c46 to docs commit 2b4099f"
+        },
+        {
+          "repo": "tooling",
+          "how": "source-owned docs/site/ is intended for the tooling/ section with an exact source revision and licences; the initial import is pending, and adoption of shared workflow implementations has not occurred"
         }
       ],
       "licence": {
@@ -490,8 +550,12 @@
           "where": "the source repository's docs/; exported to docs for publication"
         },
         {
-          "what": "Organisation GitHub Actions implementations and starter workflow templates",
-          "where": ".github (agreed ownership; migration pending)"
+          "what": "Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests",
+          "where": "tooling (agreed ownership; implementation pending its first pull request)"
+        },
+        {
+          "what": "Organisation community defaults and native starter workflow templates",
+          "where": ".github"
         }
       ],
       "uses": [],
@@ -507,19 +571,23 @@
       "visibility": "public",
       "group": "building",
       "description": "The CI check and the release workflow every unset.sh repository calls at a pinned commit",
-      "tagline": "Archived; automation moves to .github",
-      "summary": "Archived after the decision to consolidate organisation automation in .github. Main contains only a README, with the original check and release proposal retained in pull request #1. The replacement implementation is under review in .github pull request #6; release and adoption by consuming repositories are pending.",
+      "tagline": "Archived workflow proposal and review history",
+      "summary": "Archived after the earlier decision to consolidate organisation automation in .github. Main contains only a README, with the original check and release proposal retained in pull request #1. The later ownership decision assigns shared implementations to tooling; its first implementation pull request, release and adoption by consuming repositories are pending.",
       "hideFromProfile": true,
       "links": {
         "docs": "https://github.com/unset-sh/workflows/blob/main/README.md"
       },
       "owns": [
-        "The archived check and release proposal in pull request #1 and its original review history; the replacement implementation is under review in .github pull request #6"
+        "The archived check and release proposal in pull request #1 and its original review history; subsequent implementation work moves to tooling"
       ],
       "notHere": [
         {
-          "what": "Organisation workflow implementations, including workflows specific to one repository, their helper scripts, tests and starter templates",
-          "where": ".github (agreed ownership; migration pending)"
+          "what": "Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests",
+          "where": "tooling (agreed ownership; implementation pending its first pull request)"
+        },
+        {
+          "what": "Organisation community defaults and native starter workflow templates",
+          "where": ".github"
         },
         {
           "what": "A repository's build and test commands, event triggers and small workflow callers",

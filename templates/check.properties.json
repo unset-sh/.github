@@ -1,6 +1,0 @@
-{
-  "name": "unset.sh CI",
-  "description": "Run shared Node checks. Replace APPROVED_COMMIT_SHA with a reviewed release commit before use.",
-  "categories": ["JavaScript", "TypeScript"],
-  "filePatterns": ["package.json$", "^\\.nvmrc$"]
-}
