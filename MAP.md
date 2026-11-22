@@ -88,7 +88,7 @@ flowchart TB
   r_brand --> r_messaging
   r_server_kit --> r_messaging
   classDef default fill:transparent,stroke:#888,stroke-width:1px
-  classDef uncreated stroke-dasharray:5 4
+  classDef uncreated fill:transparent,stroke:#888,stroke-width:1px,stroke-dasharray:5 4
   class r_lexicons,r_messaging,r_server_kit uncreated
   style r_unset stroke-width:2px
 ```

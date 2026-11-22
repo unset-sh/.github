@@ -200,7 +200,7 @@ export function renderMap(map) {
     for (const repo of map.repos) {
       for (const use of repo.uses) lines.push(`  ${mermaidId(use.repo)} --> ${mermaidId(repo.name)}`);
     }
-    lines.push("  classDef default fill:transparent,stroke:#888,stroke-width:1px", "  classDef uncreated stroke-dasharray:5 4");
+    lines.push("  classDef default fill:transparent,stroke:#888,stroke-width:1px", "  classDef uncreated fill:transparent,stroke:#888,stroke-width:1px,stroke-dasharray:5 4");
     const uncreated = map.repos.filter((repo) => connected.has(repo.name) && NOT_CREATED.has(repo.status));
     if (uncreated.length) lines.push(`  class ${uncreated.map((repo) => mermaidId(repo.name)).join(",")} uncreated`);
     if (connected.has("unset")) lines.push("  style r_unset stroke-width:2px");
