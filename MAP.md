@@ -288,7 +288,7 @@ The rules, skills and templates every repository's assistant needs, released as 
 - Organisation-wide assistant rules and the three generic engineering documents
 - The CLAUDE.md and AGENTS.md templates
 - Shared skills and subagents, the model and effort router text, and the sync script
-- The organisation's decision records (org-NNNN), written mostly for assistants
+- The organisation's decision records (org-NNNN), written mostly for assistants, in skills/org-decisions/records/ and shipped in each release as the org-decisions skill
 
 **Does not belong here**
 
