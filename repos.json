@@ -32,8 +32,7 @@
       "tagline": "The app: your identity and profile on the AT Protocol",
       "summary": "The unset.sh app: web, admin, public API, indexer, media proxy, their database and deployment. Lives outside the organisation for now and will be largely rewritten, then wired to the repositories below by pinned releases.",
       "links": {
-        "site": "https://unset.sh",
-        "docs": "https://docs.unset.sh"
+        "site": "https://unset.sh"
       },
       "owns": [
         "Every product rule and screen of unset.sh, and the data behind them",
@@ -237,31 +236,57 @@
       "name": "docs",
       "status": "active",
       "group": "building",
-      "description": "The unset.sh documentation website",
-      "tagline": "The documentation website, gathered from every repository",
-      "summary": "Every repository's human docs, aggregated, and the docs.unset.sh site built from them on GitHub Pages. Nothing here is written by hand: each source repository's CI pushes its own top folder. Waiting for its first push.",
+      "description": "The unset.sh documentation website (Hugo)",
+      "tagline": "Organisation documentation, repository ownership and learning guides",
+      "summary": "The proposed organisation-only docs.unset.sh framework: a root Hugo site edited by pull requests, source-owned documentation in repository sections, and organisation map views derived from .github. The framework change and cutover are pending. The current app-fed site stays live until an organisation source is ready and the app mirror is stopped.",
       "links": {
         "site": "https://docs.unset.sh"
       },
       "owns": [
-        "One top folder per source repository, replaced only by that repository's docs job",
-        "The site build and GitHub Pages deploy for docs.unset.sh"
+        "The root Hugo configuration, theme integration, layouts, navigation, front page and publication framework, changed by pull request",
+        "Source-derived organisation map and ownership views from an exact .github revision",
+        "One top folder per participating unset-sh repository; mirrored pages, examples and diagrams remain source-owned and are replaced only by that repository's docs job",
+        "The site build, checks and GitHub Pages publication for docs.unset.sh"
       ],
       "notHere": [
         {
-          "what": "Writing or editing docs",
+          "what": "Authoring or hand-editing a source repository's mirrored documentation",
           "where": "the source repository's docs folder"
+        },
+        {
+          "what": "Hand-maintaining repository ownership descriptions",
+          "where": ".github repos.json"
+        },
+        {
+          "what": "Shared visual values, assets and the brand contract",
+          "where": "brand"
+        },
+        {
+          "what": "The shared human documentation standard and authoring templates",
+          "where": "agent-kit"
+        },
+        {
+          "what": "Application documentation from outside the unset-sh organisation",
+          "where": "its source repository; the app is only context in the organisation map"
         }
       ],
       "uses": [
         {
-          "repo": "unset",
-          "how": "pushes docs/human and docs/site into unset/ with its own deploy key"
+          "repo": "brand",
+          "how": "stable published @unset-sh/brand 0.1.x releases, each resolved to an immutable commit; compatible patch updates may rebuild and publish the site automatically after checks"
+        },
+        {
+          "repo": ".github",
+          "how": "repos.json at an exact commit revision for generated organisation map and ownership views; .github remains the source of truth"
+        },
+        {
+          "repo": "agent-kit",
+          "how": "org-documentation from an approved kit release through the existing sync workflow and lock; shared writing rules and templates are not copied independently"
         }
       ],
       "licence": {
         "spdx": null,
-        "current": "None yet; holds copies of other repositories' docs, which keep their source's licence",
+        "current": "No licence detected on main yet. The approved root framework licence is AGPL-3.0-only, pending its framework pull request; mirrored source documentation and third-party assets retain their own licences",
         "followsRule": false
       }
     },

@@ -16,7 +16,7 @@ issue when they differ.
 | [`unset-sh/brand`](https://github.com/unset-sh/brand) | Active | The editable visual contract for unset.sh. Ships static CSS, JSON, fonts, mark and icon data as @unset-sh/brand on GitHub Packages, and builds its Hugo guide with an interactive Svelte component gallery for GitHub Pages. |
 | [`unset-sh/presentation`](https://github.com/unset-sh/presentation) | Active | Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/presentation on GitHub Packages; no running service. |
 | [`unset-sh/profile-recipes`](https://github.com/unset-sh/profile-recipes) | Active | Persona profile layouts (recipes) with a guide an AI assistant follows to build someone's profile, plus sample records checked against the lexicons. |
-| [`unset-sh/docs`](https://github.com/unset-sh/docs) | Active | Every repository's human docs, aggregated, and the docs.unset.sh site built from them on GitHub Pages. Nothing here is written by hand: each source repository's CI pushes its own top folder. Waiting for its first push. |
+| [`unset-sh/docs`](https://github.com/unset-sh/docs) | Active | The proposed organisation-only docs.unset.sh framework: a root Hugo site edited by pull requests, source-owned documentation in repository sections, and organisation map views derived from .github. The framework change and cutover are pending. The current app-fed site stays live until an organisation source is ready and the app mirror is stopped. |
 | [`unset-sh/pds`](https://github.com/unset-sh/pds) | Active | The home for unset.sh's PDS image and everything that customises the PDS: the build on top of the official image, the theme for its sign-in and account pages, and their pins. Empty for now; until it moves, the image is built in the app repository (deployment/pds/). |
 | `unset-sh/lexicons` | Approved, waiting for setup | A one-way, read-only copy of the sh.unset.* lexicon schemas, pushed by the app's mirror job. Waiting for setup by the owner; the direction reverses later, when the organisation becomes the source of truth. |
 | `unset-sh/messaging` | Proposed, not approved | The private messaging product on unset.cc: one-to-one chat on Matrix today, later communities, channels, roles and voice. Plan drafted, awaiting approval; not created. |
@@ -48,7 +48,9 @@ flowchart LR
   r_pds --> r_unset
   r_brand --> r_presentation
   r_unset --> r_profile_recipes
-  r_unset --> r_docs
+  r_brand --> r_docs
+  r__github --> r_docs
+  r_agent_kit --> r_docs
   r_brand --> r_pds
   r_unset --> r_lexicons
   r_brand --> r_messaging
@@ -62,7 +64,9 @@ flowchart LR
 - `pds` → `unset`: the PDS image by pinned digest (after the move)
 - `brand` → `presentation`: @unset-sh/brand at an exact version
 - `unset` → `profile-recipes`: lexicon schemas and editor limits, copied at a pinned commit
-- `unset` → `docs`: pushes docs/human and docs/site into unset/ with its own deploy key
+- `brand` → `docs`: stable published @unset-sh/brand 0.1.x releases, each resolved to an immutable commit; compatible patch updates may rebuild and publish the site automatically after checks
+- `.github` → `docs`: repos.json at an exact commit revision for generated organisation map and ownership views; .github remains the source of truth
+- `agent-kit` → `docs`: org-documentation from an approved kit release through the existing sync workflow and lock; shared writing rules and templates are not copied independently
 - `brand` → `pds`: theme colours and fonts at an exact version (after the move)
 - `unset` → `lexicons`: pushes the schemas with its own deploy key
 - `brand` → `messaging`: @unset-sh/brand at an exact version
@@ -79,7 +83,7 @@ Not matching the rule yet (changing a published licence needs the owner's decisi
 | `unset` | AGPL-3.0-only; the lexicon schemas are MIT (as the rule wants); shared/ is MIT under ADR 0012 |
 | `presentation` | None yet; should be AGPL-3.0-only |
 | `profile-recipes` | Recipes CC0-1.0 (as the rule wants); tooling MIT, to move to AGPL-3.0-only |
-| `docs` | None yet; holds copies of other repositories' docs, which keep their source's licence |
+| `docs` | No licence detected on main yet. The approved root framework licence is AGPL-3.0-only, pending its framework pull request; mirrored source documentation and third-party assets retain their own licences |
 | `pds` | None yet; should be AGPL-3.0-only. The official PDS it builds on keeps its own licence |
 | `agent-kit` | None on main yet; AGPL-3.0-only in the first release pull request |
 
@@ -189,18 +193,24 @@ Persona profile layouts (recipes) with a guide an AI assistant follows to build 
 
 [`unset-sh/docs`](https://github.com/unset-sh/docs). Active.
 
-Every repository's human docs, aggregated, and the docs.unset.sh site built from them on GitHub Pages. Nothing here is written by hand: each source repository's CI pushes its own top folder. Waiting for its first push.
+The proposed organisation-only docs.unset.sh framework: a root Hugo site edited by pull requests, source-owned documentation in repository sections, and organisation map views derived from .github. The framework change and cutover are pending. The current app-fed site stays live until an organisation source is ready and the app mirror is stopped.
 
-**Licence:** None yet; holds copies of other repositories' docs, which keep their source's licence.
+**Licence:** No licence detected on main yet. The approved root framework licence is AGPL-3.0-only, pending its framework pull request; mirrored source documentation and third-party assets retain their own licences.
 
 **Owns**
 
-- One top folder per source repository, replaced only by that repository's docs job
-- The site build and GitHub Pages deploy for docs.unset.sh
+- The root Hugo configuration, theme integration, layouts, navigation, front page and publication framework, changed by pull request
+- Source-derived organisation map and ownership views from an exact .github revision
+- One top folder per participating unset-sh repository; mirrored pages, examples and diagrams remain source-owned and are replaced only by that repository's docs job
+- The site build, checks and GitHub Pages publication for docs.unset.sh
 
 **Does not belong here**
 
-- Writing or editing docs: the source repository's docs folder
+- Authoring or hand-editing a source repository's mirrored documentation: the source repository's docs folder
+- Hand-maintaining repository ownership descriptions: [`unset-sh/.github`](https://github.com/unset-sh/.github) repos.json
+- Shared visual values, assets and the brand contract: [`unset-sh/brand`](https://github.com/unset-sh/brand)
+- The shared human documentation standard and authoring templates: [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit)
+- Application documentation from outside the unset-sh organisation: its source repository; the app is only context in the organisation map
 
 ## pds
 
