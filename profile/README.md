@@ -27,7 +27,7 @@ An AT Protocol identity and profile app, built privacy first with a small core t
 What members use, and the services that run it.
 
 <a href="https://github.com/Undefined6799/unset"><strong>unset</strong></a> &nbsp;The app: your identity and profile on the AT Protocol<br>
-<a href="https://github.com/Undefined6799/unset">Code</a> &nbsp;·&nbsp; <a href="https://docs.unset.sh">Docs</a> &nbsp;·&nbsp; <a href="https://unset.sh">unset.sh</a>
+<a href="https://github.com/Undefined6799/unset">Code</a> &nbsp;·&nbsp; <a href="https://unset.sh">unset.sh</a>
 
 ### Look and feel
 
@@ -88,7 +88,7 @@ Documentation, shared code, and the rules every repository follows.
 <td width="50%" valign="top">
 
 <a href="https://github.com/unset-sh/.github"><strong>.github</strong></a><br>
-This page, the organisation map and the default contributing guide
+Organisation profile, map and automation
 <br><br>
 <a href="https://github.com/unset-sh/.github">Code</a> &nbsp;·&nbsp; <a href="https://github.com/unset-sh/.github/blob/main/MAP.md">Docs</a>
 
@@ -96,7 +96,7 @@ This page, the organisation map and the default contributing guide
 <td width="50%" valign="top">
 
 <a href="https://github.com/unset-sh/docs"><strong>docs</strong></a><br>
-The documentation website, gathered from every repository
+Organisation documentation, repository ownership and learning guides
 <br><br>
 <a href="https://github.com/unset-sh/docs">Code</a> &nbsp;·&nbsp; <a href="https://docs.unset.sh">docs.unset.sh</a>
 
