@@ -64,22 +64,23 @@ test("the profile section leaves out hidden and proposed repositories", () => {
   assert.ok(section.includes('<a href="https://github.com/o/brand"><strong>brand</strong></a>'));
   assert.ok(!section.includes("hidden"));
   assert.ok(!section.includes("idea"));
-  assert.match(section, /<strong>soon<\/strong><br>[\s\S]*Coming soon/);
+  assert.match(section, /<strong>soon<\/strong><br>[\s\S]*Planned, not created/);
   assert.ok(!section.includes("https://github.com/o/soon"));
 });
 
-test("the profile section groups repositories two to a row and escapes text", () => {
+test("the profile section includes every entry, its resources and escaped text", () => {
   const section = renderProfileSection({
     org: "o",
     groups: [...G, { id: "empty", title: "Empty", blurb: "None." }],
     repos: [repo({ tagline: "a <b> & c" }), repo({ name: "b2", links: { site: "https://example.com", package: "@o/b2" } }), repo({ name: "c3" })],
   });
-  assert.equal(section.match(/<tr>/g).length, 2);
-  assert.ok(section.includes('<td width="50%"></td>'));
+  for (const name of ["brand", "b2", "c3"]) {
+    assert.ok(section.includes(`<a href="https://github.com/o/${name}"><strong>${name}</strong></a>`));
+  }
   assert.ok(section.includes("a &lt;b&gt; &amp; c"));
   assert.ok(section.includes('<a href="https://example.com">example.com</a>'));
   assert.ok(section.includes("<code>@o/b2</code>"));
-  assert.ok(!section.includes("### Empty"));
+  assert.ok(!section.includes("## Empty"));
 });
 
 test("links must be docs, site or package, and URLs https", () => {
@@ -122,8 +123,7 @@ test("the map lists the repositories whose licence does not follow the rule", ()
   assert.ok(!section.includes("`ok`"));
 });
 
-test("a group of one is a plain paragraph, not a table", () => {
+test("a group of one keeps its title and tagline", () => {
   const section = renderProfileSection({ org: "o", groups: G, repos: [repo()] });
-  assert.ok(section.includes('<a href="https://github.com/o/brand"><strong>brand</strong></a> &nbsp;d<br>'));
-  assert.ok(!section.includes("<table>"));
+  assert.ok(section.includes('<a href="https://github.com/o/brand"><strong>brand</strong></a><br>\nd'));
 });

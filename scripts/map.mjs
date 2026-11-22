@@ -170,30 +170,26 @@ function escapeHtml(text) {
   return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
-function profileCardParts(map, repo) {
+function profileEntry(map, repo) {
   const name = fullName(map, repo);
   const created = !NOT_CREATED.has(repo.status);
   const title = created
     ? `<a href="https://github.com/${name}"><strong>${escapeHtml(repo.name)}</strong></a>`
     : `<strong>${escapeHtml(repo.name)}</strong>`;
   const links = [];
-  if (created) links.push(`<a href="https://github.com/${name}">Code</a>`);
   if (repo.links?.docs) links.push(`<a href="${escapeHtml(repo.links.docs)}">Docs</a>`);
   if (repo.links?.site) links.push(`<a href="${escapeHtml(repo.links.site)}">${escapeHtml(new URL(repo.links.site).host)}</a>`);
   if (repo.links?.package) links.push(`<code>${escapeHtml(repo.links.package)}</code>`);
-  if (!created) links.push("<sub>Coming soon</sub>");
-  return { title, text: escapeHtml(repo.tagline ?? repo.description ?? repo.summary), links: links.join(" &nbsp;·&nbsp; ") };
-}
-
-function profileCard(map, repo) {
-  const { title, text, links } = profileCardParts(map, repo);
-  return ['<td width="50%" valign="top">', "", `${title}<br>`, text, "<br><br>", links, "", "</td>"];
-}
-
-// GitHub sizes a table to its content, so a lone card would sit in a narrow box; it gets a plain paragraph instead.
-function profileLine(map, repo) {
-  const { title, text, links } = profileCardParts(map, repo);
-  return [`${title} &nbsp;${text}<br>`, links, ""];
+  if (!created) links.push(escapeHtml(STATUSES[repo.status]));
+  const text = escapeHtml(repo.tagline ?? repo.description ?? repo.summary);
+  return [
+    "<p>",
+    `${title}<br>`,
+    text,
+    ...(links.length > 0 ? [`<br><sub>${links.join(" &nbsp;·&nbsp; ")}</sub>`] : []),
+    "</p>",
+    "",
+  ];
 }
 
 // Repositories the profile page shows: existing ones not hidden, and approved ones not created yet.
@@ -207,26 +203,13 @@ export function renderProfileSection(map) {
   for (const group of map.groups) {
     const repos = shown.filter((r) => r.group === group.id);
     if (repos.length === 0) continue;
-    lines.push(`### ${group.title}`, "", group.blurb, "");
-    if (repos.length === 1) {
-      lines.push(...profileLine(map, repos[0]));
-      continue;
-    }
-    // Two cards to a row; an odd last card leaves an empty cell.
-    lines.push("<table>");
-    for (let i = 0; i < repos.length; i += 2) {
-      const pair = repos.slice(i, i + 2);
-      lines.push("<tr>", ...pair.flatMap((repo) => profileCard(map, repo)));
-      if (pair.length === 1) lines.push('<td width="50%"></td>');
-      lines.push("</tr>");
-    }
-    lines.push("</table>", "");
+    lines.push(`## ${group.title}`, "", group.blurb, "", ...repos.flatMap((repo) => profileEntry(map, repo)));
   }
   lines.push(
     "---",
     "",
-    `<sub>How the repositories depend on each other, what belongs where, and each one's licence: <a href="${MAP_URL}">the organisation map</a>. ` +
-      `Product code is AGPL-3.0-only. <a href="${ORG_URL}/.github/blob/main/CONTRIBUTING.md">How to contribute</a>.</sub>`,
+    `Repository boundaries, dependencies and licences are in the <a href="${MAP_URL}">organisation map</a>. ` +
+      `See <a href="${ORG_URL}/.github/blob/main/CONTRIBUTING.md">how to contribute</a> before opening a pull request.`,
     "",
     PROFILE_END,
   );
