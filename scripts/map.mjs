@@ -179,7 +179,7 @@ function profileCardParts(map, repo) {
     ? `<a href="https://github.com/${name}"><strong>${escapeHtml(repo.name)}</strong></a>`
     : `<strong>${escapeHtml(repo.name)}</strong>`;
   const icon = PROFILE_ICONS.has(repo.icon)
-    ? `<img src="./icons/${repo.icon}.svg" width="24" height="24" alt=""> &nbsp;`
+    ? `<picture><img src="./icons/${repo.icon}.svg" width="24" height="24" alt=""></picture> &nbsp;`
     : "";
   const title = icon + label;
   const links = [];
