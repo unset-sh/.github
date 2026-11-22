@@ -24,7 +24,7 @@ Choose a repository to jump to its ownership details.
 <p>
 <a href="#repo-unset"><strong>unset</strong></a> &nbsp;<sub>Active</sub><br>
 <a href="#repo-pds"><strong>pds</strong></a> &nbsp;<sub>Active</sub><br>
-<a href="#repo-messaging"><strong>messaging</strong></a> &nbsp;<sub>Proposed, not approved</sub>
+<a href="#repo-messaging"><strong>messaging</strong></a> &nbsp;<sub>Proposed</sub>
 </p>
 </td>
 <td width="440" valign="top">
@@ -42,7 +42,7 @@ Choose a repository to jump to its ownership details.
 <h3>Records and recipes</h3>
 <p>
 <a href="#repo-profile-recipes"><strong>profile-recipes</strong></a> &nbsp;<sub>Active</sub><br>
-<a href="#repo-lexicons"><strong>lexicons</strong></a> &nbsp;<sub>Approved, waiting for setup</sub>
+<a href="#repo-lexicons"><strong>lexicons</strong></a> &nbsp;<sub>Awaiting setup</sub>
 </p>
 </td>
 <td width="440" valign="top">
@@ -50,7 +50,7 @@ Choose a repository to jump to its ownership details.
 <p>
 <a href="#repo-.github"><strong>.github</strong></a> &nbsp;<sub>Active</sub><br>
 <a href="#repo-docs"><strong>docs</strong></a> &nbsp;<sub>Active</sub><br>
-<a href="#repo-server-kit"><strong>server-kit</strong></a> &nbsp;<sub>Proposed, not approved</sub><br>
+<a href="#repo-server-kit"><strong>server-kit</strong></a> &nbsp;<sub>Proposed</sub><br>
 <a href="#repo-agent-kit"><strong>agent-kit</strong></a> &nbsp;<sub>Active</sub>
 </p>
 </td>

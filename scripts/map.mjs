@@ -127,9 +127,10 @@ function mapDirectory(groups) {
     lines.push("<tbody>", "<tr>");
     for (const group of groups.slice(i, i + 2)) {
       lines.push('<td width="440" valign="top">', `<h3>${escapeHtml(group.title)}</h3>`, "<p>");
-      lines.push(group.repos.map((repo) =>
-        `<a href="#${escapeHtml(mapAnchor(repo))}"><strong>${escapeHtml(repo.name)}</strong></a> &nbsp;<sub>${escapeHtml(STATUSES[repo.status])}</sub>`
-      ).join("<br>\n"));
+      lines.push(group.repos.map((repo) => {
+        const status = repo.status === "pending" ? "Awaiting setup" : STATUSES[repo.status].split(",")[0];
+        return `<a href="#${escapeHtml(mapAnchor(repo))}"><strong>${escapeHtml(repo.name)}</strong></a> &nbsp;<sub>${escapeHtml(status)}</sub>`;
+      }).join("<br>\n"));
       lines.push("</p>", "</td>");
     }
     if (i + 1 === groups.length) lines.push('<td width="440"></td>');
