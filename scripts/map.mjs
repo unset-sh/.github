@@ -15,7 +15,7 @@ export const STATUSES = {
   archived: "Archived",
 };
 const NOT_CREATED = new Set(["pending", "planned", "proposed"]);
-const PROFILE_ICONS = new Set(["home", "apps", "share", "profile", "list", "settings", "help"]);
+const PROFILE_ICONS = new Set(["unset-mark", "palette", "media-image", "layout-left", "code-brackets-square", "repository", "open-book"]);
 export const PROFILE_START = "<!-- org-map:start (generated from repos.json; edit that, then run npm run map) -->";
 export const PROFILE_END = "<!-- org-map:end -->";
 
@@ -167,9 +167,19 @@ export function renderMap(map) {
 
 const ORG_URL = "https://github.com/unset-sh";
 const MAP_URL = `${ORG_URL}/.github/blob/main/MAP.md`;
+const BRAND_ASSETS = "https://raw.githubusercontent.com/unset-sh/brand/08ecda2dcdbd8eb44b5262887cc215d501a59db6/logo";
 
 function escapeHtml(text) {
   return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+function profileIcon(name) {
+  if (name === "unset-mark") {
+    return `<picture><source media="(prefers-color-scheme: dark)" srcset="${BRAND_ASSETS}/unset-mark-platinum.svg"><img src="${BRAND_ASSETS}/unset-mark-onyx.svg" width="60" alt=""></picture> &nbsp;`;
+  }
+  return PROFILE_ICONS.has(name)
+    ? `<picture><img src="./icons/${name}.svg" width="24" height="24" alt=""></picture> &nbsp;`
+    : "";
 }
 
 function profileCardParts(map, repo) {
@@ -178,38 +188,45 @@ function profileCardParts(map, repo) {
   const label = created
     ? `<a href="https://github.com/${name}"><strong>${escapeHtml(repo.name)}</strong></a>`
     : `<strong>${escapeHtml(repo.name)}</strong>`;
-  const icon = PROFILE_ICONS.has(repo.icon)
-    ? `<picture><img src="./icons/${repo.icon}.svg" width="24" height="24" alt=""></picture> &nbsp;`
-    : "";
-  const title = icon + label;
+  const title = profileIcon(repo.icon) + label;
   const links = [];
-  if (created) links.push(`<a href="https://github.com/${name}">Code</a>`);
   if (repo.links?.docs) links.push(`<a href="${escapeHtml(repo.links.docs)}">Docs</a>`);
   if (repo.links?.site) links.push(`<a href="${escapeHtml(repo.links.site)}">${escapeHtml(new URL(repo.links.site).host)}</a>`);
   if (repo.links?.package) links.push(`<code>${escapeHtml(repo.links.package)}</code>`);
-  if (!created) links.push(escapeHtml(STATUSES[repo.status]));
-  return { title, text: escapeHtml(repo.tagline ?? repo.description ?? repo.summary), links: links.join(" &nbsp;·&nbsp; ") };
+  return {
+    title,
+    text: escapeHtml(repo.tagline ?? repo.description ?? repo.summary),
+    links: links.join(" &nbsp;·&nbsp; "),
+    status: created ? "" : escapeHtml(STATUSES[repo.status]),
+  };
 }
 
 function profileCards(map, repos) {
   const cards = repos.map((repo) => profileCardParts(map, repo));
-  const lines = ["<tr>"];
-  for (const { title, text } of cards) {
-    lines.push('<td width="440" valign="top">', `<h3>${title}</h3>`, `<p>${text}</p>`, "</td>");
+  const hasFooter = cards.some((card) => card.links !== "");
+  const lines = ["<tbody>", "<tr>"];
+  for (const { title, text, links, status } of cards) {
+    const span = hasFooter && !links ? ' rowspan="2"' : "";
+    lines.push(`<td width="440" valign="top"${span}>`, `<h3>${title}</h3>`, `<p>${text}</p>`);
+    if (status) lines.push(`<p><sub>${status}</sub></p>`);
+    lines.push("</td>");
   }
-  if (cards.length === 1) lines.push('<td width="440"></td>');
-  lines.push("</tr>", "<tr>");
-  for (const { links } of cards) {
-    lines.push('<td width="50%" valign="bottom">', `<sub>${links}</sub>`, "</td>");
-  }
-  if (cards.length === 1) lines.push('<td width="50%"></td>');
+  if (cards.length === 1) lines.push(`<td width="440"${hasFooter ? ' rowspan="2"' : ""}></td>`);
   lines.push("</tr>");
+  if (hasFooter) {
+    lines.push("<tr>");
+    for (const { links } of cards) {
+      if (links) lines.push('<td width="50%" valign="bottom">', `<sub>${links}</sub>`, "</td>");
+    }
+    lines.push("</tr>");
+  }
+  lines.push("</tbody>");
   return lines;
 }
 
 function profileLine(map, repo) {
-  const { title, text, links } = profileCardParts(map, repo);
-  return [`${title} &nbsp;${text}<br>`, links, ""];
+  const { title, text, links, status } = profileCardParts(map, repo);
+  return [`${title} &nbsp;${text}`, ...(status ? [`<br><sub>${status}</sub>`] : []), ...(links ? ["<br>", links] : []), ""];
 }
 
 // Repositories the profile page shows: existing ones not hidden, and approved ones not created yet.

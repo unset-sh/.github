@@ -26,32 +26,35 @@
 
 What members use, and the services that run it.
 
-<picture><img src="./icons/home.svg" width="24" height="24" alt=""></picture> &nbsp;<a href="https://github.com/Undefined6799/unset"><strong>unset</strong></a> &nbsp;The app: your identity and profile on the AT Protocol<br>
-<a href="https://github.com/Undefined6799/unset">Code</a> &nbsp;·&nbsp; <a href="https://docs.unset.sh">Docs</a> &nbsp;·&nbsp; <a href="https://unset.sh">unset.sh</a>
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/unset-sh/brand/08ecda2dcdbd8eb44b5262887cc215d501a59db6/logo/unset-mark-platinum.svg"><img src="https://raw.githubusercontent.com/unset-sh/brand/08ecda2dcdbd8eb44b5262887cc215d501a59db6/logo/unset-mark-onyx.svg" width="60" alt=""></picture> &nbsp;<a href="https://github.com/Undefined6799/unset"><strong>unset</strong></a> &nbsp;The app: your identity and profile on the AT Protocol
+<br>
+<a href="https://docs.unset.sh">Docs</a> &nbsp;·&nbsp; <a href="https://unset.sh">unset.sh</a>
 
 ## Look and feel
 
 How unset.sh looks, in the app and wherever it is shared.
 
 <table>
+<tbody>
 <tr>
 <td width="440" valign="top">
-<h3><picture><img src="./icons/apps.svg" width="24" height="24" alt=""></picture> &nbsp;<a href="https://github.com/unset-sh/brand"><strong>brand</strong></a></h3>
+<h3><picture><img src="./icons/palette.svg" width="24" height="24" alt=""></picture> &nbsp;<a href="https://github.com/unset-sh/brand"><strong>brand</strong></a></h3>
 <p>Design tokens, fonts, the mark and icons</p>
 </td>
 <td width="440" valign="top">
-<h3><picture><img src="./icons/share.svg" width="24" height="24" alt=""></picture> &nbsp;<a href="https://github.com/unset-sh/presentation"><strong>presentation</strong></a></h3>
+<h3><picture><img src="./icons/media-image.svg" width="24" height="24" alt=""></picture> &nbsp;<a href="https://github.com/unset-sh/presentation"><strong>presentation</strong></a></h3>
 <p>Preview images and embeds for profiles, posts and articles</p>
 </td>
 </tr>
 <tr>
 <td width="50%" valign="bottom">
-<sub><a href="https://github.com/unset-sh/brand">Code</a> &nbsp;·&nbsp; <code>@unset-sh/brand</code></sub>
+<sub><code>@unset-sh/brand</code></sub>
 </td>
 <td width="50%" valign="bottom">
-<sub><a href="https://github.com/unset-sh/presentation">Code</a> &nbsp;·&nbsp; <code>@unset-sh/presentation</code></sub>
+<sub><code>@unset-sh/presentation</code></sub>
 </td>
 </tr>
+</tbody>
 </table>
 
 ## Records and recipes
@@ -59,24 +62,19 @@ How unset.sh looks, in the app and wherever it is shared.
 The AT Protocol records unset.sh defines, and ready-made ways to use them.
 
 <table>
+<tbody>
 <tr>
 <td width="440" valign="top">
-<h3><picture><img src="./icons/profile.svg" width="24" height="24" alt=""></picture> &nbsp;<a href="https://github.com/unset-sh/profile-recipes"><strong>profile-recipes</strong></a></h3>
+<h3><picture><img src="./icons/layout-left.svg" width="24" height="24" alt=""></picture> &nbsp;<a href="https://github.com/unset-sh/profile-recipes"><strong>profile-recipes</strong></a></h3>
 <p>Ready-made profile layouts an AI assistant can build for you</p>
 </td>
 <td width="440" valign="top">
-<h3><picture><img src="./icons/list.svg" width="24" height="24" alt=""></picture> &nbsp;<strong>lexicons</strong></h3>
+<h3><picture><img src="./icons/code-brackets-square.svg" width="24" height="24" alt=""></picture> &nbsp;<strong>lexicons</strong></h3>
 <p>The sh.unset.* record schemas, published for anyone to use</p>
+<p><sub>Approved, waiting for setup</sub></p>
 </td>
 </tr>
-<tr>
-<td width="50%" valign="bottom">
-<sub><a href="https://github.com/unset-sh/profile-recipes">Code</a></sub>
-</td>
-<td width="50%" valign="bottom">
-<sub>Approved, waiting for setup</sub>
-</td>
-</tr>
+</tbody>
 </table>
 
 ## Building unset.sh
@@ -84,24 +82,26 @@ The AT Protocol records unset.sh defines, and ready-made ways to use them.
 Documentation, shared code, and the rules every repository follows.
 
 <table>
+<tbody>
 <tr>
 <td width="440" valign="top">
-<h3><picture><img src="./icons/settings.svg" width="24" height="24" alt=""></picture> &nbsp;<a href="https://github.com/unset-sh/.github"><strong>.github</strong></a></h3>
+<h3><picture><img src="./icons/repository.svg" width="24" height="24" alt=""></picture> &nbsp;<a href="https://github.com/unset-sh/.github"><strong>.github</strong></a></h3>
 <p>This page, the organisation map and the default contributing guide</p>
 </td>
 <td width="440" valign="top">
-<h3><picture><img src="./icons/help.svg" width="24" height="24" alt=""></picture> &nbsp;<a href="https://github.com/unset-sh/docs"><strong>docs</strong></a></h3>
+<h3><picture><img src="./icons/open-book.svg" width="24" height="24" alt=""></picture> &nbsp;<a href="https://github.com/unset-sh/docs"><strong>docs</strong></a></h3>
 <p>The documentation website, gathered from every repository</p>
 </td>
 </tr>
 <tr>
 <td width="50%" valign="bottom">
-<sub><a href="https://github.com/unset-sh/.github">Code</a> &nbsp;·&nbsp; <a href="https://github.com/unset-sh/.github/blob/main/MAP.md">Docs</a></sub>
+<sub><a href="https://github.com/unset-sh/.github/blob/main/MAP.md">Docs</a></sub>
 </td>
 <td width="50%" valign="bottom">
-<sub><a href="https://github.com/unset-sh/docs">Code</a> &nbsp;·&nbsp; <a href="https://docs.unset.sh">docs.unset.sh</a></sub>
+<sub><a href="https://docs.unset.sh">docs.unset.sh</a></sub>
 </td>
 </tr>
+</tbody>
 </table>
 
 ---

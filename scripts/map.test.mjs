@@ -26,12 +26,12 @@ test("repos.json is valid", () => {
 });
 
 test("profile icons are bundled assets and arbitrary paths are refused", async () => {
-  for (const name of new Set(real.repos.map((r) => r.icon).filter(Boolean))) {
+  for (const name of new Set(real.repos.map((r) => r.icon).filter((name) => name && name !== "unset-mark"))) {
     assert.match(await readFile(new URL(`../profile/icons/${name}.svg`, import.meta.url), "utf8"), /<svg /);
   }
   assert.match(validate({ org: "o", licenceRule: "AGPL", groups: G, repos: [repo({ icon: "../outside" })] }).join(), /bundled profile icon/);
-  const section = renderProfileSection({ org: "o", groups: G, repos: [repo({ icon: "apps" })] });
-  assert.ok(section.includes('<img src="./icons/apps.svg" width="24" height="24" alt="">'));
+  const section = renderProfileSection({ org: "o", groups: G, repos: [repo({ icon: "palette" })] });
+  assert.ok(section.includes('<img src="./icons/palette.svg" width="24" height="24" alt="">'));
 });
 
 test("a repository listed twice is refused", () => {
@@ -86,9 +86,11 @@ test("the profile section pairs cards with aligned resource rows and escapes tex
   for (const name of ["brand", "b2", "c3"]) {
     assert.ok(section.includes(`<a href="https://github.com/o/${name}"><strong>${name}</strong></a>`));
   }
-  assert.equal(section.match(/<tr>/g).length, 4);
+  assert.equal(section.match(/<tr>/g).length, 3);
   assert.ok(section.includes('<td width="440"></td>'));
-  assert.equal(section.match(/valign="bottom"/g).length, 3);
+  assert.equal(section.match(/valign="bottom"/g).length, 1);
+  assert.ok(section.includes('<td width="440" valign="top" rowspan="2">'));
+  assert.ok(!section.includes(">Code</a>"));
   assert.ok(section.includes("a &lt;b&gt; &amp; c"));
   assert.ok(section.includes('<a href="https://example.com">example.com</a>'));
   assert.ok(section.includes("<code>@o/b2</code>"));
@@ -137,6 +139,6 @@ test("the map lists the repositories whose licence does not follow the rule", ()
 
 test("a group of one keeps its compact introduction", () => {
   const section = renderProfileSection({ org: "o", groups: G, repos: [repo()] });
-  assert.ok(section.includes('<a href="https://github.com/o/brand"><strong>brand</strong></a> &nbsp;d<br>'));
+  assert.ok(section.includes('<a href="https://github.com/o/brand"><strong>brand</strong></a> &nbsp;d'));
   assert.ok(!section.includes("<table>"));
 });
