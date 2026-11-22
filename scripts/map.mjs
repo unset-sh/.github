@@ -170,26 +170,40 @@ function escapeHtml(text) {
   return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
-function profileEntry(map, repo) {
+function profileCardParts(map, repo) {
   const name = fullName(map, repo);
   const created = !NOT_CREATED.has(repo.status);
   const title = created
     ? `<a href="https://github.com/${name}"><strong>${escapeHtml(repo.name)}</strong></a>`
     : `<strong>${escapeHtml(repo.name)}</strong>`;
   const links = [];
+  if (created) links.push(`<a href="https://github.com/${name}">Code</a>`);
   if (repo.links?.docs) links.push(`<a href="${escapeHtml(repo.links.docs)}">Docs</a>`);
   if (repo.links?.site) links.push(`<a href="${escapeHtml(repo.links.site)}">${escapeHtml(new URL(repo.links.site).host)}</a>`);
   if (repo.links?.package) links.push(`<code>${escapeHtml(repo.links.package)}</code>`);
   if (!created) links.push(escapeHtml(STATUSES[repo.status]));
-  const text = escapeHtml(repo.tagline ?? repo.description ?? repo.summary);
-  return [
-    "<p>",
-    `${title}<br>`,
-    text,
-    ...(links.length > 0 ? [`<br><sub>${links.join(" &nbsp;·&nbsp; ")}</sub>`] : []),
-    "</p>",
-    "",
-  ];
+  return { title, text: escapeHtml(repo.tagline ?? repo.description ?? repo.summary), links: links.join(" &nbsp;·&nbsp; ") };
+}
+
+function profileCards(map, repos) {
+  const cards = repos.map((repo) => profileCardParts(map, repo));
+  const lines = ["<tr>"];
+  for (const { title, text } of cards) {
+    lines.push('<td width="440" valign="top">', `<h3>${title}</h3>`, `<p>${text}</p>`, "</td>");
+  }
+  if (cards.length === 1) lines.push('<td width="440"></td>');
+  lines.push("</tr>", "<tr>");
+  for (const { links } of cards) {
+    lines.push('<td valign="bottom">', `<sub>${links}</sub>`, "</td>");
+  }
+  if (cards.length === 1) lines.push("<td></td>");
+  lines.push("</tr>");
+  return lines;
+}
+
+function profileLine(map, repo) {
+  const { title, text, links } = profileCardParts(map, repo);
+  return [`${title} &nbsp;${text}<br>`, links, ""];
 }
 
 // Repositories the profile page shows: existing ones not hidden, and approved ones not created yet.
@@ -203,13 +217,22 @@ export function renderProfileSection(map) {
   for (const group of map.groups) {
     const repos = shown.filter((r) => r.group === group.id);
     if (repos.length === 0) continue;
-    lines.push(`## ${group.title}`, "", group.blurb, "", ...repos.flatMap((repo) => profileEntry(map, repo)));
+    lines.push(`## ${group.title}`, "", group.blurb, "");
+    if (repos.length === 1) {
+      lines.push(...profileLine(map, repos[0]));
+      continue;
+    }
+    lines.push("<table>");
+    for (let i = 0; i < repos.length; i += 2) {
+      lines.push(...profileCards(map, repos.slice(i, i + 2)));
+    }
+    lines.push("</table>", "");
   }
   lines.push(
     "---",
     "",
-    `Repository boundaries, dependencies and licences are in the <a href="${MAP_URL}">organisation map</a>. ` +
-      `See <a href="${ORG_URL}/.github/blob/main/CONTRIBUTING.md">how to contribute</a> before opening a pull request.`,
+    `<sub>Repository boundaries, dependencies and licences: <a href="${MAP_URL}">organisation map</a>. ` +
+      `<a href="${ORG_URL}/.github/blob/main/CONTRIBUTING.md">How to contribute</a>.</sub>`,
     "",
     PROFILE_END,
   );

@@ -9,18 +9,16 @@
 </p>
 
 <p align="center">
-  <strong>An identity and profile app for the AT Protocol.</strong><br>
-  Built privacy first, around a small core that is easy to audit.
+  <a href="https://unset.sh"><strong>Website</strong></a> &nbsp;·&nbsp;
+  <a href="https://docs.unset.sh"><strong>Docs</strong></a> &nbsp;·&nbsp;
+  <a href="https://github.com/unset-sh/.github/blob/main/MAP.md"><strong>Organisation map</strong></a> &nbsp;·&nbsp;
+  <a href="https://github.com/unset-sh/.github/blob/main/CONTRIBUTING.md"><strong>Contributing</strong></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/Undefined6799/unset"><strong>Explore the app</strong></a> &nbsp;·&nbsp;
-  <a href="https://docs.unset.sh">Documentation</a> &nbsp;·&nbsp;
-  <a href="https://unset.sh">Website</a> &nbsp;·&nbsp;
-  <a href="https://github.com/unset-sh/.github/blob/main/MAP.md">Organisation map</a>
+  An AT Protocol identity and profile app, built privacy first with a small core that is easy to audit.<br>
+  <sub>Early development, not yet open to members.</sub>
 </p>
-
-> **In development** — unset.sh is not yet open to members.
 
 <!-- org-map:start (generated from repos.json; edit that, then run npm run map) -->
 
@@ -28,61 +26,86 @@
 
 What members use, and the services that run it.
 
-<p>
-<a href="https://github.com/Undefined6799/unset"><strong>unset</strong></a><br>
-The app: your identity and profile on the AT Protocol
-<br><sub><a href="https://docs.unset.sh">Docs</a> &nbsp;·&nbsp; <a href="https://unset.sh">unset.sh</a></sub>
-</p>
+<a href="https://github.com/Undefined6799/unset"><strong>unset</strong></a> &nbsp;The app: your identity and profile on the AT Protocol<br>
+<a href="https://github.com/Undefined6799/unset">Code</a> &nbsp;·&nbsp; <a href="https://docs.unset.sh">Docs</a> &nbsp;·&nbsp; <a href="https://unset.sh">unset.sh</a>
 
 ## Look and feel
 
 How unset.sh looks, in the app and wherever it is shared.
 
-<p>
-<a href="https://github.com/unset-sh/brand"><strong>brand</strong></a><br>
-Design tokens, fonts, the mark and icons
-<br><sub><code>@unset-sh/brand</code></sub>
-</p>
-
-<p>
-<a href="https://github.com/unset-sh/presentation"><strong>presentation</strong></a><br>
-Preview images and embeds for profiles, posts and articles
-<br><sub><code>@unset-sh/presentation</code></sub>
-</p>
+<table>
+<tr>
+<td width="440" valign="top">
+<h3><a href="https://github.com/unset-sh/brand"><strong>brand</strong></a></h3>
+<p>Design tokens, fonts, the mark and icons</p>
+</td>
+<td width="440" valign="top">
+<h3><a href="https://github.com/unset-sh/presentation"><strong>presentation</strong></a></h3>
+<p>Preview images and embeds for profiles, posts and articles</p>
+</td>
+</tr>
+<tr>
+<td valign="bottom">
+<sub><a href="https://github.com/unset-sh/brand">Code</a> &nbsp;·&nbsp; <code>@unset-sh/brand</code></sub>
+</td>
+<td valign="bottom">
+<sub><a href="https://github.com/unset-sh/presentation">Code</a> &nbsp;·&nbsp; <code>@unset-sh/presentation</code></sub>
+</td>
+</tr>
+</table>
 
 ## Records and recipes
 
 The AT Protocol records unset.sh defines, and ready-made ways to use them.
 
-<p>
-<a href="https://github.com/unset-sh/profile-recipes"><strong>profile-recipes</strong></a><br>
-Ready-made profile layouts an AI assistant can build for you
-</p>
-
-<p>
-<strong>lexicons</strong><br>
-The sh.unset.* record schemas, published for anyone to use
-<br><sub>Approved, waiting for setup</sub>
-</p>
+<table>
+<tr>
+<td width="440" valign="top">
+<h3><a href="https://github.com/unset-sh/profile-recipes"><strong>profile-recipes</strong></a></h3>
+<p>Ready-made profile layouts an AI assistant can build for you</p>
+</td>
+<td width="440" valign="top">
+<h3><strong>lexicons</strong></h3>
+<p>The sh.unset.* record schemas, published for anyone to use</p>
+</td>
+</tr>
+<tr>
+<td valign="bottom">
+<sub><a href="https://github.com/unset-sh/profile-recipes">Code</a></sub>
+</td>
+<td valign="bottom">
+<sub>Approved, waiting for setup</sub>
+</td>
+</tr>
+</table>
 
 ## Building unset.sh
 
 Documentation, shared code, and the rules every repository follows.
 
-<p>
-<a href="https://github.com/unset-sh/.github"><strong>.github</strong></a><br>
-This page, the organisation map and the default contributing guide
-<br><sub><a href="https://github.com/unset-sh/.github/blob/main/MAP.md">Docs</a></sub>
-</p>
-
-<p>
-<a href="https://github.com/unset-sh/docs"><strong>docs</strong></a><br>
-The documentation website, gathered from every repository
-<br><sub><a href="https://docs.unset.sh">docs.unset.sh</a></sub>
-</p>
+<table>
+<tr>
+<td width="440" valign="top">
+<h3><a href="https://github.com/unset-sh/.github"><strong>.github</strong></a></h3>
+<p>This page, the organisation map and the default contributing guide</p>
+</td>
+<td width="440" valign="top">
+<h3><a href="https://github.com/unset-sh/docs"><strong>docs</strong></a></h3>
+<p>The documentation website, gathered from every repository</p>
+</td>
+</tr>
+<tr>
+<td valign="bottom">
+<sub><a href="https://github.com/unset-sh/.github">Code</a> &nbsp;·&nbsp; <a href="https://github.com/unset-sh/.github/blob/main/MAP.md">Docs</a></sub>
+</td>
+<td valign="bottom">
+<sub><a href="https://github.com/unset-sh/docs">Code</a> &nbsp;·&nbsp; <a href="https://docs.unset.sh">docs.unset.sh</a></sub>
+</td>
+</tr>
+</table>
 
 ---
 
-Repository boundaries, dependencies and licences are in the <a href="https://github.com/unset-sh/.github/blob/main/MAP.md">organisation map</a>. See <a href="https://github.com/unset-sh/.github/blob/main/CONTRIBUTING.md">how to contribute</a> before opening a pull request.
+<sub>Repository boundaries, dependencies and licences: <a href="https://github.com/unset-sh/.github/blob/main/MAP.md">organisation map</a>. <a href="https://github.com/unset-sh/.github/blob/main/CONTRIBUTING.md">How to contribute</a>.</sub>
 
 <!-- org-map:end -->
