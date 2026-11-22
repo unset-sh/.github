@@ -7,8 +7,9 @@ params:
   doc_kind: guide
 ---
 
-Alex manages the credential that lets an approved source publish its section into `unset-sh/docs`. This guide uses
-the `profile-recipes` publisher as the concrete example. Its [source runbook](https://github.com/unset-sh/profile-recipes/blob/b7429f9bc8f3c50ab4231b5298321880fecc929a/.github/DOCS-PUBLISHING.md)
+Alex owns the credential lifecycle and may explicitly authorize another person or an agent to perform specific
+setup, rotation or retirement steps. That authorization does not permit exposing private key material. This guide
+uses the `profile-recipes` publisher as the concrete example. Its [source runbook](https://github.com/unset-sh/profile-recipes/blob/b7429f9bc8f3c50ab4231b5298321880fecc929a/.github/DOCS-PUBLISHING.md)
 defines the exporter, path checks and recovery behavior; keep those implementation details there.
 
 ## Know which credential you are setting up
@@ -26,7 +27,7 @@ and [Pages workflow permissions](https://docs.github.com/en/pages/getting-starte
 
 ## 1. Prepare the source environment
 
-Use an authenticated owner account with access to both repositories. In **unset-sh/profile-recipes → Settings →
+Use an authenticated account with Alex's authorization and the required access to both repositories. In **unset-sh/profile-recipes → Settings →
 Environments**, create or inspect `docs-mirror`. Under **Deployment branches and tags**, select **Selected branches
 and tags** and allow the **branch** `main` only. Preserve the owner's required-reviewer policy. Configure this before
 adding the private key; a repository-wide secret would not have this environment boundary.

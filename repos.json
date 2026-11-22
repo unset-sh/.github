@@ -257,7 +257,7 @@
       "group": "building",
       "description": "The unset.sh documentation website (Hugo)",
       "tagline": "Organisation documentation, repository ownership and learning guides",
-      "summary": "The organisation-only docs.unset.sh framework is under review: a root Hugo site edited by pull requests, source-owned repository sections and map views derived from .github. The first automated profile-recipes export is verified and the old app mirror workflow is retired. Removing the old mirror's writable credential and completing the framework cutover remain pending; the current site stays live until then.",
+      "summary": "The organisation-only docs.unset.sh framework is under review: a root Hugo site edited by pull requests, source-owned repository sections and map views derived from .github. The first automated profile-recipes export is verified; the old app mirror workflow and its writable credential are retired. The framework cutover remains pending, and the current site stays live until then.",
       "links": {
         "site": "https://docs.unset.sh"
       },
