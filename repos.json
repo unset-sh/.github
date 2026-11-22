@@ -124,15 +124,18 @@
       "status": "active",
       "group": "look",
       "description": "unset.sh brand foundations: design tokens, fonts, the mark and icons",
-      "tagline": "Design tokens, fonts, the mark and icons",
-      "summary": "Fixed files that say what unset.sh looks like, as pinned copies of the design sheet. Ships the package @unset-sh/brand (data only) on GitHub Packages.",
+      "tagline": "Shared visual contract, assets and brand guide",
+      "summary": "The editable visual contract for unset.sh. Ships static CSS, JSON, fonts, mark and icon data as @unset-sh/brand on GitHub Packages, and builds its Hugo guide with an interactive Svelte component gallery for GitHub Pages.",
       "links": {
-        "package": "@unset-sh/brand"
+        "package": "@unset-sh/brand",
+        "docs": "https://github.com/unset-sh/brand/blob/main/README.md"
       },
       "owns": [
-        "Design tokens (colour, type, spacing), the two fonts, the mark and icons",
-        "Brand guidelines: how to use colour, type and the mark",
-        "source.json: the design sheet version and sha256 of every copied file"
+        "The editable brand contract: semantic colour, typography, spacing and component style roles",
+        "Generated static package exports, optional Tailwind/shadcn style adapters, fonts, the mark and pinned icon data",
+        "Asset provenance and licences; historical design-sheet provenance is retained",
+        "Brand usage guidelines, the Hugo brand guide and its private interactive Svelte component gallery",
+        "Changeset version preparation, package validation and protected publication, and GitHub Pages guide deployment"
       ],
       "notHere": [
         {
@@ -140,19 +143,19 @@
           "where": "presentation"
         },
         {
-          "what": "Code that decides or serves anything",
-          "where": "unset"
+          "what": "Business rules, authentication, network calls and application state",
+          "where": "unset or the consuming application"
         },
         {
-          "what": "A file that is not in the design sheet yet",
-          "where": "the design sheet first"
+          "what": "Component interaction behaviour or consumer deployment orchestration",
+          "where": "the consuming application and its shadcn-svelte/Bits UI integration"
         }
       ],
       "uses": [],
       "licence": {
-        "spdx": null,
-        "current": "Not decided; waits for the branding pass. The fonts are third-party (OFL-1.1)",
-        "followsRule": false
+        "spdx": "AGPL-3.0",
+        "current": "AGPL-3.0-only project files; OFL-1.1 fonts, reserved Unset mark/app assets, and MIT Tabler/upstream component notices are preserved",
+        "followsRule": true
       }
     },
     {
