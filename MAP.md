@@ -21,7 +21,7 @@ issue when they differ.
 | `unset-sh/lexicons` | Approved, waiting for setup | A one-way, read-only copy of the sh.unset.* lexicon schemas, pushed by the app's mirror job. Waiting for setup by the owner; the direction reverses later, when the organisation becomes the source of truth. |
 | `unset-sh/messaging` | Proposed, not approved | The private messaging product on unset.cc: one-to-one chat on Matrix today, later communities, channels, roles and voice. Plan drafted, awaiting approval; not created. |
 | `unset-sh/server-kit` | Proposed, not approved | Proposed: the generic security code the app and messaging both need (HTTP kit and CSRF gate, egress guard, sealed storage, signed admin envelope, config, log). Not approved yet. |
-| [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit) | Active | The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. |
+| [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit) | Active | The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. It also keeps the organisation's decision records. |
 
 ## Which way dependencies point
 
@@ -279,7 +279,7 @@ Proposed: the generic security code the app and messaging both need (HTTP kit an
 
 [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit). Active.
 
-The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file.
+The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. It also keeps the organisation's decision records.
 
 **Licence:** None on main yet; AGPL-3.0-only in the first release pull request.
 
@@ -288,9 +288,10 @@ The rules, skills and templates every repository's assistant needs, released as 
 - Organisation-wide assistant rules and the three generic engineering documents
 - The CLAUDE.md and AGENTS.md templates
 - Shared skills and subagents, the model and effort router text, and the sync script
+- The organisation's decision records (org-NNNN), written mostly for assistants
 
 **Does not belong here**
 
 - A repository's own rules: that repository's CLAUDE.md
 - The organisation map: [`unset-sh/.github`](https://github.com/unset-sh/.github)
-- Decision records: the organisation's decision records
+- A repository's own decision records: that repository's docs/decisions

@@ -403,12 +403,13 @@
       "group": "building",
       "description": "Shared rules, skills and templates for AI assistants working on unset.sh",
       "tagline": "Shared rules, skills and templates for AI assistants",
-      "summary": "The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file.",
+      "summary": "The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. It also keeps the organisation's decision records.",
       "hideFromProfile": true,
       "owns": [
         "Organisation-wide assistant rules and the three generic engineering documents",
         "The CLAUDE.md and AGENTS.md templates",
-        "Shared skills and subagents, the model and effort router text, and the sync script"
+        "Shared skills and subagents, the model and effort router text, and the sync script",
+        "The organisation's decision records (org-NNNN), written mostly for assistants"
       ],
       "notHere": [
         {
@@ -420,8 +421,8 @@
           "where": ".github"
         },
         {
-          "what": "Decision records",
-          "where": "the organisation's decision records"
+          "what": "A repository's own decision records",
+          "where": "that repository's docs/decisions"
         }
       ],
       "uses": [],
