@@ -5,10 +5,10 @@ weight: 10
 type: docs
 params:
   doc_kind: guide
-  checked_source_revision: "db0d794cf1761644ebc379fb2a36e50571f199a7"
+  checked_source_revision: "9422ac99e93d1edd167912deae75f7eb0b9861ec"
 ---
 
-The organisation's native [workflow templates](https://github.com/unset-sh/.github/tree/db0d794cf1761644ebc379fb2a36e50571f199a7/workflow-templates)
+The organisation's native [workflow templates](https://github.com/unset-sh/.github/tree/9422ac99e93d1edd167912deae75f7eb0b9861ec/workflow-templates)
 are maintained directly in `unset-sh/.github:workflow-templates/`. GitHub can offer them in a repository's Actions
 workflow picker. They are starting files: each repository owns the caller it installs.
 
