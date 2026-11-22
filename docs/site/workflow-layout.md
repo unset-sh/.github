@@ -5,12 +5,12 @@ weight: 20
 type: docs
 params:
   doc_kind: explanation
-  checked_source_revision: "SOURCE_REVISION"
+  checked_source_revision: "dc00d52ce2286c0559e68138c1d84ae2db2cc945"
 ---
 
 The repository separates where people edit workflows from where GitHub executes them. Category folders organise the authored YAML by purpose. A generator copies that YAML into the flat `.github/workflows/` directory required by GitHub.
 
-This page describes the **unreleased implementation at `SOURCE_REVISION`**. It explains the source and execution boundaries; it does not imply that every organisation repository already calls these workflows.
+This page describes the **unreleased implementation at `dc00d52ce2286c0559e68138c1d84ae2db2cc945`**. It explains the source and execution boundaries; it does not imply that every organisation repository already calls these workflows.
 
 ## One repository, two kinds of path
 
@@ -64,14 +64,14 @@ If someone edits the generated file directly, the freshness check reports the mi
 
 ## Keep dependency pins current
 
-The [Renovate configuration](https://github.com/unset-sh/.github/blob/SOURCE_REVISION/.github/renovate.json) includes authored category YAML in `github-actions.managerFilePatterns` alongside the manager's default generated-workflow matching. This lets update proposals reach the source pins as well as their executable copies. Before accepting an update, regenerate from the category sources and run `npm run check`; a bot edit does not replace the generation-freshness gate.
+The [Renovate configuration](https://github.com/unset-sh/.github/blob/dc00d52ce2286c0559e68138c1d84ae2db2cc945/.github/renovate.json) includes authored category YAML in `github-actions.managerFilePatterns` alongside the manager's default generated-workflow matching. This lets update proposals reach the source pins as well as their executable copies. Before accepting an update, regenerate from the category sources and run `npm run check`; a bot edit does not replace the generation-freshness gate.
 
 ## Why keep generated copies
 
-The category structure makes the catalogue easier to maintain as it grows. GitHub requires the executable YAML in a flat directory, so this choice also creates committed copies. The [generator tests](https://github.com/unset-sh/.github/blob/SOURCE_REVISION/scripts/workflows.test.mjs) and `npm run check` catch missing, stale, and orphaned generated output. Review still needs to assess the workflow's behaviour and permissions.
+The category structure makes the catalogue easier to maintain as it grows. GitHub requires the executable YAML in a flat directory, so this choice also creates committed copies. The [generator tests](https://github.com/unset-sh/.github/blob/dc00d52ce2286c0559e68138c1d84ae2db2cc945/scripts/workflows.test.mjs) and `npm run check` catch missing, stale, and orphaned generated output. Review still needs to assess the workflow's behaviour and permissions.
 
 ## Source and related guidance
 
-The implementation is [`scripts/workflows.mjs`](https://github.com/unset-sh/.github/blob/SOURCE_REVISION/scripts/workflows.mjs), with commands in [`package.json`](https://github.com/unset-sh/.github/blob/SOURCE_REVISION/package.json). The relevant GitHub rules cover [reusable workflow locations](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows) and [organisation starter templates](https://docs.github.com/en/actions/how-tos/reuse-automations/create-workflow-templates).
+The implementation is [`scripts/workflows.mjs`](https://github.com/unset-sh/.github/blob/dc00d52ce2286c0559e68138c1d84ae2db2cc945/scripts/workflows.mjs), with commands in [`package.json`](https://github.com/unset-sh/.github/blob/dc00d52ce2286c0559e68138c1d84ae2db2cc945/package.json). The relevant GitHub rules cover [reusable workflow locations](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows) and [organisation starter templates](https://docs.github.com/en/actions/how-tos/reuse-automations/create-workflow-templates).
 
 To use these entry points, follow [Prepare a repository to use shared workflows](use-workflows.md). The [documentation export guide](export-docs.md) follows `automation/docs-export.yml` from a checked commit to an artifact. For the package and release-asset publication boundary, read the [release reference](release-reference.md).
