@@ -1,0 +1,27 @@
+# Choose a reviewed release of unset-sh/.github and replace APPROVED_COMMIT_SHA
+# with its full 40-character commit before installing this caller.
+# Configure the protected release environment first. See README.md in .github.
+name: release
+
+on:
+  push:
+    branches: [main]
+    paths: [package.json]
+
+permissions: {}
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    uses: unset-sh/.github/.github/workflows/releases-package.yml@APPROVED_COMMIT_SHA
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+      attestations: write
+      actions: read
+    with:
+      npm-package: false # Set true for GitHub Packages; configure build/files for assets.

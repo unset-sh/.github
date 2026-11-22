@@ -1,6 +1,6 @@
 # .github
 
-Organisation profile and community health files for unset.sh, and the map of the organisation's repositories.
+Organisation profile, repository map, community defaults and shared GitHub Actions for unset.sh.
 
 | Path | Holds |
 | --- | --- |
@@ -9,7 +9,48 @@ Organisation profile and community health files for unset.sh, and the map of the
 | [`MAP.md`](MAP.md) | The map rendered for people and assistants, generated from `repos.json`, with the licence rule and the repositories that do not follow it yet |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | The default contributing guide for every repository without its own: what outside work is accepted, and the DCO sign-off |
 | [`docs/claude-md.md`](docs/claude-md.md) | The section every repository's `CLAUDE.md` starts with |
-| [`scripts/`](scripts/) | The renderer, the drift check and their tests (Node, no dependencies) |
+| [`ci/`](ci/) | Shared check workflow and this repository's CI caller |
+| [`releases/`](releases/) | Protected package/asset release and this repository's release caller |
+| [`automation/`](automation/) | Organisation-map checks, drift notification and documentation export |
+| [`templates/`](templates/) | Starter caller YAML and picker metadata |
+| [`.github/workflows/`](.github/workflows/) | Generated executable workflows; edit the category source |
+| [`workflow-templates/`](workflow-templates/) | Generated templates for GitHub's New workflow picker |
+| [`scripts/`](scripts/) | Generation, map tooling and release validation (Node built-ins only) |
+| [`checks/`](checks/) | Release, archive and workflow security checks |
+| [`docs/site/`](docs/site/_index.md) | Maintained human guides and reference, exported to `unset-sh/docs:github/` |
+
+## Change a workflow
+
+Edit the YAML in its category, then run:
+
+```sh
+npm run workflows
+npm run check
+```
+
+Commit the source and generated files together. For example, `ci/check.yml` becomes
+`.github/workflows/ci-check.yml`, and `releases/package.yml` becomes `.github/workflows/releases-package.yml`.
+The generator copies YAML without rewriting its expressions or logic. CI refuses stale, missing or orphaned
+generated output. Unmanaged files and symlinks are never overwritten by generation.
+
+Add `pages/`, `deployments/`, or `code-scanning/` when their first workflow is migrated. These are source categories;
+GitHub runs only the generated flat entry points. The outer `.github` in `unset-sh/.github` is this repository's
+name; the inner `.github/workflows/` is GitHub's required configuration directory.
+
+## Use a shared workflow
+
+Each consuming repository keeps a small caller with its own events, permissions and inputs. Its jobs call the
+shared implementation at a full reviewed commit SHA. Runs and checks belong to that consuming repository; putting
+a workflow here does not automatically run it across the organisation.
+
+Start with a file from `templates/` or the GitHub picker. Replace `APPROVED_COMMIT_SHA` with the full commit of a
+reviewed release, then set the inputs for that repository. The placeholder is deliberately not an executable pin:
+no first release exists yet, and callers must not silently follow `main`. Read [the workflow guides](docs/site/_index.md)
+before adopting one, especially the release environment and required-check prerequisites.
+
+The shared release is still version 0.0.0. It publishes nothing at that version. The initial migration preserves
+the implementation from `unset-sh/workflows` PR #1; its live release assumptions remain explicitly unverified in
+the workflow guide until the first approved run. Other repositories keep their existing automation during adoption.
 
 ## Change the map
 
@@ -22,3 +63,13 @@ GitHub: a repository missing from the map, one archived, renamed or deleted, one
 description or detected licence that differs. While anything differs it keeps one issue labelled `org-map-drift` open, and it closes the
 issue once they match. Private repositories cannot be seen with the workflow's own token, so private entries are
 listed in the issue as not checked.
+
+## Documentation
+
+Human guides and reference live in `docs/site/` and follow the organisation documentation standard.
+Read [Use shared workflows](docs/site/use-workflows.md), [Workflow layout](docs/site/workflow-layout.md),
+and [Release reference](docs/site/release-reference.md). [Export documentation](docs/site/export-docs.md)
+explains the committed-source export to `unset-sh/docs:github/`. Publication waits for that repository’s
+framework cutover; an exported artifact is not a deployed site.
+
+AI plans, notes and supporting artifacts live in `unset-sh/agent-kit`, under `notes/` and `artifacts/`.

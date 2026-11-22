@@ -5,7 +5,14 @@
   "type": "module",
   "scripts": {
     "map": "node scripts/map.mjs --write",
-    "check": "node --test \"scripts/*.test.mjs\" && node scripts/map.mjs --check",
-    "drift": "node scripts/drift.mjs"
+    "check": "node scripts/workflows.mjs --check && node --test \"scripts/*.test.mjs\" \"checks/*.test.mjs\" && node scripts/map.mjs --check",
+    "drift": "node scripts/drift.mjs",
+    "workflows": "node scripts/workflows.mjs --write",
+    "docs:export": "node scripts/export-docs.mjs"
+  },
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unset-sh/.github.git"
   }
 }

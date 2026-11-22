@@ -96,15 +96,17 @@
       "status": "active",
       "group": "building",
       "description": "Organisation profile and community health files for unset.sh",
-      "tagline": "This page, the organisation map and the default contributing guide",
-      "summary": "The organisation's front page and this map.",
+      "tagline": "Organisation profile, map and shared automation",
+      "summary": "The organisation's front page, repository map, community defaults and central GitHub Actions implementation. Workflows are authored by purpose and generated into GitHub's required paths.",
       "links": {
         "docs": "https://github.com/unset-sh/.github/blob/main/MAP.md"
       },
       "owns": [
         "The organisation profile page (profile/README.md)",
         "This map: repos.json, MAP.md and the daily check that compares them with GitHub",
-        "Community health files shared by every repository, when they are added"
+        "Community health files shared by every repository, when they are added",
+        "Organisation workflow sources, their scripts, tests and versioned releases; category sources generate flat .github/workflows entry points",
+        "Starter workflow templates that call the shared implementation at reviewed commit pins"
       ],
       "notHere": [
         {
@@ -411,7 +413,8 @@
       "owns": [
         "Organisation-wide assistant rules and the three generic engineering documents",
         "The CLAUDE.md and AGENTS.md templates",
-        "Shared skills and subagents, the model and effort router text, and the sync script"
+        "Shared skills and subagents, the model and effort router text, and the sync script",
+        "Organisation-wide AI working notes and supporting artifacts, under notes/ and artifacts/; maintained human docs remain with their source repository"
       ],
       "notHere": [
         {
@@ -425,6 +428,10 @@
         {
           "what": "Decision records",
           "where": "the organisation's decision records"
+        },
+        {
+          "what": "Organisation GitHub Actions implementation and starter workflow templates",
+          "where": ".github"
         }
       ],
       "uses": [],
@@ -433,6 +440,30 @@
         "current": "None on main yet; AGPL-3.0-only in the first release pull request",
         "followsRule": false
       }
+    },
+    {
+      "name": "workflows",
+      "status": "active",
+      "group": "building",
+      "description": "The CI check and the release workflow every unset.sh repository calls at a pinned commit",
+      "tagline": "Retiring into .github",
+      "summary": "Retiring into unset-sh/.github after its unpublished check/release implementation from PR #1 is preserved. No main-branch consumer calls this repository and no version has been released. Keep it available until preservation is verified.",
+      "owns": [
+        "Historical PR #1 and its review evidence until preserved during retirement"
+      ],
+      "notHere": [
+        {
+          "what": "Current organisation workflow implementation and starter templates",
+          "where": ".github"
+        }
+      ],
+      "uses": [],
+      "licence": {
+        "spdx": null,
+        "current": "No licence on main; the AGPL-3.0-only implementation exists only in PR #1 and is being preserved in .github.",
+        "followsRule": false
+      },
+      "hideFromProfile": true
     }
   ]
 }
