@@ -23,7 +23,6 @@ issue when they differ.
 | `unset-sh/messaging` | Proposed, not approved | The private messaging product on unset.cc: one-to-one chat on Matrix today, later communities, channels, roles and voice. Plan drafted, awaiting approval; not created. |
 | `unset-sh/server-kit` | Proposed, not approved | Proposed: the generic security code the app and messaging both need (HTTP kit and CSRF gate, egress guard, sealed storage, signed admin envelope, config, log). Not approved yet. |
 | [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit) | Active | The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. Organisation decision records and AI working notes and artifacts are maintained here; working material stays outside the distributed kit. The shared human documentation standard remains proposed in pull request #7. Updates to distributed rules and skills still require an approved kit release. |
-| [`unset-sh/workflows`](https://github.com/unset-sh/workflows) | Archived | Archived after the earlier decision to consolidate organisation automation in .github. Main contains only a README, with the original check and release proposal retained in pull request #1. The later ownership decision assigns shared implementations to tooling, whose foundation is merged; the first tooling release and broader consumer adoption remain pending. |
 
 ## Which way dependencies point
 
@@ -44,7 +43,6 @@ flowchart LR
   r_messaging["messaging (proposed)"]
   r_server_kit["server-kit (proposed)"]
   r_agent_kit["agent-kit"]
-  r_workflows["workflows"]
   r_brand --> r_unset
   r_presentation --> r_unset
   r_messaging --> r_unset
@@ -76,7 +74,7 @@ flowchart LR
 - `.github` → `docs`: repos.json at an exact commit revision for generated organisation map and ownership views; .github remains the source of truth. Its source-owned docs/site/ maps to github/ under the reserved-name exception, with initial import tracked in docs pull request #2
 - `agent-kit` → `docs`: planned adoption of org-documentation through the existing sync workflow and lock after an approved kit release; the standard remains proposed in agent-kit pull request #7
 - `profile-recipes` → `docs`: source-owned docs/ exported automatically into the profile-recipes/ section with its source revision and licences; publication verified through source 1e64c46 to docs commit 2b4099f
-- `tooling` → `docs`: source-owned docs/site/ for the tooling/ section with an exact source revision and licences, delivered through reviewed imports; initial import is tracked in docs pull request #5. Adoption of shared workflow implementations remains separate
+- `tooling` → `docs`: Source-owned docs/site/ for the tooling/ section with an exact source revision and licences, delivered through reviewed imports; a reviewed full-commit collector supplies the public workflow catalogue during site builds. Reusable workflow adoption remains explicit in each consumer
 - `brand` → `pds`: theme colours and fonts at an exact version (after the move)
 - `unset` → `lexicons`: initial schemas copied from the merged application source at a recorded commit with per-file hashes; synchronization is manual and the proposed automatic mirror is not configured
 - `brand` → `messaging`: @unset-sh/brand at an exact version
@@ -92,7 +90,6 @@ Not matching the rule yet (changing a published licence needs the owner's decisi
 | --- | --- |
 | `unset` | AGPL-3.0-only; the lexicon schemas are MIT (as the rule wants); shared/ is MIT under ADR 0012 |
 | `pds` | None yet; should be AGPL-3.0-only. The official PDS it builds on keeps its own licence |
-| `workflows` | No licence detected on archived main; the unpublished implementation in pull request #1 proposed AGPL-3.0-only |
 
 ## unset
 
@@ -154,6 +151,7 @@ Maintains shared CI, protected-release and documentation-export implementations,
 - Flat reusable entry points directly in .github/workflows/; category source folders and generation may organise the implementation without changing the native GitHub location
 - Versioned tooling releases and the implementation of dependency-update proposals; automatic adoption requires explicit update PRs, checks, approvals, eligible auto-merge and downstream delivery, and is not configured yet. Owner release approvals remain required
 - Maintained human tooling guides and workflow contracts in docs/site/ for the docs:tooling/ section; initial delivery is tracked in docs pull request #5
+- Read-only public workflow discovery and immutable reusable-call resolution for the documentation workflow catalogue
 
 **Does not belong here**
 
@@ -239,6 +237,7 @@ The live organisation-only docs.unset.sh site: a root Hugo framework edited by p
 
 - The root Hugo configuration, theme integration, layouts, navigation, front page and publication framework, changed by pull request
 - Source-derived organisation map and ownership views from an exact .github revision
+- Workflow catalogue validation, accessible call and job views, and automatic refresh during the existing site publication workflow; collection is implemented in tooling
 - One top folder per participating unset-sh repository; mirrored pages, examples and diagrams remain source-owned and are replaced only by that repository's docs job
 - The site build commands, checks and GitHub Pages publication for docs.unset.sh; migration to central workflow implementations and reviewed callers is pending
 
@@ -343,6 +342,7 @@ The rules, skills and templates every repository's assistant needs, released as 
 - AI working notes in notes/ and supporting artifacts in artifacts/, grouped by task and excluded from the distributed kit
 - The CLAUDE.md and AGENTS.md templates
 - Shared skills and subagents, the model and effort router text, and the sync script
+- Requester/provider procedures for missing brand resources, with requests tracked as brand issues; AGENTS.md entry-point templates route agents to the shared rules and skills
 
 **Does not belong here**
 
@@ -352,23 +352,3 @@ The rules, skills and templates every repository's assistant needs, released as 
 - Another repository's maintained human documentation: the source repository's docs/; exported to docs for publication
 - Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests: [`unset-sh/tooling`](https://github.com/unset-sh/tooling)
 - Organisation community defaults and native starter workflow templates: [`unset-sh/.github`](https://github.com/unset-sh/.github)
-
-## workflows
-
-[`unset-sh/workflows`](https://github.com/unset-sh/workflows). Archived.
-
-Archived after the earlier decision to consolidate organisation automation in .github. Main contains only a README, with the original check and release proposal retained in pull request #1. The later ownership decision assigns shared implementations to tooling, whose foundation is merged; the first tooling release and broader consumer adoption remain pending.
-
-**Licence:** No licence detected on archived main; the unpublished implementation in pull request #1 proposed AGPL-3.0-only.
-
-**Owns**
-
-- The archived check and release proposal in pull request #1 and its original review history; subsequent implementation work moves to tooling
-
-**Does not belong here**
-
-- Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests: [`unset-sh/tooling`](https://github.com/unset-sh/tooling)
-- Organisation community defaults and native starter workflow templates: [`unset-sh/.github`](https://github.com/unset-sh/.github)
-- A repository's build and test commands, event triggers and small workflow callers: the consuming repository
-- Shared assistant rules, skills and organisation decision records: [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit)
-- The organisation map: [`unset-sh/.github`](https://github.com/unset-sh/.github)
