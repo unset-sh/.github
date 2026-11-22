@@ -12,7 +12,8 @@ params:
 GitHub presents these defaults in other unset-sh repositories when those repositories do not provide their own
 equivalent files. The defaults are maintained here; GitHub does not copy them into each repository's Git history.
 
-This page describes the setup at `9422ac99e93d1edd167912deae75f7eb0b9861ec`. The files become available as defaults when their pull
+The inherited-default setup was checked at `9422ac99e93d1edd167912deae75f7eb0b9861ec`; the label and readiness guidance below are pending additions,
+not a claim about that revision or a completed rollout. The files become available as defaults when their pull
 request reaches this public repository's default branch. Repository settings and workflow adoption have their own
 scope; adding a default file does not configure every repository.
 
@@ -29,7 +30,8 @@ All paths below are relative to the `unset-sh/.github` repository:
 | `SUPPORT.md` | Documentation, questions and issue routing |
 | `ACCESSIBILITY.md` | Accessibility priorities and reporting barriers |
 | `.github/ISSUE_TEMPLATE/` | Bug, feature, accessibility and question forms, plus chooser configuration |
-| `.github/pull_request_template.md` | General change, validation and documentation prompts |
+| `.github/pull_request_template.md` | General change, readiness, validation, documentation and intended-label prompts |
+| `docs/site/pull-request-labels.md` | Canonical purpose and impact taxonomy; repository label rollout is separate |
 | `.github/VULNERABILITY_REPORT.yml` | Fields for private vulnerability reports where that feature is enabled |
 | `workflow-templates/` | Starter callers maintained directly for GitHub's workflow picker |
 
@@ -76,6 +78,20 @@ Shared implementations live in `unset-sh/tooling` and require explicit callers, 
 they do not automatically enable workflows across the organisation.
 Repository permissions, rulesets, required checks, deployment environments and private vulnerability reporting
 are settings to configure and verify in their own scope.
+
+The [pull-request label policy](pull-request-labels.md) defines exactly one purpose label and applicable impact
+flags. The template asks for that selection, but neither the guide nor inheritance creates labels in consuming
+repositories. Provisioning and CI enforcement remain pending. Until labels are available, authors record the
+intended selection in the description. Labels never authorize merging, releasing or bypassing a review rule.
+Canonical definitions live here; future shared automation belongs in `unset-sh/tooling`, and agent behaviour
+rules belong in `unset-sh/agent-kit`.
+
+The readiness prompt distinguishes independent work from changes that need prerequisite PRs, releases or
+dependency versions. Authors name those prerequisites, the integration order and the tested combination.
+Dependent work receives fresh integration checks after its prerequisites are available; every staging merge
+must leave staging working and releasable. Documentation-only changes need applicable documentation checks,
+not a deployment. This is review guidance, not an implemented readiness gate or a claim that branch migration
+has occurred. The repository's current checks and approval rules continue to apply.
 
 There is no funding configuration without an established funding destination. Discussion forms are also absent
 while Discussions is disabled here. Add either feature when its actual destination and operating process exist.

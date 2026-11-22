@@ -20,6 +20,7 @@ chooses its events, permissions, inputs and reviewed workflow revision.
 ## Learn and use
 
 - [How organisation defaults work](organisation-defaults.md): find policies, reporting routes and inherited forms.
+- [Label a pull request](pull-request-labels.md): choose its purpose and impacts; label rollout and enforcement are pending.
 - [Use the starter workflow templates](workflow-templates.md): install a small caller in a consuming repository.
 - [Export the organisation documentation](export-docs.md): prepare this section for a reviewed documentation import.
 - [Find the documentation publishing-key guide](manage-docs-publishing-key.md): locate the maintained tooling guide.
