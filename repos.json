@@ -36,7 +36,7 @@
       },
       "owns": [
         "Every product rule and screen of unset.sh, and the data behind them",
-        "The sh.unset.* lexicon schemas (shared/lexicons/schemas/), the source of truth until the organisation takes it over",
+        "Schema design coordinated in shared/lexicons/schemas/ and the app-local schema copy; exact snapshots are manually imported into lexicons",
         "Deciding what to present: which data, who may see it, URLs, caching and removal",
         "The app's architecture decision records (docs/human/decisions/)"
       ],
@@ -224,7 +224,7 @@
       "notHere": [
         {
           "what": "The lexicon schemas themselves (schemas/upstream/ here is a copy)",
-          "where": "unset"
+          "where": "lexicons"
         },
         {
           "what": "The profile editor and its limits (limits.json here is a mirror)",
@@ -241,8 +241,12 @@
       ],
       "uses": [
         {
+          "repo": "lexicons",
+          "how": "record and object schemas copied byte-for-byte at a pinned commit"
+        },
+        {
           "repo": "unset",
-          "how": "lexicon schemas and editor limits, copied at a pinned commit"
+          "how": "editor limits and consumer rendering behavior checked against a pinned app commit"
         }
       ],
       "licence": {
@@ -357,29 +361,31 @@
     },
     {
       "name": "lexicons",
-      "status": "pending",
+      "status": "active",
       "visibility": "public",
       "group": "records",
+      "description": "AT Protocol lexicons for unset.sh profiles, pages and cards, with reference documentation and examples",
       "tagline": "The sh.unset.* record schemas, published for anyone to use",
-      "summary": "A one-way, read-only copy of the sh.unset.* lexicon schemas, pushed by the app's mirror job. Waiting for setup by the owner; the direction reverses later, when the organisation becomes the source of truth.",
+      "summary": "The public sh.unset.* schema repository, with reference documentation, examples and checks. Schema snapshots are exact manual imports from the app; the proposed automatic mirror is not configured.",
       "owns": [
-        "The published copy of the sh.unset.* schemas, their docs and examples"
+        "The published sh.unset.* schema files, with source commits, paths and SHA-256 hashes in source.json",
+        "Maintained reference documentation, examples, validation checks and generated reference tables"
       ],
       "notHere": [
         {
-          "what": "Any edit to a schema",
-          "where": "unset (shared/lexicons/schemas/); the mirror copies it here"
+          "what": "The profile editor, its limits and consumer rendering behavior",
+          "where": "unset"
         }
       ],
       "uses": [
         {
           "repo": "unset",
-          "how": "pushes the schemas with its own deploy key"
+          "how": "schema files manually imported byte-for-byte from a pinned app commit; schema changes remain coordinated in the app"
         }
       ],
       "licence": {
-        "spdx": null,
-        "current": "Not created; MIT, copied from the app",
+        "spdx": "MIT",
+        "current": "MIT schemas and documentation",
         "followsRule": true
       }
     },

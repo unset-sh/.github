@@ -18,7 +18,7 @@ issue when they differ.
 | [`unset-sh/profile-recipes`](https://github.com/unset-sh/profile-recipes) | Active | Persona profile layouts (recipes) with a guide an AI assistant follows to build someone's profile, plus sample records checked against the lexicons. |
 | [`unset-sh/docs`](https://github.com/unset-sh/docs) | Active | The live organisation-only docs.unset.sh site: a root Hugo framework edited by pull requests, source-owned repository sections and map views derived from .github. Profile-recipes publishes its section automatically. The old app mirror workflow and its writable credential are retired; the site excludes app documentation until the app moves into the organisation. |
 | [`unset-sh/pds`](https://github.com/unset-sh/pds) | Active | The home for unset.sh's PDS image and everything that customises the PDS: the build on top of the official image, the theme for its sign-in and account pages, and their pins. Empty for now; until it moves, the image is built in the app repository (deployment/pds/). |
-| `unset-sh/lexicons` | Approved, waiting for setup | A one-way, read-only copy of the sh.unset.* lexicon schemas, pushed by the app's mirror job. Waiting for setup by the owner; the direction reverses later, when the organisation becomes the source of truth. |
+| [`unset-sh/lexicons`](https://github.com/unset-sh/lexicons) | Active | The public sh.unset.* schema repository, with reference documentation, examples and checks. Schema snapshots are exact manual imports from the app; the proposed automatic mirror is not configured. |
 | `unset-sh/messaging` | Proposed, not approved | The private messaging product on unset.cc: one-to-one chat on Matrix today, later communities, channels, roles and voice. Plan drafted, awaiting approval; not created. |
 | `unset-sh/server-kit` | Proposed, not approved | Proposed: the generic security code the app and messaging both need (HTTP kit and CSRF gate, egress guard, sealed storage, signed admin envelope, config, log). Not approved yet. |
 | [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit) | Active | The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. Also the agreed home for AI working notes and supporting artifacts, kept outside the distributed kit. Organisation decision records, the shared human documentation standard and working-material ownership are covered by unmerged pull requests #5, #7 and #8. Updates to distributed rules and skills still require an approved kit release. |
@@ -38,7 +38,7 @@ flowchart LR
   r_profile_recipes["profile-recipes"]
   r_docs["docs"]
   r_pds["pds"]
-  r_lexicons["lexicons (pending)"]
+  r_lexicons["lexicons"]
   r_messaging["messaging (proposed)"]
   r_server_kit["server-kit (proposed)"]
   r_agent_kit["agent-kit"]
@@ -49,6 +49,7 @@ flowchart LR
   r_server_kit --> r_unset
   r_pds --> r_unset
   r_brand --> r_presentation
+  r_lexicons --> r_profile_recipes
   r_unset --> r_profile_recipes
   r_brand --> r_docs
   r__github --> r_docs
@@ -66,13 +67,14 @@ flowchart LR
 - `server-kit` → `unset`: pinned release (if approved)
 - `pds` → `unset`: the PDS image by pinned digest (after the move)
 - `brand` → `presentation`: @unset-sh/brand at an exact version
-- `unset` → `profile-recipes`: lexicon schemas and editor limits, copied at a pinned commit
+- `lexicons` → `profile-recipes`: record and object schemas copied byte-for-byte at a pinned commit
+- `unset` → `profile-recipes`: editor limits and consumer rendering behavior checked against a pinned app commit
 - `brand` → `docs`: stable published @unset-sh/brand 0.1.x releases, each resolved to an immutable commit; compatible patch updates may rebuild and publish the site automatically after checks
 - `.github` → `docs`: repos.json at an exact commit revision for generated organisation map and ownership views; .github remains the source of truth. A separate docs/site/ import into github/ is proposed in docs pull request #2 under the reserved-name exception; it is an additional source, not a replacement for the profile-recipes publishing prerequisite
 - `agent-kit` → `docs`: planned adoption of org-documentation through the existing sync workflow and lock after an approved kit release; the standard remains proposed in agent-kit pull request #7
 - `profile-recipes` → `docs`: source-owned docs/ exported automatically into the profile-recipes/ section with its source revision and licences; publication verified through source 1e64c46 to docs commit 2b4099f
 - `brand` → `pds`: theme colours and fonts at an exact version (after the move)
-- `unset` → `lexicons`: pushes the schemas with its own deploy key
+- `unset` → `lexicons`: schema files manually imported byte-for-byte from a pinned app commit; schema changes remain coordinated in the app
 - `brand` → `messaging`: @unset-sh/brand at an exact version
 - `server-kit` → `messaging`: pinned kit packages (if server-kit is approved)
 
@@ -99,7 +101,7 @@ The unset.sh app: web, admin, public API, indexer, media proxy, their database a
 **Owns**
 
 - Every product rule and screen of unset.sh, and the data behind them
-- The sh.unset.* lexicon schemas (shared/lexicons/schemas/), the source of truth until the organisation takes it over
+- Schema design coordinated in shared/lexicons/schemas/ and the app-local schema copy; exact snapshots are manually imported into lexicons
 - Deciding what to present: which data, who may see it, URLs, caching and removal
 - The app's architecture decision records (docs/human/decisions/)
 
@@ -192,7 +194,7 @@ Persona profile layouts (recipes) with a guide an AI assistant follows to build 
 
 **Does not belong here**
 
-- The lexicon schemas themselves (schemas/upstream/ here is a copy): [`Undefined6799/unset`](https://github.com/Undefined6799/unset)
+- The lexicon schemas themselves (schemas/upstream/ here is a copy): [`unset-sh/lexicons`](https://github.com/unset-sh/lexicons)
 - The profile editor and its limits (limits.json here is a mirror): [`Undefined6799/unset`](https://github.com/Undefined6799/unset)
 - The documentation site's root configuration, navigation and layouts: [`unset-sh/docs`](https://github.com/unset-sh/docs)
 - Organisation workflow implementations and starter templates: [`unset-sh/.github`](https://github.com/unset-sh/.github) (agreed ownership; migration pending)
@@ -242,19 +244,20 @@ The home for unset.sh's PDS image and everything that customises the PDS: the bu
 
 ## lexicons
 
-`unset-sh/lexicons`. Approved, waiting for setup.
+[`unset-sh/lexicons`](https://github.com/unset-sh/lexicons). Active.
 
-A one-way, read-only copy of the sh.unset.* lexicon schemas, pushed by the app's mirror job. Waiting for setup by the owner; the direction reverses later, when the organisation becomes the source of truth.
+The public sh.unset.* schema repository, with reference documentation, examples and checks. Schema snapshots are exact manual imports from the app; the proposed automatic mirror is not configured.
 
-**Licence:** Not created; MIT, copied from the app.
+**Licence:** MIT schemas and documentation.
 
 **Owns**
 
-- The published copy of the sh.unset.* schemas, their docs and examples
+- The published sh.unset.* schema files, with source commits, paths and SHA-256 hashes in source.json
+- Maintained reference documentation, examples, validation checks and generated reference tables
 
 **Does not belong here**
 
-- Any edit to a schema: [`Undefined6799/unset`](https://github.com/Undefined6799/unset) (shared/lexicons/schemas/); the mirror copies it here
+- The profile editor, its limits and consumer rendering behavior: [`Undefined6799/unset`](https://github.com/Undefined6799/unset)
 
 ## messaging
 

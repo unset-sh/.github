@@ -70,10 +70,10 @@ Ready-made profile layouts an AI assistant can build for you
 </td>
 <td width="50%" valign="top">
 
-<strong>lexicons</strong><br>
+<a href="https://github.com/unset-sh/lexicons"><strong>lexicons</strong></a><br>
 The sh.unset.* record schemas, published for anyone to use
 <br><br>
-<sub>Coming soon</sub>
+<a href="https://github.com/unset-sh/lexicons">Code</a>
 
 </td>
 </tr>
