@@ -102,6 +102,17 @@ Organisation documentation, repository ownership and learning guides
 
 </td>
 </tr>
+<tr>
+<td width="50%" valign="top">
+
+<a href="https://github.com/unset-sh/workflows"><strong>workflows</strong></a><br>
+Shared CI and release workflows, under review
+<br><br>
+<a href="https://github.com/unset-sh/workflows">Code</a> &nbsp;·&nbsp; <a href="https://github.com/unset-sh/workflows/blob/main/README.md">Docs</a>
+
+</td>
+<td width="50%"></td>
+</tr>
 </table>
 
 ---

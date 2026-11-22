@@ -459,6 +459,43 @@
         "current": "None on main yet; AGPL-3.0-only in the first release pull request",
         "followsRule": false
       }
+    },
+    {
+      "name": "workflows",
+      "status": "active",
+      "visibility": "public",
+      "group": "building",
+      "description": "The CI check and the release workflow every unset.sh repository calls at a pinned commit",
+      "tagline": "Shared CI and release workflows, under review",
+      "summary": "The home for shared CI and release workflows called by full commit. Main currently contains only a README; pull request #1 proposes the check and release workflows, their helper scripts and tests. Consumer adoption and the live release path are not verified.",
+      "links": {
+        "docs": "https://github.com/unset-sh/workflows/blob/main/README.md"
+      },
+      "owns": [
+        "Reusable CI and release workflows needed by several organisation repositories, proposed in pull request #1",
+        "The helper scripts those workflows run and checks of their contracts and safety boundaries",
+        "The shared workflow input contracts, provenance and adoption guidance for calls pinned to full commits"
+      ],
+      "notHere": [
+        {
+          "what": "A workflow needed by only one repository, or a caller's own triggers and inputs",
+          "where": "the calling repository"
+        },
+        {
+          "what": "Shared assistant rules, skills and organisation decision records",
+          "where": "agent-kit"
+        },
+        {
+          "what": "The organisation map",
+          "where": ".github"
+        }
+      ],
+      "uses": [],
+      "licence": {
+        "spdx": null,
+        "current": "No licence detected on main; AGPL-3.0-only is proposed in the first implementation pull request",
+        "followsRule": false
+      }
     }
   ]
 }

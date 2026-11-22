@@ -22,6 +22,7 @@ issue when they differ.
 | `unset-sh/messaging` | Proposed, not approved | The private messaging product on unset.cc: one-to-one chat on Matrix today, later communities, channels, roles and voice. Plan drafted, awaiting approval; not created. |
 | `unset-sh/server-kit` | Proposed, not approved | Proposed: the generic security code the app and messaging both need (HTTP kit and CSRF gate, egress guard, sealed storage, signed admin envelope, config, log). Not approved yet. |
 | [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit) | Active | The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. |
+| [`unset-sh/workflows`](https://github.com/unset-sh/workflows) | Active | The home for shared CI and release workflows called by full commit. Main currently contains only a README; pull request #1 proposes the check and release workflows, their helper scripts and tests. Consumer adoption and the live release path are not verified. |
 
 ## Which way dependencies point
 
@@ -41,6 +42,7 @@ flowchart LR
   r_messaging["messaging (proposed)"]
   r_server_kit["server-kit (proposed)"]
   r_agent_kit["agent-kit"]
+  r_workflows["workflows"]
   r_brand --> r_unset
   r_presentation --> r_unset
   r_messaging --> r_unset
@@ -86,6 +88,7 @@ Not matching the rule yet (changing a published licence needs the owner's decisi
 | `docs` | No licence detected on main yet. The approved root framework licence is AGPL-3.0-only, pending its framework pull request; mirrored source documentation and third-party assets retain their own licences |
 | `pds` | None yet; should be AGPL-3.0-only. The official PDS it builds on keeps its own licence |
 | `agent-kit` | None on main yet; AGPL-3.0-only in the first release pull request |
+| `workflows` | No licence detected on main; AGPL-3.0-only is proposed in the first implementation pull request |
 
 ## unset
 
@@ -306,3 +309,23 @@ The rules, skills and templates every repository's assistant needs, released as 
 - A repository's own rules: that repository's CLAUDE.md
 - The organisation map: [`unset-sh/.github`](https://github.com/unset-sh/.github)
 - Decision records: the organisation's decision records
+
+## workflows
+
+[`unset-sh/workflows`](https://github.com/unset-sh/workflows). Active.
+
+The home for shared CI and release workflows called by full commit. Main currently contains only a README; pull request #1 proposes the check and release workflows, their helper scripts and tests. Consumer adoption and the live release path are not verified.
+
+**Licence:** No licence detected on main; AGPL-3.0-only is proposed in the first implementation pull request.
+
+**Owns**
+
+- Reusable CI and release workflows needed by several organisation repositories, proposed in pull request #1
+- The helper scripts those workflows run and checks of their contracts and safety boundaries
+- The shared workflow input contracts, provenance and adoption guidance for calls pinned to full commits
+
+**Does not belong here**
+
+- A workflow needed by only one repository, or a caller's own triggers and inputs: the calling repository
+- Shared assistant rules, skills and organisation decision records: [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit)
+- The organisation map: [`unset-sh/.github`](https://github.com/unset-sh/.github)
