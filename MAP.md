@@ -13,7 +13,7 @@ issue when they differ.
 | --- | --- | --- |
 | [`Undefined6799/unset`](https://github.com/Undefined6799/unset) | Active | The unset.sh app: web, admin, public API, indexer, media proxy, their database and deployment. Lives outside the organisation for now and will be largely rewritten, then wired to the repositories below by pinned releases. |
 | [`unset-sh/.github`](https://github.com/unset-sh/.github) | Active | The organisation's front page and this map. |
-| [`unset-sh/brand`](https://github.com/unset-sh/brand) | Active | Fixed files that say what unset.sh looks like, as pinned copies of the design sheet. Ships the package @unset-sh/brand (data only) on GitHub Packages. |
+| [`unset-sh/brand`](https://github.com/unset-sh/brand) | Active | The editable visual contract for unset.sh. Ships static CSS, JSON, fonts, mark and icon data as @unset-sh/brand on GitHub Packages, and builds its Hugo guide with an interactive Svelte component gallery for GitHub Pages. |
 | [`unset-sh/presentation`](https://github.com/unset-sh/presentation) | Active | Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/presentation on GitHub Packages; no running service. |
 | [`unset-sh/profile-recipes`](https://github.com/unset-sh/profile-recipes) | Active | Persona profile layouts (recipes) with a guide an AI assistant follows to build someone's profile, plus sample records checked against the lexicons. |
 | [`unset-sh/docs`](https://github.com/unset-sh/docs) | Active | Every repository's human docs, aggregated, and the docs.unset.sh site built from them on GitHub Pages. Nothing here is written by hand: each source repository's CI pushes its own top folder. Waiting for its first push. |
@@ -77,7 +77,6 @@ Not matching the rule yet (changing a published licence needs the owner's decisi
 | Repository | Licence today |
 | --- | --- |
 | `unset` | AGPL-3.0-only; the lexicon schemas are MIT (as the rule wants); shared/ is MIT under ADR 0012 |
-| `brand` | Not decided; waits for the branding pass. The fonts are third-party (OFL-1.1) |
 | `presentation` | None yet; should be AGPL-3.0-only |
 | `profile-recipes` | Recipes CC0-1.0 (as the rule wants); tooling MIT, to move to AGPL-3.0-only |
 | `docs` | None yet; holds copies of other repositories' docs, which keep their source's licence |
@@ -129,21 +128,23 @@ The organisation's front page and this map.
 
 [`unset-sh/brand`](https://github.com/unset-sh/brand). Active.
 
-Fixed files that say what unset.sh looks like, as pinned copies of the design sheet. Ships the package @unset-sh/brand (data only) on GitHub Packages.
+The editable visual contract for unset.sh. Ships static CSS, JSON, fonts, mark and icon data as @unset-sh/brand on GitHub Packages, and builds its Hugo guide with an interactive Svelte component gallery for GitHub Pages.
 
-**Licence:** Not decided; waits for the branding pass. The fonts are third-party (OFL-1.1).
+**Licence:** AGPL-3.0-only project files; OFL-1.1 fonts, reserved Unset mark/app assets, and MIT Tabler/upstream component notices are preserved.
 
 **Owns**
 
-- Design tokens (colour, type, spacing), the two fonts, the mark and icons
-- Brand guidelines: how to use colour, type and the mark
-- source.json: the design sheet version and sha256 of every copied file
+- The editable brand contract: semantic colour, typography, spacing and component style roles
+- Generated static package exports, optional Tailwind/shadcn style adapters, fonts, the mark and pinned icon data
+- Asset provenance and licences; historical design-sheet provenance is retained
+- Brand usage guidelines, the Hugo brand guide and its private interactive Svelte component gallery
+- Changeset version preparation, package validation and protected publication, and GitHub Pages guide deployment
 
 **Does not belong here**
 
 - Anything drawn from data, such as link previews and share cards: [`unset-sh/presentation`](https://github.com/unset-sh/presentation)
-- Code that decides or serves anything: [`Undefined6799/unset`](https://github.com/Undefined6799/unset)
-- A file that is not in the design sheet yet: the design sheet first
+- Business rules, authentication, network calls and application state: [`Undefined6799/unset`](https://github.com/Undefined6799/unset) or the consuming application
+- Component interaction behaviour or consumer deployment orchestration: the consuming application and its shadcn-svelte/Bits UI integration
 
 ## presentation
 

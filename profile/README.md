@@ -38,9 +38,9 @@ How unset.sh looks, in the app and wherever it is shared.
 <td width="50%" valign="top">
 
 <a href="https://github.com/unset-sh/brand"><strong>brand</strong></a><br>
-Design tokens, fonts, the mark and icons
+Shared visual contract, assets and brand guide
 <br><br>
-<a href="https://github.com/unset-sh/brand">Code</a> &nbsp;·&nbsp; <code>@unset-sh/brand</code>
+<a href="https://github.com/unset-sh/brand">Code</a> &nbsp;·&nbsp; <a href="https://github.com/unset-sh/brand/blob/main/README.md">Docs</a> &nbsp;·&nbsp; <code>@unset-sh/brand</code>
 
 </td>
 <td width="50%" valign="top">
