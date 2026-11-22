@@ -287,6 +287,7 @@ The rules, skills and templates every repository's assistant needs, released as 
 **Owns**
 
 - Organisation-wide assistant rules and the three generic engineering documents
+- The shared human documentation standard, architecture guidance and authoring templates, shipped as org-documentation
 - The CLAUDE.md and AGENTS.md templates
 - Shared skills and subagents, the model and effort router text, and the sync script
 
