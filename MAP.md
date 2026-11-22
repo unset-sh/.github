@@ -13,7 +13,7 @@ issue when they differ.
 | --- | --- | --- |
 | [`Undefined6799/unset`](https://github.com/Undefined6799/unset) | Active | The unset.sh app: web, admin, public API, indexer, media proxy, their database and deployment. Lives outside the organisation for now and will be largely rewritten, then wired to the repositories below by pinned releases. |
 | [`unset-sh/.github`](https://github.com/unset-sh/.github) | Active | The organisation's front page, repository map, community defaults and native starter workflow catalogue. Local map validation stays here, with small pinned read-only callers for shared checks and documentation export from tooling. The expanded defaults and callers are under review in pull request #6; the tooling implementation must be reviewed and merged before those callers are adopted. |
-| [`unset-sh/tooling`](https://github.com/unset-sh/tooling) | Active | The public repository approved for maintained shared CI, release, deployment and documentation-export implementations, their supporting scripts and tests. Main contains only the initial README; the first implementation pull request, release and consumer adoption are pending. Consumers retain their own events, permissions, inputs, build and test logic, and immutable caller pins. |
+| [`unset-sh/tooling`](https://github.com/unset-sh/tooling) | Active | The public repository approved for maintained shared CI, release, deployment and documentation-export implementations, their supporting scripts and tests. Main contains only the initial README; the initial implementation is under review in pull request #1; release and consumer adoption are pending. Consumers retain their own events, permissions, inputs, build and test logic, and immutable caller pins. |
 | [`unset-sh/brand`](https://github.com/unset-sh/brand) | Active | The editable visual contract for unset.sh. Ships static CSS, JSON, fonts, mark and icon data as @unset-sh/brand on GitHub Packages, and builds its Hugo guide with an interactive Svelte component gallery for GitHub Pages. |
 | [`unset-sh/presentation`](https://github.com/unset-sh/presentation) | Active | Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/presentation on GitHub Packages; no running service. |
 | [`unset-sh/profile-recipes`](https://github.com/unset-sh/profile-recipes) | Active | Persona profile layouts (recipes) with a guide an AI assistant follows to build someone's profile, plus sample records checked against the lexicons. |
@@ -23,7 +23,7 @@ issue when they differ.
 | `unset-sh/messaging` | Proposed, not approved | The private messaging product on unset.cc: one-to-one chat on Matrix today, later communities, channels, roles and voice. Plan drafted, awaiting approval; not created. |
 | `unset-sh/server-kit` | Proposed, not approved | Proposed: the generic security code the app and messaging both need (HTTP kit and CSRF gate, egress guard, sealed storage, signed admin envelope, config, log). Not approved yet. |
 | [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit) | Active | The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. Also the agreed home for AI working notes and supporting artifacts, kept outside the distributed kit. Organisation decision records, the shared human documentation standard and working-material ownership are covered by unmerged pull requests #5, #7 and #8. Updates to distributed rules and skills still require an approved kit release. |
-| [`unset-sh/workflows`](https://github.com/unset-sh/workflows) | Archived | Archived after the earlier decision to consolidate organisation automation in .github. Main contains only a README, with the original check and release proposal retained in pull request #1. The later ownership decision assigns shared implementations to tooling; its first implementation pull request, release and adoption by consuming repositories are pending. |
+| [`unset-sh/workflows`](https://github.com/unset-sh/workflows) | Archived | Archived after the earlier decision to consolidate organisation automation in .github. Main contains only a README, with the original check and release proposal retained in pull request #1. The later ownership decision assigns shared implementations to tooling; its initial implementation is under review in pull request #1; release and adoption by consuming repositories are pending. |
 
 ## Which way dependencies point
 
@@ -137,7 +137,7 @@ The organisation's front page, repository map, community defaults and native sta
 **Does not belong here**
 
 - Code, docs or assets of any product: the repository that owns them, from this map
-- Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests: [`unset-sh/tooling`](https://github.com/unset-sh/tooling) (agreed ownership; implementation pending its first pull request)
+- Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests: [`unset-sh/tooling`](https://github.com/unset-sh/tooling) (agreed ownership; implementation under review in tooling pull request #1)
 - A consuming repository's build and test commands, event triggers and small workflow callers: the consuming repository; migration to central implementations is pending
 - AI working notes and supporting artifacts: [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit) (agreed ownership; implementation pending pull request #8)
 
@@ -145,13 +145,13 @@ The organisation's front page, repository map, community defaults and native sta
 
 [`unset-sh/tooling`](https://github.com/unset-sh/tooling). Active.
 
-The public repository approved for maintained shared CI, release, deployment and documentation-export implementations, their supporting scripts and tests. Main contains only the initial README; the first implementation pull request, release and consumer adoption are pending. Consumers retain their own events, permissions, inputs, build and test logic, and immutable caller pins.
+The public repository approved for maintained shared CI, release, deployment and documentation-export implementations, their supporting scripts and tests. Main contains only the initial README; the initial implementation is under review in pull request #1; release and consumer adoption are pending. Consumers retain their own events, permissions, inputs, build and test logic, and immutable caller pins.
 
 **Licence:** No licence detected on main; AGPL-3.0-only is proposed with the initial implementation.
 
 **Owns**
 
-- Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests; initial implementation pending its first pull request
+- Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests; initial implementation under review in tooling pull request #1
 - Flat reusable entry points directly in .github/workflows/; category source folders and generation may organise the implementation without changing the native GitHub location
 - Versioned tooling releases and the implementation of dependency-update proposals; automatic adoption requires explicit update PRs, checks, approvals, eligible auto-merge and downstream delivery, and is not configured yet. Owner release approvals remain required
 - Maintained human tooling guides and workflow contracts in docs/site/, exported to docs:tooling/; the initial import is pending
@@ -225,7 +225,7 @@ Persona profile layouts (recipes) with a guide an AI assistant follows to build 
 - The lexicon schemas themselves (schemas/upstream/ here is a copy): [`Undefined6799/unset`](https://github.com/Undefined6799/unset)
 - The profile editor and its limits (limits.json here is a mirror): [`Undefined6799/unset`](https://github.com/Undefined6799/unset)
 - The documentation site's root configuration, navigation and layouts: [`unset-sh/docs`](https://github.com/unset-sh/docs)
-- Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests: [`unset-sh/tooling`](https://github.com/unset-sh/tooling) (agreed ownership; implementation pending its first pull request)
+- Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests: [`unset-sh/tooling`](https://github.com/unset-sh/tooling) (agreed ownership; implementation under review in tooling pull request #1)
 - Organisation community defaults and native starter workflow templates: [`unset-sh/.github`](https://github.com/unset-sh/.github)
 
 ## docs
@@ -250,7 +250,7 @@ The live organisation-only docs.unset.sh site: a root Hugo framework edited by p
 - Shared visual values, assets and the brand contract: [`unset-sh/brand`](https://github.com/unset-sh/brand)
 - The shared human documentation standard and authoring templates: [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit) (proposed in pull request #7; not released yet)
 - AI working notes and supporting artifacts: [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit) (agreed ownership; implementation pending pull request #8)
-- Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests: [`unset-sh/tooling`](https://github.com/unset-sh/tooling) (agreed ownership; implementation pending its first pull request)
+- Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests: [`unset-sh/tooling`](https://github.com/unset-sh/tooling) (agreed ownership; implementation under review in tooling pull request #1)
 - Organisation community defaults and native starter workflow templates: [`unset-sh/.github`](https://github.com/unset-sh/.github)
 - Application documentation from outside the unset-sh organisation: its source repository; the app is only context in the organisation map
 
@@ -351,14 +351,14 @@ The rules, skills and templates every repository's assistant needs, released as 
 - The organisation map: [`unset-sh/.github`](https://github.com/unset-sh/.github)
 - A repository's own architecture decision records: the repository that owns the decision
 - Another repository's maintained human documentation: the source repository's docs/; exported to docs for publication
-- Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests: [`unset-sh/tooling`](https://github.com/unset-sh/tooling) (agreed ownership; implementation pending its first pull request)
+- Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests: [`unset-sh/tooling`](https://github.com/unset-sh/tooling) (agreed ownership; implementation under review in tooling pull request #1)
 - Organisation community defaults and native starter workflow templates: [`unset-sh/.github`](https://github.com/unset-sh/.github)
 
 ## workflows
 
 [`unset-sh/workflows`](https://github.com/unset-sh/workflows). Archived.
 
-Archived after the earlier decision to consolidate organisation automation in .github. Main contains only a README, with the original check and release proposal retained in pull request #1. The later ownership decision assigns shared implementations to tooling; its first implementation pull request, release and adoption by consuming repositories are pending.
+Archived after the earlier decision to consolidate organisation automation in .github. Main contains only a README, with the original check and release proposal retained in pull request #1. The later ownership decision assigns shared implementations to tooling; its initial implementation is under review in pull request #1; release and adoption by consuming repositories are pending.
 
 **Licence:** No licence detected on archived main; the unpublished implementation in pull request #1 proposed AGPL-3.0-only.
 
@@ -368,7 +368,7 @@ Archived after the earlier decision to consolidate organisation automation in .g
 
 **Does not belong here**
 
-- Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests: [`unset-sh/tooling`](https://github.com/unset-sh/tooling) (agreed ownership; implementation pending its first pull request)
+- Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests: [`unset-sh/tooling`](https://github.com/unset-sh/tooling) (agreed ownership; implementation under review in tooling pull request #1)
 - Organisation community defaults and native starter workflow templates: [`unset-sh/.github`](https://github.com/unset-sh/.github)
 - A repository's build and test commands, event triggers and small workflow callers: the consuming repository
 - Shared assistant rules, skills and organisation decision records: [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit)

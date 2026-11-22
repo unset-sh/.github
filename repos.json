@@ -114,7 +114,7 @@
         },
         {
           "what": "Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests",
-          "where": "tooling (agreed ownership; implementation pending its first pull request)"
+          "where": "tooling (agreed ownership; implementation under review in tooling pull request #1)"
         },
         {
           "what": "A consuming repository's build and test commands, event triggers and small workflow callers",
@@ -143,10 +143,10 @@
       "visibility": "public",
       "group": "building",
       "description": "Shared developer tooling and GitHub Actions implementations for unset.sh",
-      "tagline": "Shared developer tooling; first implementation pending",
-      "summary": "The public repository approved for maintained shared CI, release, deployment and documentation-export implementations, their supporting scripts and tests. Main contains only the initial README; the first implementation pull request, release and consumer adoption are pending. Consumers retain their own events, permissions, inputs, build and test logic, and immutable caller pins.",
+      "tagline": "Shared developer tooling; initial implementation under review",
+      "summary": "The public repository approved for maintained shared CI, release, deployment and documentation-export implementations, their supporting scripts and tests. Main contains only the initial README; the initial implementation is under review in pull request #1; release and consumer adoption are pending. Consumers retain their own events, permissions, inputs, build and test logic, and immutable caller pins.",
       "owns": [
-        "Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests; initial implementation pending its first pull request",
+        "Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests; initial implementation under review in tooling pull request #1",
         "Flat reusable entry points directly in .github/workflows/; category source folders and generation may organise the implementation without changing the native GitHub location",
         "Versioned tooling releases and the implementation of dependency-update proposals; automatic adoption requires explicit update PRs, checks, approvals, eligible auto-merge and downstream delivery, and is not configured yet. Owner release approvals remain required",
         "Maintained human tooling guides and workflow contracts in docs/site/, exported to docs:tooling/; the initial import is pending"
@@ -284,7 +284,7 @@
         },
         {
           "what": "Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests",
-          "where": "tooling (agreed ownership; implementation pending its first pull request)"
+          "where": "tooling (agreed ownership; implementation under review in tooling pull request #1)"
         },
         {
           "what": "Organisation community defaults and native starter workflow templates",
@@ -342,7 +342,7 @@
         },
         {
           "what": "Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests",
-          "where": "tooling (agreed ownership; implementation pending its first pull request)"
+          "where": "tooling (agreed ownership; implementation under review in tooling pull request #1)"
         },
         {
           "what": "Organisation community defaults and native starter workflow templates",
@@ -551,7 +551,7 @@
         },
         {
           "what": "Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests",
-          "where": "tooling (agreed ownership; implementation pending its first pull request)"
+          "where": "tooling (agreed ownership; implementation under review in tooling pull request #1)"
         },
         {
           "what": "Organisation community defaults and native starter workflow templates",
@@ -572,7 +572,7 @@
       "group": "building",
       "description": "The CI check and the release workflow every unset.sh repository calls at a pinned commit",
       "tagline": "Archived workflow proposal and review history",
-      "summary": "Archived after the earlier decision to consolidate organisation automation in .github. Main contains only a README, with the original check and release proposal retained in pull request #1. The later ownership decision assigns shared implementations to tooling; its first implementation pull request, release and adoption by consuming repositories are pending.",
+      "summary": "Archived after the earlier decision to consolidate organisation automation in .github. Main contains only a README, with the original check and release proposal retained in pull request #1. The later ownership decision assigns shared implementations to tooling; its initial implementation is under review in pull request #1; release and adoption by consuming repositories are pending.",
       "hideFromProfile": true,
       "links": {
         "docs": "https://github.com/unset-sh/workflows/blob/main/README.md"
@@ -583,7 +583,7 @@
       "notHere": [
         {
           "what": "Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests",
-          "where": "tooling (agreed ownership; implementation pending its first pull request)"
+          "where": "tooling (agreed ownership; implementation under review in tooling pull request #1)"
         },
         {
           "what": "Organisation community defaults and native starter workflow templates",

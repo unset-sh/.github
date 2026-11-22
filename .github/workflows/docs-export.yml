@@ -15,11 +15,11 @@ concurrency:
 jobs:
   check:
     # Bootstrap pin to the reviewed tooling implementation; select a released pin when one is approved.
-    uses: unset-sh/tooling/.github/workflows/ci-check.yml@aad4a03c5db3d6d762c59543e1340744a941828a
+    uses: unset-sh/tooling/.github/workflows/ci-check.yml@0366edb2d04d5c24c19319770893b413d172567b
     permissions:
       contents: read
   export:
     needs: check
-    uses: unset-sh/tooling/.github/workflows/automation-docs-export.yml@aad4a03c5db3d6d762c59543e1340744a941828a
+    uses: unset-sh/tooling/.github/workflows/automation-docs-export.yml@0366edb2d04d5c24c19319770893b413d172567b
     permissions:
       contents: read
