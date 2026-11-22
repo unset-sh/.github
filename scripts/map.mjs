@@ -15,6 +15,7 @@ export const STATUSES = {
   archived: "Archived",
 };
 const NOT_CREATED = new Set(["pending", "planned", "proposed"]);
+const PROFILE_ICONS = new Set(["home", "apps", "share", "profile", "list", "settings", "help"]);
 export const PROFILE_START = "<!-- org-map:start (generated from repos.json; edit that, then run npm run map) -->";
 export const PROFILE_END = "<!-- org-map:end -->";
 
@@ -47,6 +48,7 @@ export function validate(map) {
     }
     if (typeof repo.summary !== "string" || repo.summary === "") errors.push(`${at}: summary must be a non-empty string`);
     if (!groups.has(repo.group)) errors.push(`${at}: group must be one of the ids in groups`);
+    if (repo.icon !== undefined && !PROFILE_ICONS.has(repo.icon)) errors.push(`${at}: icon must name a bundled profile icon`);
     for (const [key, value] of Object.entries(repo.links ?? {})) {
       if (!["docs", "site", "package"].includes(key)) errors.push(`${at}: links.${key} is not docs, site or package`);
       else if (key !== "package" && !/^https:\/\//.test(value)) errors.push(`${at}: links.${key} must be an https URL`);
@@ -173,9 +175,13 @@ function escapeHtml(text) {
 function profileCardParts(map, repo) {
   const name = fullName(map, repo);
   const created = !NOT_CREATED.has(repo.status);
-  const title = created
+  const label = created
     ? `<a href="https://github.com/${name}"><strong>${escapeHtml(repo.name)}</strong></a>`
     : `<strong>${escapeHtml(repo.name)}</strong>`;
+  const icon = PROFILE_ICONS.has(repo.icon)
+    ? `<img src="./icons/${repo.icon}.svg" width="24" height="24" alt=""> &nbsp;`
+    : "";
+  const title = icon + label;
   const links = [];
   if (created) links.push(`<a href="https://github.com/${name}">Code</a>`);
   if (repo.links?.docs) links.push(`<a href="${escapeHtml(repo.links.docs)}">Docs</a>`);
@@ -194,9 +200,9 @@ function profileCards(map, repos) {
   if (cards.length === 1) lines.push('<td width="440"></td>');
   lines.push("</tr>", "<tr>");
   for (const { links } of cards) {
-    lines.push('<td valign="bottom">', `<sub>${links}</sub>`, "</td>");
+    lines.push('<td width="50%" valign="bottom">', `<sub>${links}</sub>`, "</td>");
   }
-  if (cards.length === 1) lines.push("<td></td>");
+  if (cards.length === 1) lines.push('<td width="50%"></td>');
   lines.push("</tr>");
   return lines;
 }

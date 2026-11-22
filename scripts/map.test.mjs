@@ -25,6 +25,15 @@ test("repos.json is valid", () => {
   assert.deepEqual(validate(real), []);
 });
 
+test("profile icons are bundled assets and arbitrary paths are refused", async () => {
+  for (const name of new Set(real.repos.map((r) => r.icon).filter(Boolean))) {
+    assert.match(await readFile(new URL(`../profile/icons/${name}.svg`, import.meta.url), "utf8"), /<svg /);
+  }
+  assert.match(validate({ org: "o", licenceRule: "AGPL", groups: G, repos: [repo({ icon: "../outside" })] }).join(), /bundled profile icon/);
+  const section = renderProfileSection({ org: "o", groups: G, repos: [repo({ icon: "apps" })] });
+  assert.ok(section.includes('<img src="./icons/apps.svg" width="24" height="24" alt="">'));
+});
+
 test("a repository listed twice is refused", () => {
   assert.match(validate({ org: "o", licenceRule: "AGPL", groups: G, repos: [repo(), repo()] }).join(), /listed twice/);
 });

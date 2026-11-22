@@ -89,7 +89,8 @@
         "spdx": null,
         "current": "AGPL-3.0-only; the lexicon schemas are MIT (as the rule wants); shared/ is MIT under ADR 0012",
         "followsRule": false
-      }
+      },
+      "icon": "home"
     },
     {
       "name": ".github",
@@ -117,7 +118,8 @@
         "spdx": "AGPL-3.0",
         "current": "AGPL-3.0-only",
         "followsRule": true
-      }
+      },
+      "icon": "settings"
     },
     {
       "name": "brand",
@@ -153,7 +155,8 @@
         "spdx": null,
         "current": "Not decided; waits for the branding pass. The fonts are third-party (OFL-1.1)",
         "followsRule": false
-      }
+      },
+      "icon": "apps"
     },
     {
       "name": "presentation",
@@ -194,7 +197,8 @@
         "spdx": null,
         "current": "None yet; should be AGPL-3.0-only",
         "followsRule": false
-      }
+      },
+      "icon": "share"
     },
     {
       "name": "profile-recipes",
@@ -228,7 +232,8 @@
         "spdx": "MIT",
         "current": "Recipes CC0-1.0 (as the rule wants); tooling MIT, to move to AGPL-3.0-only",
         "followsRule": false
-      }
+      },
+      "icon": "profile"
     },
     {
       "name": "docs",
@@ -260,7 +265,8 @@
         "spdx": null,
         "current": "None yet; holds copies of other repositories' docs, which keep their source's licence",
         "followsRule": false
-      }
+      },
+      "icon": "help"
     },
     {
       "name": "pds",
@@ -322,7 +328,8 @@
         "spdx": null,
         "current": "Not created; MIT, copied from the app",
         "followsRule": true
-      }
+      },
+      "icon": "list"
     },
     {
       "name": "messaging",
