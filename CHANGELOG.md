@@ -8,6 +8,10 @@ the new version and raises `package.json` to match; merging it starts the releas
 
 ## Unreleased
 
+Organisation defaults now include conduct, security, support and accessibility policies, four public issue forms,
+a private vulnerability-report form and a general pull-request template. Repositories with their own policies or
+issue-template configuration retain those overrides. Private reporting remains a separate per-repository setting.
+
 The first release from `unset-sh/.github`. Category sources generate the committed flat GitHub entry points; consumers use full commit pins. This preserves the check/release implementation from workflows PR #1 and changes its repository and signer paths.
 
 The first release. A repository that calls these workflows gains:

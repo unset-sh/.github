@@ -123,7 +123,7 @@ The organisation's front page, repository map and community defaults. The agreed
 
 - The organisation profile page (profile/README.md)
 - This map: repos.json, MAP.md and the daily check that compares them with GitHub
-- Community health files shared by every repository, when they are added
+- Organisation community defaults: contribution, conduct, security, support and accessibility policies; public and private report forms and a general pull-request template
 - Organisation workflow implementations, supporting scripts and tests, versioned releases and starter templates, under review in pull request #6; release and caller adoption are pending
 - Human workflow guides and contracts in docs/site/, including documentation publishing-key setup, verification, rotation and retirement; export to docs:github/ under the reserved-name exception is under review in pull request #6, with the additional source import in docs pull request #2
 

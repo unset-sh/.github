@@ -1,0 +1,42 @@
+name: Bug report
+description: Report something that does not work as expected.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Search existing issues before opening a new report. Remove secrets and private personal data from text, logs and screenshots.
+        Report possible vulnerabilities through the [security policy](https://github.com/unset-sh/.github/blob/main/SECURITY.md), not an issue.
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened?
+      description: Describe the problem and what you were trying to do.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How can we reproduce it?
+      description: Give the steps or a small example. Say if the problem happens only sometimes.
+      placeholder: |
+        1. Start with...
+        2. Do...
+        3. Observe...
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Version and environment
+      description: Include the release or commit, and the browser, operating system or runtime when relevant. Say if you do not know the version.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Additional evidence
+      description: Optional links, redacted logs or screenshots. Check attachments for secrets and personal data before submitting.

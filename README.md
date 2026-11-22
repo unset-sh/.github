@@ -7,7 +7,14 @@ Organisation profile, repository map, community defaults and shared GitHub Actio
 | [`profile/README.md`](profile/README.md) | The organisation's front page on GitHub. Its repository list is generated |
 | [`repos.json`](repos.json) | The map: every repository, what it owns, what does not belong in it, and what it uses |
 | [`MAP.md`](MAP.md) | The map rendered for people and assistants, generated from `repos.json`, with the licence rule and the repositories that do not follow it yet |
-| [`CONTRIBUTING.md`](CONTRIBUTING.md) | The default contributing guide for every repository without its own: what outside work is accepted, and the DCO sign-off |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | Default contribution policy and DCO sign-off |
+| [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) | Behaviour expectations and GitHub reporting routes |
+| [`SECURITY.md`](SECURITY.md) | Private vulnerability reports and the security email fallback |
+| [`SUPPORT.md`](SUPPORT.md) | Help, documentation and issue routing |
+| [`ACCESSIBILITY.md`](ACCESSIBILITY.md) | Accessibility priorities and barrier reporting |
+| [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/) | Shared public issue forms and chooser configuration |
+| [`.github/pull_request_template.md`](.github/pull_request_template.md) | General organisation PR template |
+| [`.github/VULNERABILITY_REPORT.yml`](.github/VULNERABILITY_REPORT.yml) | Private report form for repositories with reporting enabled |
 | [`docs/claude-md.md`](docs/claude-md.md) | The section every repository's `CLAUDE.md` starts with |
 | [`ci/`](ci/) | Shared check workflow and this repository's CI caller |
 | [`releases/`](releases/) | Protected package/asset release and this repository's release caller |
@@ -18,6 +25,13 @@ Organisation profile, repository map, community defaults and shared GitHub Actio
 | [`scripts/`](scripts/) | Generation, map tooling and release validation (Node built-ins only) |
 | [`checks/`](checks/) | Release, archive and workflow security checks |
 | [`docs/site/`](docs/site/_index.md) | Maintained human guides and reference, exported to `unset-sh/docs:github/` |
+
+## Organisation defaults
+
+GitHub uses these policies and templates for repositories without their own equivalents. Local issue templates or
+chooser configuration replace the entire inherited issue-template set. The profile, workflow picker, executable
+workflows and repository settings each have their own scope; [Organisation defaults](docs/site/organisation-defaults.md)
+explains the boundaries and verification steps. Code ownership and licence files remain repository-specific.
 
 ## Change a workflow
 
@@ -69,7 +83,7 @@ listed in the issue as not checked.
 Human guides and reference live in `docs/site/` and follow the organisation documentation standard.
 Read [Use shared workflows](docs/site/use-workflows.md), [Workflow layout](docs/site/workflow-layout.md),
 and [Release reference](docs/site/release-reference.md). [Export documentation](docs/site/export-docs.md)
-explains the committed-source export to `unset-sh/docs:github/`. Publication waits for that repository’s
-framework cutover; an exported artifact is not a deployed site.
+explains the committed-source export to `unset-sh/docs:github/`. The organisation docs framework is live. This repository’s section remains under review in
+[docs PR #2](https://github.com/unset-sh/docs/pull/2); an exported artifact is not a deployed section.
 
 AI plans, notes and supporting artifacts live in `unset-sh/agent-kit`, under `notes/` and `artifacts/`.

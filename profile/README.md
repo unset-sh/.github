@@ -12,7 +12,9 @@
 <a href="https://unset.sh"><strong>Website</strong></a> &nbsp;·&nbsp;
 <a href="https://docs.unset.sh"><strong>Docs</strong></a> &nbsp;·&nbsp;
 <a href="https://github.com/unset-sh/.github/blob/main/MAP.md"><strong>Organisation map</strong></a> &nbsp;·&nbsp;
-<a href="https://github.com/unset-sh/.github/blob/main/CONTRIBUTING.md"><strong>Contributing</strong></a>
+<a href="https://github.com/unset-sh/.github/blob/main/CONTRIBUTING.md"><strong>Contributing</strong></a> &nbsp;·&nbsp;
+<a href="https://github.com/unset-sh/.github/blob/main/SUPPORT.md"><strong>Help</strong></a> &nbsp;·&nbsp;
+<a href="https://github.com/unset-sh/.github/blob/main/SECURITY.md"><strong>Security</strong></a>
 </p>
 
 <p align="center">

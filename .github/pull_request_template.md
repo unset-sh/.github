@@ -1,15 +1,27 @@
-## What changed
+## What changes
 
-<!-- One purpose per pull request. Name each workflow, input or script that changes, in one line. -->
+<!-- Describe the resulting behaviour. Link the issue or decision this addresses, if there is one. -->
 
-## Where it came from
+## Why
 
-<!-- What Alex decided, with the date, or the documentation you read (URL and date). Say what has not run. -->
+<!-- Explain the problem and any important trade-off or compatibility impact. -->
+
+## Validation
+
+<!-- List the commands or manual checks you ran and their results. State what you could not verify. -->
+
+## Documentation
+
+<!-- Link updated human documentation in the owning repository's docs/ folder, or explain why no update is needed.
+AI working notes and supporting artifacts belong in unset-sh/agent-kit, not as extra files in this repository. -->
 
 ## Checklist
 
-- [ ] `npm run check` passes
-- [ ] A change callers would notice has an entry in `CHANGELOG.md` under "Unreleased"
-- [ ] No trigger, permission, gate rule or `publish` step changed, or the owner agreed to it first
-- [ ] No stored secret was added, and no expression sits inside a `run:` script
-- [ ] Every new or raised action pin was checked against the tag in the action's own repository
+- [ ] This contribution follows the repository's contribution policy, including its limits on outside code
+- [ ] Each commit has the required DCO sign-off
+- [ ] The repository's documented checks pass, or remaining failures are explained above
+- [ ] Documentation and release notes reflect any relevant behaviour change
+- [ ] Public text, examples and attachments contain no credentials or other people's private data
+
+<!-- Organisation default: https://github.com/unset-sh/.github/blob/main/CONTRIBUTING.md
+Repositories may supply their own template and additional review requirements. -->

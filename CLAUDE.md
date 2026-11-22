@@ -57,3 +57,15 @@ This is `unset-sh/.github`: the organisation's front page, repository map, commu
   use full reviewed commit pins; starter placeholders must be replaced before a caller is installed.
 - Do not merge your own implementation PR. Release setup and approval remain the owner's action; document what has
   not run rather than treating local tests as proof of live release behavior.
+
+## Community defaults
+
+- Keep inherited policies and forms useful across repositories. Preserve the accepted contribution and DCO rules.
+  Do not add labels, assignees, project IDs or issue types to default forms unless they exist in every consumer.
+- The inherited PR template is general. Workflow changes must still show source/generated parity, reviewed action
+  pins, permission and approval boundaries, caller-visible release notes, and the validation required above.
+- Use absolute links for policies shared across repositories. Security reports use the affected repository’s
+  private reporting channel when enabled, with security@unset.sh as fallback. Conduct reports use GitHub’s
+  reporting tools (Alex, 2026-11-22). Do not invent contact addresses, funding destinations or service commitments.
+- Alex owns the defaults. Review them when policy/contact/ownership changes and at least every six months.
+  Update docs/site/organisation-defaults.md with a behaviour change; preserve notes and evidence in agent-kit.

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a vulnerability privately
+    url: https://github.com/unset-sh/.github/blob/main/SECURITY.md
+    about: Use the private reporting route in the security policy instead of a public issue.
+  - name: Read the documentation
+    url: https://docs.unset.sh
+    about: Find guides and reference for unset.sh projects.
+  - name: Find the right support route
+    url: https://github.com/unset-sh/.github/blob/main/SUPPORT.md
+    about: Find the owning repository and the right place for your question.
