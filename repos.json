@@ -1,12 +1,40 @@
 {
   "org": "unset-sh",
+  "groups": [
+    {
+      "id": "product",
+      "title": "The product",
+      "blurb": "What members use, and the services that run it."
+    },
+    {
+      "id": "look",
+      "title": "Look and feel",
+      "blurb": "How unset.sh looks, in the app and wherever it is shared."
+    },
+    {
+      "id": "records",
+      "title": "Records and recipes",
+      "blurb": "The AT Protocol records unset.sh defines, and ready-made ways to use them."
+    },
+    {
+      "id": "building",
+      "title": "Building unset.sh",
+      "blurb": "Documentation, shared code, and the rules every repository follows."
+    }
+  ],
   "licenceRule": "Licence is set per repository (Alex, 2026-11-21). Product repositories are AGPL-3.0-only and take no outside code for now. Work meant to be copied stays permissive: the profile-recipes recipes are CC0-1.0 and the lexicon schemas are MIT, and those two take outside work with a DCO sign-off only. Third-party work keeps its own licence. There is no contributor agreement.",
   "repos": [
     {
       "name": "unset",
       "owner": "Undefined6799",
       "status": "active",
+      "group": "product",
+      "tagline": "The app: your identity and profile on the AT Protocol",
       "summary": "The unset.sh app: web, admin, public API, indexer, media proxy, their database and deployment. Lives outside the organisation for now and will be largely rewritten, then wired to the repositories below by pinned releases.",
+      "links": {
+        "site": "https://unset.sh",
+        "docs": "https://docs.unset.sh"
+      },
       "owns": [
         "Every product rule and screen of unset.sh, and the data behind them",
         "The sh.unset.* lexicon schemas (shared/lexicons/schemas/), the source of truth until the organisation takes it over",
@@ -66,8 +94,13 @@
     {
       "name": ".github",
       "status": "active",
+      "group": "building",
       "description": "Organisation profile and community health files for unset.sh",
+      "tagline": "This page, the organisation map and the default contributing guide",
       "summary": "The organisation's front page and this map.",
+      "links": {
+        "docs": "https://github.com/unset-sh/.github/blob/main/MAP.md"
+      },
       "owns": [
         "The organisation profile page (profile/README.md)",
         "This map: repos.json, MAP.md and the daily check that compares them with GitHub",
@@ -89,8 +122,13 @@
     {
       "name": "brand",
       "status": "active",
+      "group": "look",
       "description": "unset.sh brand foundations: design tokens, fonts, the mark and icons",
+      "tagline": "Design tokens, fonts, the mark and icons",
       "summary": "Fixed files that say what unset.sh looks like, as pinned copies of the design sheet. Ships the package @unset-sh/brand (data only) on GitHub Packages.",
+      "links": {
+        "package": "@unset-sh/brand"
+      },
       "owns": [
         "Design tokens (colour, type, spacing), the two fonts, the mark and icons",
         "Brand guidelines: how to use colour, type and the mark",
@@ -120,8 +158,13 @@
     {
       "name": "presentation",
       "status": "active",
+      "group": "look",
       "description": "How unset.sh looks outside the app: preview images and embeds for profiles, posts and articles, rendered from supplied data",
+      "tagline": "Preview images and embeds for profiles, posts and articles",
       "summary": "Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/presentation on GitHub Packages; no running service.",
+      "links": {
+        "package": "@unset-sh/presentation"
+      },
       "owns": [
         "Templates for profile, post and article previews, one owner per template",
         "Rendering supplied data into images and embeds",
@@ -156,7 +199,9 @@
     {
       "name": "profile-recipes",
       "status": "active",
+      "group": "records",
       "description": "Ready-made profile layouts for unset.sh, with recipes an AI can follow to build yours.",
+      "tagline": "Ready-made profile layouts an AI assistant can build for you",
       "summary": "Persona profile layouts (recipes) with a guide an AI assistant follows to build someone's profile, plus sample records checked against the lexicons.",
       "owns": [
         "Recipes: recipe.json, GUIDE.md, sample records, assets and preview per persona",
@@ -188,8 +233,13 @@
     {
       "name": "docs",
       "status": "active",
+      "group": "building",
       "description": "The unset.sh documentation website",
+      "tagline": "The documentation website, gathered from every repository",
       "summary": "Every repository's human docs, aggregated, and the docs.unset.sh site built from them on GitHub Pages. Nothing here is written by hand: each source repository's CI pushes its own top folder. Waiting for its first push.",
+      "links": {
+        "site": "https://docs.unset.sh"
+      },
       "owns": [
         "One top folder per source repository, replaced only by that repository's docs job",
         "The site build and GitHub Pages deploy for docs.unset.sh"
@@ -215,8 +265,11 @@
     {
       "name": "pds",
       "status": "active",
+      "group": "product",
       "description": "",
+      "tagline": "The PDS image and its customisations",
       "summary": "The home for unset.sh's PDS image and everything that customises the PDS: the build on top of the official image, the theme for its sign-in and account pages, and their pins. Empty for now; until it moves, the image is built in the app repository (deployment/pds/).",
+      "hideFromProfile": true,
       "owns": [
         "The first-party PDS image: built on the official bluesky-social/pds image, with its upstream source and package versions pinned",
         "Customising the PDS: the theme for its sign-in and account pages, and any other change to the stock PDS"
@@ -237,7 +290,6 @@
           "how": "theme colours and fonts at an exact version (after the move)"
         }
       ],
-      "hideFromProfile": true,
       "licence": {
         "spdx": null,
         "current": "None yet; should be AGPL-3.0-only. The official PDS it builds on keeps its own licence",
@@ -248,6 +300,8 @@
       "name": "lexicons",
       "status": "pending",
       "visibility": "public",
+      "group": "records",
+      "tagline": "The sh.unset.* record schemas, published for anyone to use",
       "summary": "A one-way, read-only copy of the sh.unset.* lexicon schemas, pushed by the app's mirror job. Waiting for setup by the owner; the direction reverses later, when the organisation becomes the source of truth.",
       "owns": [
         "The published copy of the sh.unset.* schemas, their docs and examples"
@@ -274,6 +328,8 @@
       "name": "messaging",
       "status": "proposed",
       "visibility": "public",
+      "group": "product",
+      "tagline": "Private messaging on unset.cc",
       "summary": "The private messaging product on unset.cc: one-to-one chat on Matrix today, later communities, channels, roles and voice. Plan drafted, awaiting approval; not created.",
       "owns": [
         "The chat client and the door (the public process on unset.cc)",
@@ -321,6 +377,8 @@
       "name": "server-kit",
       "status": "proposed",
       "visibility": "public",
+      "group": "building",
+      "tagline": "Shared, audited server code",
       "summary": "Proposed: the generic security code the app and messaging both need (HTTP kit and CSRF gate, egress guard, sealed storage, signed admin envelope, config, log). Not approved yet.",
       "owns": [
         "Generic server code with no product meaning"
@@ -342,7 +400,11 @@
       "name": "agent-kit",
       "status": "active",
       "visibility": "public",
+      "group": "building",
+      "description": "Shared rules, skills and templates for AI assistants working on unset.sh",
+      "tagline": "Shared rules, skills and templates for AI assistants",
       "summary": "The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file.",
+      "hideFromProfile": true,
       "owns": [
         "Organisation-wide assistant rules and the three generic engineering documents",
         "The CLAUDE.md and AGENTS.md templates",
@@ -367,9 +429,7 @@
         "spdx": null,
         "current": "None on main yet; AGPL-3.0-only in the first release pull request",
         "followsRule": false
-      },
-      "description": "Shared rules, skills and templates for AI assistants working on unset.sh",
-      "hideFromProfile": true
+      }
     }
   ]
 }

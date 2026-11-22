@@ -28,6 +28,10 @@ const paths = {
 export function validate(map) {
   const errors = [];
   if (typeof map.org !== "string" || map.org === "") errors.push("org must be a non-empty string");
+  const groups = new Set((map.groups ?? []).map((g) => g.id));
+  if (!Array.isArray(map.groups) || map.groups.some((g) => !g.id || !g.title || !g.blurb)) {
+    errors.push("groups must be a list of { id, title, blurb }");
+  }
   if (typeof map.licenceRule !== "string" || map.licenceRule === "") errors.push("licenceRule must be a non-empty string");
   if (!Array.isArray(map.repos)) return [...errors, "repos must be an array"];
   const names = new Set();
@@ -42,6 +46,11 @@ export function validate(map) {
       errors.push(`${at}: an existing organisation repository needs description, exactly as GitHub shows it ("" for none)`);
     }
     if (typeof repo.summary !== "string" || repo.summary === "") errors.push(`${at}: summary must be a non-empty string`);
+    if (!groups.has(repo.group)) errors.push(`${at}: group must be one of the ids in groups`);
+    for (const [key, value] of Object.entries(repo.links ?? {})) {
+      if (!["docs", "site", "package"].includes(key)) errors.push(`${at}: links.${key} is not docs, site or package`);
+      else if (key !== "package" && !/^https:\/\//.test(value)) errors.push(`${at}: links.${key} must be an https URL`);
+    }
     if (repo.hideFromProfile !== undefined && typeof repo.hideFromProfile !== "boolean") errors.push(`${at}: hideFromProfile must be true or false`);
     const licence = repo.licence;
     if (typeof licence?.current !== "string" || licence.current === "" || typeof licence.followsRule !== "boolean") {
@@ -154,15 +163,73 @@ export function renderMap(map) {
   return lines.join("\n");
 }
 
+const ORG_URL = "https://github.com/unset-sh";
+const MAP_URL = `${ORG_URL}/.github/blob/main/MAP.md`;
+
+function escapeHtml(text) {
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+function profileCardParts(map, repo) {
+  const name = fullName(map, repo);
+  const created = !NOT_CREATED.has(repo.status);
+  const title = created
+    ? `<a href="https://github.com/${name}"><strong>${escapeHtml(repo.name)}</strong></a>`
+    : `<strong>${escapeHtml(repo.name)}</strong>`;
+  const links = [];
+  if (created) links.push(`<a href="https://github.com/${name}">Code</a>`);
+  if (repo.links?.docs) links.push(`<a href="${escapeHtml(repo.links.docs)}">Docs</a>`);
+  if (repo.links?.site) links.push(`<a href="${escapeHtml(repo.links.site)}">${escapeHtml(new URL(repo.links.site).host)}</a>`);
+  if (repo.links?.package) links.push(`<code>${escapeHtml(repo.links.package)}</code>`);
+  if (!created) links.push("<sub>Coming soon</sub>");
+  return { title, text: escapeHtml(repo.tagline ?? repo.description ?? repo.summary), links: links.join(" &nbsp;·&nbsp; ") };
+}
+
+function profileCard(map, repo) {
+  const { title, text, links } = profileCardParts(map, repo);
+  return ['<td width="50%" valign="top">', "", `${title}<br>`, text, "<br><br>", links, "", "</td>"];
+}
+
+// GitHub sizes a table to its content, so a lone card would sit in a narrow box; it gets a plain paragraph instead.
+function profileLine(map, repo) {
+  const { title, text, links } = profileCardParts(map, repo);
+  return [`${title} &nbsp;${text}<br>`, links, ""];
+}
+
+// Repositories the profile page shows: existing ones not hidden, and approved ones not created yet.
+export function profileRepos(map) {
+  return map.repos.filter((r) => r.status !== "archived" && r.status !== "proposed" && !r.hideFromProfile);
+}
+
 export function renderProfileSection(map) {
-  const existing = map.repos.filter((r) => !NOT_CREATED.has(r.status) && r.status !== "archived" && !r.hideFromProfile && r.name !== ".github");
-  const coming = map.repos.filter((r) => NOT_CREATED.has(r.status) && r.status !== "proposed");
-  const lines = [PROFILE_START, "", "### Repositories", "", "| | |", "| --- | --- |"];
-  for (const repo of existing) lines.push(`| ${link(map, repo)} | ${repo.summary.split(". ")[0].replace(/\.$/, "")} |`);
-  if (coming.length > 0) {
-    lines.push("", `Coming: ${coming.map((r) => `\`${r.name}\``).join(", ")}.`);
+  const shown = profileRepos(map);
+  const lines = [PROFILE_START, ""];
+  for (const group of map.groups) {
+    const repos = shown.filter((r) => r.group === group.id);
+    if (repos.length === 0) continue;
+    lines.push(`### ${group.title}`, "", group.blurb, "");
+    if (repos.length === 1) {
+      lines.push(...profileLine(map, repos[0]));
+      continue;
+    }
+    // Two cards to a row; an odd last card leaves an empty cell.
+    lines.push("<table>");
+    for (let i = 0; i < repos.length; i += 2) {
+      const pair = repos.slice(i, i + 2);
+      lines.push("<tr>", ...pair.flatMap((repo) => profileCard(map, repo)));
+      if (pair.length === 1) lines.push('<td width="50%"></td>');
+      lines.push("</tr>");
+    }
+    lines.push("</table>", "");
   }
-  lines.push("", "How they fit together: [the organisation map](https://github.com/unset-sh/.github/blob/main/MAP.md).", "", PROFILE_END);
+  lines.push(
+    "---",
+    "",
+    `<sub>How the repositories depend on each other, what belongs where, and each one's licence: <a href="${MAP_URL}">the organisation map</a>. ` +
+      `Product code is AGPL-3.0-only. <a href="${ORG_URL}/.github/blob/main/CONTRIBUTING.md">How to contribute</a>.</sub>`,
+    "",
+    PROFILE_END,
+  );
   return lines.join("\n");
 }
 
