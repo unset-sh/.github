@@ -18,7 +18,7 @@ defines the exporter, path checks and recovery behavior; keep those implementati
 | --- | --- | --- |
 | Source pushes its generated `profile-recipes/` section to `unset-sh/docs` | Dedicated SSH deploy key | Public half on `unset-sh/docs`; private half in the source's `docs-mirror` environment |
 | Docs builds and publishes its own GitHub Pages site | GitHub's workflow token and OIDC identity, with `pages: write` and `id-token: write` | The docs deployment job and its `github-pages` environment |
-| `.github` prepares a downloadable documentation export | Read-only workflow token | Its export job; preparing an artifact does not require the source publishing key |
+| Proposed `.github` downloadable documentation export ([PR #6](https://github.com/unset-sh/.github/pull/6), not merged) | Read-only workflow token | The proposed export job; preparing an artifact does not require the source publishing key |
 
 The deploy key is for a Git push across repositories. It is not needed to enable Pages or HTTPS. A write deploy key
 grants repository access, not a server-enforced folder boundary; the reviewed publisher checks that it changes only
@@ -120,6 +120,7 @@ After verification, remove the temporary local files from the same Terminal sess
 owner's approved secret store:
 
 ```sh
+: "${docs_key_dir:?Use the original Terminal session}"
 rm -- "$docs_key_dir/docs-mirror" "$docs_key_dir/docs-mirror.pub"
 rmdir -- "$docs_key_dir"
 unset docs_key_dir
