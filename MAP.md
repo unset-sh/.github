@@ -16,7 +16,7 @@ issue when they differ.
 | [`unset-sh/brand`](https://github.com/unset-sh/brand) | Active | The editable visual contract for unset.sh. Ships static CSS, JSON, fonts, mark and icon data as @unset-sh/brand on GitHub Packages, and builds its Hugo guide with an interactive Svelte component gallery for GitHub Pages. |
 | [`unset-sh/presentation`](https://github.com/unset-sh/presentation) | Active | Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/presentation on GitHub Packages; no running service. |
 | [`unset-sh/profile-recipes`](https://github.com/unset-sh/profile-recipes) | Active | Persona profile layouts (recipes) with a guide an AI assistant follows to build someone's profile, plus sample records checked against the lexicons. |
-| [`unset-sh/docs`](https://github.com/unset-sh/docs) | Active | The organisation-only docs.unset.sh framework is under review: a root Hugo site edited by pull requests, source-owned repository sections and map views derived from .github. The first automated profile-recipes export is verified; the old app mirror workflow and its writable credential are retired. The framework cutover remains pending, and the current site stays live until then. |
+| [`unset-sh/docs`](https://github.com/unset-sh/docs) | Active | The live organisation-only docs.unset.sh site: a root Hugo framework edited by pull requests, source-owned repository sections and map views derived from .github. Profile-recipes publishes its section automatically. The old app mirror workflow and its writable credential are retired; the site excludes app documentation until the app moves into the organisation. |
 | [`unset-sh/pds`](https://github.com/unset-sh/pds) | Active | The home for unset.sh's PDS image and everything that customises the PDS: the build on top of the official image, the theme for its sign-in and account pages, and their pins. Empty for now; until it moves, the image is built in the app repository (deployment/pds/). |
 | `unset-sh/lexicons` | Approved, waiting for setup | A one-way, read-only copy of the sh.unset.* lexicon schemas, pushed by the app's mirror job. Waiting for setup by the owner; the direction reverses later, when the organisation becomes the source of truth. |
 | `unset-sh/messaging` | Proposed, not approved | The private messaging product on unset.cc: one-to-one chat on Matrix today, later communities, channels, roles and voice. Plan drafted, awaiting approval; not created. |
@@ -70,7 +70,7 @@ flowchart LR
 - `brand` → `docs`: stable published @unset-sh/brand 0.1.x releases, each resolved to an immutable commit; compatible patch updates may rebuild and publish the site automatically after checks
 - `.github` → `docs`: repos.json at an exact commit revision for generated organisation map and ownership views; .github remains the source of truth. A separate docs/site/ import into github/ is proposed in docs pull request #2 under the reserved-name exception; it is an additional source, not a replacement for the profile-recipes publishing prerequisite
 - `agent-kit` → `docs`: planned adoption of org-documentation through the existing sync workflow and lock after an approved kit release; the standard remains proposed in agent-kit pull request #7
-- `profile-recipes` → `docs`: source-owned docs/ exported into the profile-recipes/ section with its source revision and licences; the first automated export from b7429f9 to docs commit 743ebac is verified, while the framework cutover remains pending
+- `profile-recipes` → `docs`: source-owned docs/ exported automatically into the profile-recipes/ section with its source revision and licences; publication verified through source 1e64c46 to docs commit 2b4099f
 - `brand` → `pds`: theme colours and fonts at an exact version (after the move)
 - `unset` → `lexicons`: pushes the schemas with its own deploy key
 - `brand` → `messaging`: @unset-sh/brand at an exact version
@@ -85,7 +85,6 @@ Not matching the rule yet (changing a published licence needs the owner's decisi
 | Repository | Licence today |
 | --- | --- |
 | `unset` | AGPL-3.0-only; the lexicon schemas are MIT (as the rule wants); shared/ is MIT under ADR 0012 |
-| `docs` | No licence detected on main yet. The approved root framework licence is AGPL-3.0-only, pending its framework pull request; mirrored source documentation and third-party assets retain their own licences |
 | `pds` | None yet; should be AGPL-3.0-only. The official PDS it builds on keeps its own licence |
 | `workflows` | No licence detected on archived main; the unpublished implementation in pull request #1 proposed AGPL-3.0-only |
 
@@ -126,7 +125,7 @@ The organisation's front page, repository map and community defaults. The agreed
 - This map: repos.json, MAP.md and the daily check that compares them with GitHub
 - Community health files shared by every repository, when they are added
 - Organisation workflow implementations, supporting scripts and tests, versioned releases and starter templates, under review in pull request #6; release and caller adoption are pending
-- Human workflow guides and contracts in docs/site/, including the [documentation publishing-key procedure](https://github.com/unset-sh/.github/blob/main/docs/site/manage-docs-publishing-key.md); export to docs:github/ under the reserved-name exception is under review in pull request #6, with the additional source import in docs pull request #2
+- Human workflow guides and contracts in docs/site/, including documentation publishing-key setup, verification, rotation and retirement; export to docs:github/ under the reserved-name exception is under review in pull request #6, with the additional source import in docs pull request #2
 
 **Does not belong here**
 
@@ -189,7 +188,7 @@ Persona profile layouts (recipes) with a guide an AI assistant follows to build 
 - Recipes: recipe.json, GUIDE.md, sample records, assets and preview per persona
 - AGENTS.md: the rules an assistant follows when applying a recipe
 - The validator that checks recipes against a vendored lexicon snapshot and editor limits
-- Human documentation in docs/ and its source-owned export into docs:profile-recipes/; implementation merged in pull request #5 and the first automated publication verified from source b7429f9 to docs commit 743ebac
+- Human documentation in docs/ and its source-owned export into docs:profile-recipes/; automated publication verified through source 1e64c46 to docs commit 2b4099f
 
 **Does not belong here**
 
@@ -202,9 +201,9 @@ Persona profile layouts (recipes) with a guide an AI assistant follows to build 
 
 [`unset-sh/docs`](https://github.com/unset-sh/docs). Active.
 
-The organisation-only docs.unset.sh framework is under review: a root Hugo site edited by pull requests, source-owned repository sections and map views derived from .github. The first automated profile-recipes export is verified; the old app mirror workflow and its writable credential are retired. The framework cutover remains pending, and the current site stays live until then.
+The live organisation-only docs.unset.sh site: a root Hugo framework edited by pull requests, source-owned repository sections and map views derived from .github. Profile-recipes publishes its section automatically. The old app mirror workflow and its writable credential are retired; the site excludes app documentation until the app moves into the organisation.
 
-**Licence:** No licence detected on main yet. The approved root framework licence is AGPL-3.0-only, pending its framework pull request; mirrored source documentation and third-party assets retain their own licences.
+**Licence:** AGPL-3.0-only root framework; mirrored source documentation and third-party assets retain their own licences.
 
 **Owns**
 
