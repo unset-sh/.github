@@ -241,13 +241,13 @@
       "group": "building",
       "description": "The unset.sh documentation website",
       "tagline": "The documentation website, gathered from every repository",
-      "summary": "Every repository's human docs, aggregated, and the docs.unset.sh site built from them on GitHub Pages. Nothing here is written by hand: each source repository's CI pushes its own top folder. Waiting for its first push.",
+      "summary": "The documentation website. Main currently contains the external app mirror; the organisation-only framework cutover is under review in docs PR #1. Maintained content comes from each owner’s docs folder. The .github workflow guides have a reviewed-import proposal for github/ in docs PR #2, not yet published.",
       "links": {
         "site": "https://docs.unset.sh"
       },
       "owns": [
-        "One top folder per source repository, replaced only by that repository's docs job",
-        "The site build and GitHub Pages deploy for docs.unset.sh"
+        "The documentation framework, shared navigation and GitHub Pages publication for docs.unset.sh",
+        "Imported source-owned sections: exact repository names, with .github explicitly mapped to github/ to avoid the reserved configuration directory"
       ],
       "notHere": [
         {
@@ -259,6 +259,10 @@
         {
           "repo": "unset",
           "how": "pushes docs/human and docs/site into unset/ with its own deploy key"
+        },
+        {
+          "repo": ".github",
+          "how": "docs/site exports to github/ with a pinned source revision and hashes; initial import in docs PR #2 is pending, not published"
         }
       ],
       "licence": {
@@ -411,6 +415,7 @@
       "summary": "The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file.",
       "hideFromProfile": true,
       "owns": [
+        "Accepted organisation decision records and their superseding decisions",
         "Organisation-wide assistant rules and the three generic engineering documents",
         "The CLAUDE.md and AGENTS.md templates",
         "Shared skills and subagents, the model and effort router text, and the sync script",
@@ -426,8 +431,8 @@
           "where": ".github"
         },
         {
-          "what": "Decision records",
-          "where": "the organisation's decision records"
+          "what": "Product-specific decisions and maintained human documentation",
+          "where": "the repository that owns the product"
         },
         {
           "what": "Organisation GitHub Actions implementation and starter workflow templates",
@@ -443,13 +448,13 @@
     },
     {
       "name": "workflows",
-      "status": "active",
+      "status": "archived",
       "group": "building",
       "description": "The CI check and the release workflow every unset.sh repository calls at a pinned commit",
-      "tagline": "Retiring into .github",
-      "summary": "Retiring into unset-sh/.github after its unpublished check/release implementation from PR #1 is preserved. No main-branch consumer calls this repository and no version has been released. Keep it available until preservation is verified.",
+      "tagline": "Archived; automation lives in .github",
+      "summary": "Archived on 2026-11-22 after its unpublished check/release implementation was preserved in unset-sh/.github PR #6. No main-branch consumer called this repository and no version was released. Its original PR and history remain readable.",
       "owns": [
-        "Historical PR #1 and its review evidence until preserved during retirement"
+        "Historical PR #1 and its original review evidence"
       ],
       "notHere": [
         {
@@ -460,7 +465,7 @@
       "uses": [],
       "licence": {
         "spdx": null,
-        "current": "No licence on main; the AGPL-3.0-only implementation exists only in PR #1 and is being preserved in .github.",
+        "current": "No licence on main; the AGPL-3.0-only implementation from PR #1 is preserved in .github PR #6.",
         "followsRule": false
       },
       "hideFromProfile": true
