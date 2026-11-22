@@ -22,6 +22,7 @@ issue when they differ.
 | `unset-sh/messaging` | Proposed, not approved | The private messaging product on unset.cc: one-to-one chat on Matrix today, later communities, channels, roles and voice. Plan drafted, awaiting approval; not created. |
 | `unset-sh/server-kit` | Proposed, not approved | Proposed: the generic security code the app and messaging both need (HTTP kit and CSRF gate, egress guard, sealed storage, signed admin envelope, config, log). Not approved yet. |
 | [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit) | Active | The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. It also keeps the organisation's decision records. |
+| [`unset-sh/workflows`](https://github.com/unset-sh/workflows) | Active | The check on pull requests and the release workflow, written once and called by each repository at a pinned commit. A release starts from a raised version on main, waits for the owner's approval, and is signed by the workflow here. |
 
 ## Which way dependencies point
 
@@ -41,6 +42,7 @@ flowchart LR
   r_messaging["messaging (proposed)"]
   r_server_kit["server-kit (proposed)"]
   r_agent_kit["agent-kit"]
+  r_workflows["workflows"]
   r_brand --> r_unset
   r_presentation --> r_unset
   r_messaging --> r_unset
@@ -83,6 +85,7 @@ Not matching the rule yet (changing a published licence needs the owner's decisi
 | `docs` | None yet; holds copies of other repositories' docs, which keep their source's licence |
 | `pds` | None yet; should be AGPL-3.0-only. The official PDS it builds on keeps its own licence |
 | `agent-kit` | None on main yet; AGPL-3.0-only in the first release pull request |
+| `workflows` | None on main yet; AGPL-3.0-only in the first pull request |
 
 ## unset
 
@@ -295,3 +298,22 @@ The rules, skills and templates every repository's assistant needs, released as 
 - A repository's own rules: that repository's CLAUDE.md
 - The organisation map: [`unset-sh/.github`](https://github.com/unset-sh/.github)
 - A repository's own decision records: that repository's docs/decisions
+
+## workflows
+
+[`unset-sh/workflows`](https://github.com/unset-sh/workflows). Active.
+
+The check on pull requests and the release workflow, written once and called by each repository at a pinned commit. A release starts from a raised version on main, waits for the owner's approval, and is signed by the workflow here.
+
+**Licence:** None on main yet; AGPL-3.0-only in the first pull request.
+
+**Owns**
+
+- The CI check and the release workflow that several repositories run the same way
+- The scripts those workflows run, such as the check that the release environment is the owner's alone
+
+**Does not belong here**
+
+- A workflow only one repository runs, and each repository's own triggers: that repository
+- Rules and skills for assistants, and the organisation's decision records: [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit)
+- The organisation map and its drift check: [`unset-sh/.github`](https://github.com/unset-sh/.github)

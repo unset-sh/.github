@@ -431,6 +431,40 @@
         "current": "None on main yet; AGPL-3.0-only in the first release pull request",
         "followsRule": false
       }
+    },
+    {
+      "name": "workflows",
+      "status": "active",
+      "visibility": "public",
+      "group": "building",
+      "description": "The CI check and the release workflow every unset.sh repository calls at a pinned commit",
+      "tagline": "The shared CI check and release workflow",
+      "summary": "The check on pull requests and the release workflow, written once and called by each repository at a pinned commit. A release starts from a raised version on main, waits for the owner's approval, and is signed by the workflow here.",
+      "hideFromProfile": true,
+      "owns": [
+        "The CI check and the release workflow that several repositories run the same way",
+        "The scripts those workflows run, such as the check that the release environment is the owner's alone"
+      ],
+      "notHere": [
+        {
+          "what": "A workflow only one repository runs, and each repository's own triggers",
+          "where": "that repository"
+        },
+        {
+          "what": "Rules and skills for assistants, and the organisation's decision records",
+          "where": "agent-kit"
+        },
+        {
+          "what": "The organisation map and its drift check",
+          "where": ".github"
+        }
+      ],
+      "uses": [],
+      "licence": {
+        "spdx": null,
+        "current": "None on main yet; AGPL-3.0-only in the first pull request",
+        "followsRule": false
+      }
     }
   ]
 }
