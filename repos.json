@@ -308,7 +308,7 @@
         },
         {
           "repo": "agent-kit",
-          "how": "planned adoption of org-documentation through the existing sync workflow and lock after an approved kit release; the standard remains proposed in agent-kit pull request #7"
+          "how": "source-owned docs/ prepared in agent-kit pull request #9 for export into the agent-kit/ section, with its source revision and licence; first export pending. Separately, planned adoption of org-documentation through the existing sync workflow and lock after an approved kit release; the standard remains proposed in agent-kit pull request #7"
         },
         {
           "repo": "profile-recipes",
@@ -462,7 +462,7 @@
       "group": "building",
       "description": "Shared rules, skills and templates for AI assistants working on unset.sh",
       "tagline": "Shared rules, skills and templates for AI assistants",
-      "summary": "The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. Also the agreed home for AI working notes and supporting artifacts, kept outside the distributed kit. Organisation decision records, the shared human documentation standard and working-material ownership are covered by unmerged pull requests #5, #7 and #8. Updates to distributed rules and skills still require an approved kit release.",
+      "summary": "The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. Also the agreed home for AI working notes and supporting artifacts, kept outside the distributed kit. Organisation decision records, the shared human documentation standard and working-material ownership are covered by unmerged pull requests #5, #7 and #8. A seven-perspective experience-review skill and source-owned human docs/ are proposed in pull request #9; release and first export are pending. Updates to distributed rules and skills still require an approved kit release.",
       "hideFromProfile": true,
       "owns": [
         "Organisation-wide assistant rules and the three generic engineering documents",
@@ -470,7 +470,9 @@
         "Organisation decision records, proposed in pull request #5",
         "AI working notes in notes/ and supporting artifacts in artifacts/, grouped by task and excluded from the distributed kit; agreed ownership, implementation pending pull request #8",
         "The CLAUDE.md and AGENTS.md templates",
-        "Shared skills and subagents, the model and effort router text, and the sync script"
+        "Shared skills and subagents, the model and effort router text, and the sync script",
+        "Seven-perspective experience reviews through org-experience-review and its specialist subagents, with observed implementation evidence separated from emotional hypotheses; proposed in pull request #9, not released",
+        "Maintained human documentation in docs/ for export into docs:agent-kit/, separate from the installed assistant kit; source prepared in pull request #9, first export pending"
       ],
       "notHere": [
         {

@@ -21,7 +21,7 @@ issue when they differ.
 | `unset-sh/lexicons` | Approved, waiting for setup | A one-way, read-only copy of the sh.unset.* lexicon schemas, pushed by the app's mirror job. Waiting for setup by the owner; the direction reverses later, when the organisation becomes the source of truth. |
 | `unset-sh/messaging` | Proposed, not approved | The private messaging product on unset.cc: one-to-one chat on Matrix today, later communities, channels, roles and voice. Plan drafted, awaiting approval; not created. |
 | `unset-sh/server-kit` | Proposed, not approved | Proposed: the generic security code the app and messaging both need (HTTP kit and CSRF gate, egress guard, sealed storage, signed admin envelope, config, log). Not approved yet. |
-| [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit) | Active | The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. Also the agreed home for AI working notes and supporting artifacts, kept outside the distributed kit. Organisation decision records, the shared human documentation standard and working-material ownership are covered by unmerged pull requests #5, #7 and #8. Updates to distributed rules and skills still require an approved kit release. |
+| [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit) | Active | The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. Also the agreed home for AI working notes and supporting artifacts, kept outside the distributed kit. Organisation decision records, the shared human documentation standard and working-material ownership are covered by unmerged pull requests #5, #7 and #8. A seven-perspective experience-review skill and source-owned human docs/ are proposed in pull request #9; release and first export are pending. Updates to distributed rules and skills still require an approved kit release. |
 | [`unset-sh/workflows`](https://github.com/unset-sh/workflows) | Archived | Archived after the decision to consolidate organisation automation in .github. Main contains only a README, with the original check and release proposal retained in pull request #1. The replacement implementation is under review in .github pull request #6; release and adoption by consuming repositories are pending. |
 
 ## Which way dependencies point
@@ -69,7 +69,7 @@ flowchart LR
 - `unset` → `profile-recipes`: lexicon schemas and editor limits, copied at a pinned commit
 - `brand` → `docs`: stable published @unset-sh/brand 0.1.x releases, each resolved to an immutable commit; compatible patch updates may rebuild and publish the site automatically after checks
 - `.github` → `docs`: repos.json at an exact commit revision for generated organisation map and ownership views; .github remains the source of truth. A separate docs/site/ import into github/ is proposed in docs pull request #2 under the reserved-name exception; it is an additional source, not a replacement for the profile-recipes publishing prerequisite
-- `agent-kit` → `docs`: planned adoption of org-documentation through the existing sync workflow and lock after an approved kit release; the standard remains proposed in agent-kit pull request #7
+- `agent-kit` → `docs`: source-owned docs/ prepared in agent-kit pull request #9 for export into the agent-kit/ section, with its source revision and licence; first export pending. Separately, planned adoption of org-documentation through the existing sync workflow and lock after an approved kit release; the standard remains proposed in agent-kit pull request #7
 - `profile-recipes` → `docs`: source-owned docs/ exported into the profile-recipes/ section with its source revision and licences; the first automated export from b7429f9 to docs commit 743ebac is verified, while the framework cutover remains pending
 - `brand` → `pds`: theme colours and fonts at an exact version (after the move)
 - `unset` → `lexicons`: pushes the schemas with its own deploy key
@@ -301,7 +301,7 @@ Proposed: the generic security code the app and messaging both need (HTTP kit an
 
 [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit). Active.
 
-The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. Also the agreed home for AI working notes and supporting artifacts, kept outside the distributed kit. Organisation decision records, the shared human documentation standard and working-material ownership are covered by unmerged pull requests #5, #7 and #8. Updates to distributed rules and skills still require an approved kit release.
+The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. Also the agreed home for AI working notes and supporting artifacts, kept outside the distributed kit. Organisation decision records, the shared human documentation standard and working-material ownership are covered by unmerged pull requests #5, #7 and #8. A seven-perspective experience-review skill and source-owned human docs/ are proposed in pull request #9; release and first export are pending. Updates to distributed rules and skills still require an approved kit release.
 
 **Licence:** AGPL-3.0-only.
 
@@ -313,6 +313,8 @@ The rules, skills and templates every repository's assistant needs, released as 
 - AI working notes in notes/ and supporting artifacts in artifacts/, grouped by task and excluded from the distributed kit; agreed ownership, implementation pending pull request #8
 - The CLAUDE.md and AGENTS.md templates
 - Shared skills and subagents, the model and effort router text, and the sync script
+- Seven-perspective experience reviews through org-experience-review and its specialist subagents, with observed implementation evidence separated from emotional hypotheses; proposed in pull request #9, not released
+- Maintained human documentation in docs/ for export into docs:agent-kit/, separate from the installed assistant kit; source prepared in pull request #9, first export pending
 
 **Does not belong here**
 
