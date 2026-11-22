@@ -9,7 +9,7 @@ params:
 
 Alex owns the credential lifecycle and may explicitly authorize another person or an agent to perform specific
 setup, rotation or retirement steps. That authorization does not permit exposing private key material. This guide
-uses the `profile-recipes` publisher as the concrete example. Its [source runbook](https://github.com/unset-sh/profile-recipes/blob/b7429f9bc8f3c50ab4231b5298321880fecc929a/.github/DOCS-PUBLISHING.md)
+uses the `profile-recipes` publisher as the concrete example. Its [source runbook](https://github.com/unset-sh/profile-recipes/blob/1e64c469f86dd2ad6e9b26200d26e308d6d06f4e/.github/DOCS-PUBLISHING.md)
 defines the exporter, path checks and recovery behavior; keep those implementation details there.
 
 ## Know which credential you are setting up
@@ -91,8 +91,11 @@ After the reviewed source change reaches `main`, inspect its `docs-mirror` run. 
 
 Record the run URL, checked source SHA, destination SHA and result in the review. Never record the private key. The
 first observed source run on 2026-11-22 is [45041327167](https://github.com/unset-sh/profile-recipes/actions/runs/45041327167),
-which pushed [743ebacc](https://github.com/unset-sh/docs/commit/743ebaccb944e766d9759102f409d3bcedd0ca91). This is evidence
-of a source export, not a claim that the separate framework cutover has completed.
+which pushed [743ebacc](https://github.com/unset-sh/docs/commit/743ebaccb944e766d9759102f409d3bcedd0ca91). The separate
+framework cutover completed in [site run 45042839474](https://github.com/unset-sh/docs/actions/runs/45042839474) from
+[5033b9b](https://github.com/unset-sh/docs/commit/5033b9b7f2d1a3aade4e024c052aca876046254a), after the old mirror's
+write access was retired. The live site was verified over HTTPS with the profile-recipes section at source
+`1e64c469f86dd2ad6e9b26200d26e308d6d06f4e`. These are distinct source-publication and website-deployment checks.
 
 ## 5. Retire old access before the framework merge
 
@@ -137,8 +140,8 @@ For a failed framework cutover, restore the last approved site through the docs 
 preserving current source provenance. Re-enable the verified publisher after checks pass; do not restore the retired
 app mirror or its old write access as an automatic fallback.
 
-The source [publisher](https://github.com/unset-sh/profile-recipes/blob/b7429f9bc8f3c50ab4231b5298321880fecc929a/.github/workflows/docs-mirror.yml)
-and [runbook](https://github.com/unset-sh/profile-recipes/blob/b7429f9bc8f3c50ab4231b5298321880fecc929a/.github/DOCS-PUBLISHING.md)
+The source [publisher](https://github.com/unset-sh/profile-recipes/blob/1e64c469f86dd2ad6e9b26200d26e308d6d06f4e/.github/workflows/docs-mirror.yml)
+and [runbook](https://github.com/unset-sh/profile-recipes/blob/1e64c469f86dd2ad6e9b26200d26e308d6d06f4e/.github/DOCS-PUBLISHING.md)
 are the checked implementation references. Central automation migration remains under review in
 [`.github` #6](https://github.com/unset-sh/.github/pull/6); this guide does not claim that shared workflows are released
 or adopted by this source.
