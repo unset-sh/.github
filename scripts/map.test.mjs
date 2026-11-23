@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { test } from "node:test";
-import { PROFILE_END, PROFILE_START, renderMap, renderProfileSection, spliceProfile, validate } from "./map.mjs";
+import { PROFILE_END, PROFILE_START, STATUSES, renderMap, renderProfileSection, spliceProfile, validate } from "./map.mjs";
 
 const G = [{ id: "g", title: "Group", blurb: "Blurb." }];
 const real = JSON.parse(await readFile(new URL("../repos.json", import.meta.url), "utf8"));
@@ -25,6 +25,15 @@ test("repos.json is valid", () => {
   assert.deepEqual(validate(real), []);
 });
 
+test("profile icons are bundled assets and arbitrary paths are refused", async () => {
+  for (const name of new Set(real.repos.map((r) => r.icon).filter((name) => name && name !== "unset-mark"))) {
+    assert.match(await readFile(new URL(`../profile/icons/${name}.svg`, import.meta.url), "utf8"), /<svg /);
+  }
+  assert.match(validate({ org: "o", licenceRule: "AGPL", groups: G, repos: [repo({ icon: "../outside" })] }).join(), /bundled profile icon/);
+  const section = renderProfileSection({ org: "o", groups: G, repos: [repo({ icon: "palette" })] });
+  assert.ok(section.includes('<img src="./icons/palette.svg" width="24" height="24" alt="">'));
+});
+
 test("a repository listed twice is refused", () => {
   assert.match(validate({ org: "o", licenceRule: "AGPL", groups: G, repos: [repo(), repo()] }).join(), /listed twice/);
 });
@@ -43,16 +52,44 @@ test("an existing organisation repository needs its GitHub description", () => {
   assert.deepEqual(validate({ org: "o", licenceRule: "AGPL", groups: G, repos: [repo({ description: undefined, owner: "someone" })] }), []);
 });
 
-test("the map lists every repository and every dependency edge", () => {
+test("the map preserves every repository's details behind visible anchors", () => {
   const text = renderMap(real);
-  for (const r of real.repos) assert.ok(text.includes(`## ${r.name}\n`), r.name);
-  for (const r of real.repos) for (const use of r.uses) assert.ok(text.includes(`\`${use.repo}\` → \`${r.name}\``));
+  for (const r of real.repos) {
+    const anchor = `<a name="repo-${r.name.toLowerCase()}"></a>\n<details>`;
+    assert.ok(text.includes(anchor), r.name);
+    assert.ok(text.includes(`href="#repo-${r.name.toLowerCase()}"`), r.name);
+    const section = text.slice(text.indexOf(anchor), text.indexOf("</details>", text.indexOf(anchor)));
+    assert.equal(text.split(r.summary).length - 1, 1, `${r.name} summary appears once`);
+    assert.ok(section.includes(r.summary), r.name);
+    assert.ok(section.includes(STATUSES[r.status]), r.name);
+    assert.ok(section.includes(r.licence.current), r.name);
+    for (const item of r.owns) assert.ok(section.includes(item), item);
+    for (const item of r.notHere) assert.ok(section.includes(item.what), item.what);
+  }
+  assert.ok(text.includes('<a name="github"></a>'));
+  assert.ok(text.includes('<a name="which-way-dependencies-point"></a>'));
+  assert.ok(text.includes(real.licenceRule));
+});
+
+test("the dependency view preserves edge direction and conditional explanations", () => {
+  const text = renderMap(real);
+  for (const r of real.repos) for (const use of r.uses) {
+    assert.ok(text.includes(`\`${use.repo}\` → \`${r.name}\`: ${use.how}`));
+  }
+  assert.ok(text.includes("r_brand --> r_web"));
+  assert.ok(!text.includes("r_web --> r_brand"));
+  assert.ok(text.includes("including planned and conditional work"));
+  const connected = new Set(real.repos.flatMap((r) => r.uses.flatMap((use) => [r.name, use.repo])));
+  const standalone = real.repos.filter((r) => !connected.has(r.name)).map((r) => `[${r.name}](#repo-${r.name})`);
+  if (standalone.length) assert.ok(text.includes(`No dependency edges recorded: ${standalone.join(" · ")}.`));
+  else assert.ok(!text.includes("No dependency edges recorded"));
 });
 
 test("repositories not created yet are not linked", () => {
-  const text = renderMap({ org: "o", repos: [repo({ name: "later", status: "planned" })] });
+  const text = renderMap({ org: "o", groups: G, repos: [repo({ name: "later", status: "planned" })] });
   assert.ok(text.includes("`o/later`"));
   assert.ok(!text.includes("https://github.com/o/later"));
+  assert.ok(!text.includes("```mermaid"));
 });
 
 test("the profile section leaves out hidden and proposed repositories", () => {
@@ -64,22 +101,28 @@ test("the profile section leaves out hidden and proposed repositories", () => {
   assert.ok(section.includes('<a href="https://github.com/o/brand"><strong>brand</strong></a>'));
   assert.ok(!section.includes("hidden"));
   assert.ok(!section.includes("idea"));
-  assert.match(section, /<strong>soon<\/strong><br>[\s\S]*Coming soon/);
+  assert.match(section, /<strong>soon<\/strong>[\s\S]*Planned, not created/);
   assert.ok(!section.includes("https://github.com/o/soon"));
 });
 
-test("the profile section groups repositories two to a row and escapes text", () => {
+test("the profile section pairs cards with aligned resource rows and escapes text", () => {
   const section = renderProfileSection({
     org: "o",
     groups: [...G, { id: "empty", title: "Empty", blurb: "None." }],
     repos: [repo({ tagline: "a <b> & c" }), repo({ name: "b2", links: { site: "https://example.com", package: "@o/b2" } }), repo({ name: "c3" })],
   });
-  assert.equal(section.match(/<tr>/g).length, 2);
-  assert.ok(section.includes('<td width="50%"></td>'));
+  for (const name of ["brand", "b2", "c3"]) {
+    assert.ok(section.includes(`<a href="https://github.com/o/${name}"><strong>${name}</strong></a>`));
+  }
+  assert.equal(section.match(/<tr>/g).length, 3);
+  assert.ok(section.includes('<td width="440"></td>'));
+  assert.equal(section.match(/valign="bottom"/g).length, 1);
+  assert.ok(section.includes('<td width="440" valign="top" rowspan="2">'));
+  assert.ok(!section.includes(">Code</a>"));
   assert.ok(section.includes("a &lt;b&gt; &amp; c"));
   assert.ok(section.includes('<a href="https://example.com">example.com</a>'));
   assert.ok(section.includes("<code>@o/b2</code>"));
-  assert.ok(!section.includes("### Empty"));
+  assert.ok(!section.includes("## Empty"));
 });
 
 test("links must be docs, site or package, and URLs https", () => {
@@ -113,17 +156,20 @@ test("every repository states its licence against the rule", () => {
 test("the map lists the repositories whose licence does not follow the rule", () => {
   const text = renderMap({
     org: "o",
+    groups: G,
     licenceRule: "All AGPL.",
     repos: [repo(), repo({ name: "ok", licence: { spdx: "AGPL-3.0", current: "AGPL-3.0-only", followsRule: true } })],
   });
-  const section = text.slice(text.indexOf("## Licences"), text.indexOf("## brand"));
+  const section = text.slice(text.indexOf("## Licences"));
   assert.match(section, /All AGPL\./);
-  assert.match(section, /\| `brand` \| None yet \|/);
-  assert.ok(!section.includes("`ok`"));
+  assert.ok(section.includes("| [brand](#repo-brand) | None yet |"));
+  assert.ok(!section.includes("#repo-ok"));
 });
 
-test("a group of one is a plain paragraph, not a table", () => {
+test("a group of one gets a full-width card without an empty neighbour", () => {
   const section = renderProfileSection({ org: "o", groups: G, repos: [repo()] });
-  assert.ok(section.includes('<a href="https://github.com/o/brand"><strong>brand</strong></a> &nbsp;d<br>'));
-  assert.ok(!section.includes("<table>"));
+  assert.ok(section.includes('<a href="https://github.com/o/brand"><strong>brand</strong></a>'));
+  assert.ok(section.includes('<td width="880" valign="top">'));
+  assert.equal(section.match(/<td /g).length, 1);
+  assert.ok(section.includes('<p>d</p>'));
 });
