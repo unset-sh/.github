@@ -30,7 +30,7 @@
       "visibility": "public",
       "group": "product",
       "description": "The Unset SvelteKit web application and client integrations",
-      "tagline": "The complete SvelteKit web client",
+      "tagline": "The complete SvelteKit web client.",
       "summary": "The approved home for the complete web application, including messaging UI and web/device adapters. The repository exists with an initial README and licence; detailed ownership setup is under review. No runnable SvelteKit application, image or migrated feature exists yet.",
       "owns": [
         "SvelteKit routes, SSR, screens, interactions, web sessions and web-specific response handling",
@@ -85,7 +85,8 @@
         "spdx": "AGPL-3.0",
         "current": "AGPL-3.0-only first-party work; foundation only, no application code imported",
         "followsRule": true
-      }
+      },
+      "icon": "world"
     },
     {
       "name": "backend",
@@ -93,7 +94,7 @@
       "visibility": "public",
       "group": "product",
       "description": "Unset product APIs, domain operations, AppView and server integrations",
-      "tagline": "Product capabilities, AppView and server adapters",
+      "tagline": "Product capabilities, AppView and server adapters.",
       "summary": "The approved product backend shared by web and future mobile clients. The repository exists with an initial README and licence; detailed ownership setup is under review. Application code, API contracts, images and migration remain pending. Replaces the proposed server-kit destination; messaging is a capability here, not a standalone repository.",
       "owns": [
         "Product domains and operations, authoritative authorization, and private domain-owned contracts",
@@ -146,7 +147,8 @@
         "spdx": "AGPL-3.0",
         "current": "AGPL-3.0-only first-party work; foundation only, no application code imported",
         "followsRule": true
-      }
+      },
+      "icon": "stack-2"
     },
     {
       "name": "deployment",
@@ -154,7 +156,7 @@
       "visibility": "public",
       "group": "product",
       "description": "Unset environment definitions, immutable release assembly and deployment orchestration",
-      "tagline": "Environment topology and stack releases",
+      "tagline": "Environment topology and stack releases.",
       "summary": "The approved home for environment definitions and stack release assembly. The repository exists with an initial README and licence; detailed ownership setup is under review. No deployable stack, image selections, infrastructure configuration or rollout automation exists yet.",
       "owns": [
         "Environment topology, networks, volumes, bucket provisioning, configuration references and access policies",
@@ -206,14 +208,15 @@
         "spdx": "AGPL-3.0",
         "current": "AGPL-3.0-only first-party work; foundation only, no application code imported",
         "followsRule": true
-      }
+      },
+      "icon": "cloud-upload"
     },
     {
       "name": "unset",
       "owner": "Undefined6799",
       "status": "active",
       "group": "product",
-      "tagline": "The app: your identity and profile on the AT Protocol",
+      "tagline": "Your identity and profile on the AT Protocol.",
       "summary": "The existing application outside the organisation, retained read-only during the migration. Its implementation and regression evidence inform the new web, backend and deployment repositories; their creation does not mean the application has moved.",
       "links": {
         "site": "https://unset.sh"
@@ -250,14 +253,15 @@
         "spdx": null,
         "current": "AGPL-3.0-only; the lexicon schemas are MIT (as the rule wants); shared/ is MIT under ADR 0012",
         "followsRule": false
-      }
+      },
+      "icon": "unset-mark"
     },
     {
       "name": ".github",
       "status": "active",
       "group": "building",
       "description": "Organisation profile and community health files for unset.sh",
-      "tagline": "Organisation profile, map and community defaults",
+      "tagline": "Organisation profile, map and community defaults.",
       "summary": "The organisation's front page, repository map, community defaults and native starter workflow catalogue. Local map validation stays here, with small pinned read-only callers for shared checks and documentation export from tooling. Consumers retain their own workflow events, permissions and project commands.",
       "links": {
         "docs": "https://github.com/unset-sh/.github/blob/main/MAP.md"
@@ -297,7 +301,8 @@
         "spdx": "AGPL-3.0",
         "current": "AGPL-3.0-only",
         "followsRule": true
-      }
+      },
+      "icon": "users"
     },
     {
       "name": "tooling",
@@ -305,7 +310,7 @@
       "visibility": "public",
       "group": "building",
       "description": "Shared developer tooling and GitHub Actions implementations for unset.sh",
-      "tagline": "Shared developer tooling and reusable workflows",
+      "tagline": "Shared developer tooling and reusable workflows.",
       "summary": "Maintains shared CI, protected-release and documentation-export implementations, supporting scripts and tests. The initial implementation is merged through pull request #1 at version 0.0.0; the first release and broader consumer adoption remain pending. Consumers retain their own events, permissions, inputs, build and test logic, and immutable caller pins.",
       "owns": [
         "Shared CI, protected-release and documentation-export implementations, supporting scripts and tests; Pages and deployment implementations have not been centralised yet",
@@ -337,14 +342,15 @@
         "spdx": "AGPL-3.0",
         "current": "AGPL-3.0-only",
         "followsRule": true
-      }
+      },
+      "icon": "terminal-2"
     },
     {
       "name": "brand",
       "status": "active",
       "group": "look",
       "description": "unset.sh brand foundations: design tokens, fonts, the mark and icons",
-      "tagline": "Shared visual contract, assets and brand guide",
+      "tagline": "Visual contract, assets and brand guide.",
       "summary": "The editable visual contract for unset.sh. Ships static CSS, JSON, fonts, mark and icon data as @unset-sh/brand on GitHub Packages, and builds its Hugo guide with an interactive Svelte component gallery for GitHub Pages.",
       "links": {
         "package": "@unset-sh/brand",
@@ -385,14 +391,15 @@
         "spdx": "AGPL-3.0",
         "current": "AGPL-3.0-only project files; OFL-1.1 fonts, reserved Unset mark/app assets, and MIT Tabler/upstream component notices are preserved",
         "followsRule": true
-      }
+      },
+      "icon": "palette"
     },
     {
       "name": "rendering",
       "status": "active",
       "group": "look",
       "description": "How unset.sh looks outside the app: preview images and embeds for profiles, posts and articles, rendered from supplied data",
-      "tagline": "Preview images and embeds for profiles, posts and articles",
+      "tagline": "Profile previews and rich embeds.",
       "summary": "Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/rendering on GitHub Packages; no running service.",
       "links": {
         "package": "@unset-sh/rendering"
@@ -434,14 +441,15 @@
         "spdx": "AGPL-3.0",
         "current": "AGPL-3.0-only; third-party dependencies retain their own licences",
         "followsRule": true
-      }
+      },
+      "icon": "photo"
     },
     {
       "name": "profile-recipes",
       "status": "active",
       "group": "records",
       "description": "Ready-made profile layouts for unset.sh, with recipes an AI can follow to build yours.",
-      "tagline": "Ready-made profile layouts an AI assistant can build for you",
+      "tagline": "Profile layouts for AI-assisted setup.",
       "summary": "Persona profile layouts (recipes) with a guide an AI assistant follows to build someone's profile, plus sample records checked against the lexicons.",
       "owns": [
         "Recipes: recipe.json, GUIDE.md, sample records, assets and preview per persona",
@@ -493,14 +501,15 @@
         "spdx": "AGPL-3.0",
         "current": "Tooling AGPL-3.0-only; recipes CC0-1.0; copied schemas retain their upstream MIT notice and local fonts retain their SIL Open Font Licences",
         "followsRule": true
-      }
+      },
+      "icon": "layout"
     },
     {
       "name": "docs",
       "status": "active",
       "group": "building",
       "description": "The unset.sh documentation website (Hugo)",
-      "tagline": "Organisation documentation, repository ownership and learning guides",
+      "tagline": "Organisation docs and learning guides.",
       "summary": "The live organisation-only docs.unset.sh site: a root Hugo framework edited by pull requests, source-owned repository sections and map views derived from .github. Profile-recipes publishes its section automatically. The old app mirror workflow and its writable credential are retired; the site excludes app documentation until the app moves into the organisation.",
       "links": {
         "site": "https://docs.unset.sh"
@@ -572,7 +581,8 @@
         "spdx": "AGPL-3.0",
         "current": "AGPL-3.0-only root framework; mirrored source documentation and third-party assets retain their own licences",
         "followsRule": true
-      }
+      },
+      "icon": "book"
     },
     {
       "name": "pds",
@@ -618,7 +628,8 @@
         "spdx": "AGPL-3.0",
         "current": "AGPL-3.0-only first-party work (pds#3); the official PDS it builds on keeps its own licence",
         "followsRule": true
-      }
+      },
+      "icon": "server"
     },
     {
       "name": "lexicons",
@@ -626,7 +637,7 @@
       "visibility": "public",
       "group": "records",
       "description": "AT Protocol lexicons for unset.sh profiles, pages and cards, with reference documentation and examples",
-      "tagline": "The sh.unset.* record schemas, published for anyone to use",
+      "tagline": "Shared sh.unset.* record schemas.",
       "summary": "The public MIT-licensed sh.unset.* schemas, reference documentation and examples, and the agreed destination for protocol authority. Current schema bytes retain their exact application-import provenance; the maintained import/authoring policy and consumer adoption still need the authority cutover. GitHub source, generated SDKs and DNS/PDS publication are separate states.",
       "owns": [
         "The published copy of the sh.unset.* schemas, their docs and examples",
@@ -657,7 +668,7 @@
         "current": "MIT schemas and documentation",
         "followsRule": true
       },
-      "description": "AT Protocol lexicons for unset.sh profiles, pages and cards, with reference documentation and examples"
+      "icon": "file-code"
     },
     {
       "name": "agent-kit",
@@ -715,7 +726,8 @@
         "spdx": "AGPL-3.0",
         "current": "AGPL-3.0-only",
         "followsRule": true
-      }
+      },
+      "icon": "robot"
     }
   ]
 }
