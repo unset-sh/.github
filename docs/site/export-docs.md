@@ -64,4 +64,4 @@ Record that exception in the import pull request. Preserve the framework and eve
 
 Run the current docs framework checks and production build before merge. Inspect the deployed section separately
 after publication. The source caller uploads an artifact; it neither pushes to the documentation repository nor
-uses a publishing key. Credentialed publishing has its own owner-authorised [lifecycle guide](manage-docs-publishing-key.md).
+uses a publishing key. Credentialed publishing has its own owner-authorised [lifecycle guide](https://github.com/unset-sh/tooling/blob/main/docs/manage-docs-publishing-key.md).
