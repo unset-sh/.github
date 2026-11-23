@@ -13,15 +13,15 @@ test("the shared publisher is registered for only the generated map and profile"
   });
 });
 
-test("map publication uses pinned shared tooling only from trusted staging events", () => {
+test("map publication uses pinned shared tooling only from trusted main events", () => {
   const source = read(".github/workflows/map-publish.yml");
-  assert.match(source, /push:\n    branches: \[staging\]/);
+  assert.match(source, /push:\n    branches: \[main\]/);
   assert.match(source, /schedule:/);
   assert.match(source, /workflow_dispatch:/);
   assert.doesNotMatch(source, /pull_request|workflow_run|secrets\.|run:|persist-credentials/);
   assert.match(source, /permissions: \{\}/);
   assert.match(source, /uses: unset-sh\/tooling\/\.github\/workflows\/automation-org-map.yml@[0-9a-f]{40}/);
-  assert.match(source, /if: github.ref == 'refs\/heads\/staging'/);
+  assert.match(source, /if: github.ref == 'refs\/heads\/main'/);
   assert.match(source, /contents: write/);
   assert.match(source, /pull-requests: write/);
   assert.match(source, /actions: write/);
