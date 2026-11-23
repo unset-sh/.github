@@ -444,7 +444,7 @@
       "notHere": [
         {
           "what": "The lexicon schemas themselves (schemas/upstream/ here is a copy)",
-          "where": "unset"
+          "where": "lexicons"
         },
         {
           "what": "The profile editor and its limits (limits.json here is a mirror)",
@@ -465,8 +465,12 @@
       ],
       "uses": [
         {
+          "repo": "lexicons",
+          "how": "record and object schemas copied byte-for-byte at a pinned commit"
+        },
+        {
           "repo": "unset",
-          "how": "lexicon schemas and editor limits, copied at a pinned commit"
+          "how": "editor limits and consumer rendering behavior checked against a pinned app commit"
         },
         {
           "repo": "tooling",
@@ -605,6 +609,7 @@
       "status": "active",
       "visibility": "public",
       "group": "records",
+      "description": "AT Protocol lexicons for unset.sh profiles, pages and cards, with reference documentation and examples",
       "tagline": "The sh.unset.* record schemas, published for anyone to use",
       "summary": "The public MIT-licensed sh.unset.* schemas, reference documentation and examples, and the agreed destination for protocol authority. Current schema bytes retain their exact application-import provenance; the maintained import/authoring policy and consumer adoption still need the authority cutover. GitHub source, generated SDKs and DNS/PDS publication are separate states.",
       "owns": [

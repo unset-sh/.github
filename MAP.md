@@ -63,6 +63,7 @@ flowchart LR
   r_tooling --> r_brand
   r_brand --> r_rendering
   r_tooling --> r_rendering
+  r_lexicons --> r_profile_recipes
   r_unset --> r_profile_recipes
   r_tooling --> r_profile_recipes
   r_brand --> r_docs
@@ -95,7 +96,8 @@ flowchart LR
 - `tooling` → `brand`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `brand` → `rendering`: @unset-sh/brand at an exact version
 - `tooling` → `rendering`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
-- `unset` → `profile-recipes`: lexicon schemas and editor limits, copied at a pinned commit
+- `lexicons` → `profile-recipes`: record and object schemas copied byte-for-byte at a pinned commit
+- `unset` → `profile-recipes`: editor limits and consumer rendering behavior checked against a pinned app commit
 - `tooling` → `profile-recipes`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `brand` → `docs`: stable published @unset-sh/brand 0.1.x releases, each resolved to an immutable commit; compatible patch updates may rebuild and publish the site automatically after checks
 - `.github` → `docs`: repos.json at an exact commit revision for generated organisation map and ownership views; .github remains the source of truth. Its source-owned docs/site/ maps to github/ under the reserved-name exception, with initial import tracked in docs pull request #2
@@ -313,7 +315,7 @@ Persona profile layouts (recipes) with a guide an AI assistant follows to build 
 
 **Does not belong here**
 
-- The lexicon schemas themselves (schemas/upstream/ here is a copy): [`Undefined6799/unset`](https://github.com/Undefined6799/unset)
+- The lexicon schemas themselves (schemas/upstream/ here is a copy): [`unset-sh/lexicons`](https://github.com/unset-sh/lexicons)
 - The profile editor and its limits (limits.json here is a mirror): [`Undefined6799/unset`](https://github.com/Undefined6799/unset)
 - The documentation site's root configuration, navigation and layouts: [`unset-sh/docs`](https://github.com/unset-sh/docs)
 - Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests: [`unset-sh/tooling`](https://github.com/unset-sh/tooling)
