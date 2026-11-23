@@ -2,7 +2,7 @@ name: map-publish
 
 on:
   push:
-    branches: [staging]
+    branches: [main]
     paths:
       - repos.json
       - scripts/**
@@ -23,8 +23,8 @@ concurrency:
 
 jobs:
   publish:
-    if: github.ref == 'refs/heads/staging'
-    uses: unset-sh/tooling/.github/workflows/automation-org-map.yml@153b73d8bc6eadddeb50152835ed3daef44f564b
+    if: github.ref == 'refs/heads/main'
+    uses: unset-sh/tooling/.github/workflows/automation-org-map.yml@9239c7b752a92fc1eb3de3a0e86193fce7c4bda3
     permissions:
       contents: write
       pull-requests: write
