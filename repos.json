@@ -128,7 +128,7 @@
       "uses": [
         {
           "repo": "tooling",
-          "how": "small read-only CI and documentation-export callers at a reviewed merged full commit; source checks must pass before export, and automatic update propagation is not configured"
+          "how": "small read-only CI and documentation-export callers at a reviewed merged full commit; source checks must pass before export, and automatic update propagation is not configured; read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment"
         }
       ],
       "licence": {
@@ -209,7 +209,12 @@
           "where": "the consuming application and its shadcn-svelte/Bits UI integration"
         }
       ],
-      "uses": [],
+      "uses": [
+        {
+          "repo": "tooling",
+          "how": "read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment"
+        }
+      ],
       "licence": {
         "spdx": "AGPL-3.0",
         "current": "AGPL-3.0-only project files; OFL-1.1 fonts, reserved Unset mark/app assets, and MIT Tabler/upstream component notices are preserved",
@@ -249,6 +254,10 @@
         {
           "repo": "brand",
           "how": "@unset-sh/brand at an exact version"
+        },
+        {
+          "repo": "tooling",
+          "how": "read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment"
         }
       ],
       "licence": {
@@ -296,6 +305,10 @@
         {
           "repo": "unset",
           "how": "lexicon schemas and editor limits, copied at a pinned commit"
+        },
+        {
+          "repo": "tooling",
+          "how": "read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment"
         }
       ],
       "licence": {
@@ -374,7 +387,7 @@
         },
         {
           "repo": "tooling",
-          "how": "Source-owned docs/ for the tooling/ section with an exact source revision and licences, delivered through reviewed imports; a reviewed full-commit shared refresh runs registered map generators and supplies the public workflow catalogue before site builds. Reusable workflow adoption remains explicit in each consumer"
+          "how": "Source-owned docs/ for the tooling/ section with an exact source revision and licences, delivered through reviewed imports; a reviewed full-commit shared refresh runs registered map generators and supplies the public workflow catalogue before site builds. Reusable workflow adoption remains explicit in each consumer; read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment"
         }
       ],
       "licence": {
@@ -409,6 +422,10 @@
         {
           "repo": "brand",
           "how": "theme colours and fonts at an exact version (after the move)"
+        },
+        {
+          "repo": "tooling",
+          "how": "read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment"
         }
       ],
       "licence": {
@@ -437,6 +454,10 @@
         {
           "repo": "unset",
           "how": "initial schemas copied from the merged application source at a recorded commit with per-file hashes; synchronization is manual and the proposed automatic mirror is not configured"
+        },
+        {
+          "repo": "tooling",
+          "how": "read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment"
         }
       ],
       "licence": {
@@ -562,7 +583,12 @@
           "where": ".github"
         }
       ],
-      "uses": [],
+      "uses": [
+        {
+          "repo": "tooling",
+          "how": "read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment"
+        }
+      ],
       "licence": {
         "spdx": "AGPL-3.0",
         "current": "AGPL-3.0-only",
