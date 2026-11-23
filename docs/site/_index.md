@@ -23,7 +23,6 @@ chooses its events, permissions, inputs and reviewed workflow revision.
 - [Use the starter workflow templates](workflow-templates.md): install a small caller in a consuming repository.
 - [Export the organisation documentation](export-docs.md): prepare this section for a reviewed documentation import.
 - [Automatic map publication](map-publication.md): follow source changes, generated updates and recovery.
-- [Find the documentation publishing-key guide](manage-docs-publishing-key.md): locate the maintained tooling guide.
 
 ## Understand and contribute
 
