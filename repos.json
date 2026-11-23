@@ -212,6 +212,58 @@
       "icon": "cloud-upload"
     },
     {
+      "name": "modules",
+      "status": "active",
+      "visibility": "public",
+      "group": "product",
+      "description": "Marketplace modules for unset.sh: the module contract, the reviewed modules and the list the marketplace reads.",
+      "tagline": "Small apps members turn on or off.",
+      "summary": "The approved home for marketplace modules: small apps a member turns on or off, built here and reviewed by unset before members see them. The repository exists as a foundation only (README, licence, agent rules, CI); no contract, module, list or marketplace exists yet. The owner set the direction (one repository first, every module reviewed, a sandboxed web app given a screen inside unset.sh); the licence for outside work and the remaining design decisions are open, and outside contributions are not accepted yet.",
+      "owns": [
+        "The module contract: the manifest, the permissions a module may ask for and the messages between a module and unset.sh; not designed yet",
+        "The starter module, the modules themselves and their own record types",
+        "The generated list of accepted modules and the block list",
+        "The checks every module must pass and the developer guide"
+      ],
+      "notHere": [
+        {
+          "what": "Loading a module, showing its screen and the marketplace screens",
+          "where": "web"
+        },
+        {
+          "what": "A member's on or off state and every write made for a module",
+          "where": "backend"
+        },
+        {
+          "what": "The sh.unset.* record types",
+          "where": "lexicons"
+        },
+        {
+          "what": "Serving module files and their domain",
+          "where": "deployment"
+        },
+        {
+          "what": "Colours, fonts and icons",
+          "where": "brand"
+        }
+      ],
+      "uses": [
+        {
+          "repo": "tooling",
+          "how": "read-only branch-policy caller at an immutable tooling commit"
+        },
+        {
+          "repo": "agent-kit",
+          "how": "checked copy under .claude/ at a recorded full commit, verified by CI against its lock"
+        }
+      ],
+      "licence": {
+        "spdx": "AGPL-3.0",
+        "current": "AGPL-3.0-only first-party work; foundation only. The licence for the contract, the starter module and outside developers' modules is not set",
+        "followsRule": true
+      }
+    },
+    {
       "name": "unset",
       "owner": "Undefined6799",
       "status": "active",

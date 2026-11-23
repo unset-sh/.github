@@ -12,9 +12,9 @@ This is `unset-sh/.github`: the organisation's front page, repository map, commu
 
 - `repos.json` is the authored source for ownership, plans and explanatory text. `MAP.md` and the block between
   the `org-map` markers in `profile/README.md` are generated. CI regenerates and checks them; the pinned shared
-  publisher prepares a generated-only staging PR after a source change reaches staging, hourly, or on demand.
+  publisher prepares a generated-only PR into main after a source change reaches main, hourly, or on demand.
   Its separate dispatcher verifies the exact real PR and requests the existing required checks. The publisher
-  never merges or promotes production; normal review governs staging merges and a human promotes main.
+  never merges; a person reviews and merges it into main. `.github` works on main alone (org-0010).
   `.github/maps.json` registers these Markdown views for tooling's dedicated organisation-map publisher;
   the generic website map runner still accepts JSON snapshots only. Use `bun run map` for a local preview.
 - A repository's `description` in `repos.json` is exactly what GitHub shows for it (`""` when it has none). When the
@@ -47,9 +47,9 @@ This is `unset-sh/.github`: the organisation's front page, repository map, commu
 - Human guidance lives in docs/site/ and exports to unset-sh/docs:github/ using tooling's exporter. Update the
   relevant guide with a behaviour change. AI notes and artifacts stay in agent-kit under notes/ and artifacts/.
 - Do not merge your own implementation PR. Bootstrap callers must pin independently reviewed tooling commits
-  that have landed on its staging or main branch; staging adoption does not promote production. Record
+  that have landed on its main branch. Record
   unverified runtime behaviour rather than inventing success.
-- Generated map dispatches require a real bot-owned staging PR, exact head/base inputs and the two-file output
+- Generated map dispatches require a real bot-owned PR into main, exact head/base inputs and the two-file output
   proof before consumer commands. Preserve required status names and fail the required check on a failed proof;
   a skipped job must not stand in for successful verification. Never route generated dispatches to drift writes.
 

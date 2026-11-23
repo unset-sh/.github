@@ -41,14 +41,23 @@
 </tbody>
 <tbody>
 <tr>
-<td width="440" valign="top" rowspan="2">
+<td width="440" valign="top">
 <h3><picture><img src="./icons/cloud-upload.svg" width="24" height="24" alt=""></picture><br><a href="https://github.com/unset-sh/deployment"><strong>deployment</strong></a></h3>
 <p>Environment topology and stack releases.</p>
 </td>
 <td width="440" valign="top">
+<h3><a href="https://github.com/unset-sh/modules"><strong>modules</strong></a></h3>
+<p>Small apps members turn on or off.</p>
+</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td width="440" valign="top">
 <h3><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/unset-sh/brand/8c998a2990ae477daf5ac1636028f6cbf379577b/logo/unset-mark-platinum.svg"><img src="https://raw.githubusercontent.com/unset-sh/brand/8c998a2990ae477daf5ac1636028f6cbf379577b/logo/unset-mark-onyx.svg" width="60" alt=""></picture><br><a href="https://github.com/Undefined6799/unset"><strong>unset</strong></a></h3>
 <p>Your identity and profile on the AT Protocol.</p>
 </td>
+<td width="440" rowspan="2"></td>
 </tr>
 <tr>
 <td width="50%" valign="bottom">

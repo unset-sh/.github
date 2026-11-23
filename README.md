@@ -52,13 +52,13 @@ bun run check
 ```
 
 Commit the source change. CI regenerates both views and checks duplicate repositories, unknown dependencies,
-cycles and generated output. After a source change reaches staging, the shared publisher prepares a generated-only
-staging PR for `MAP.md` and the generated profile block, then requests its existing required checks. It also runs
-hourly and can be started manually. Normal review governs its staging merge; a human promotes main.
+cycles and generated output. After a source change reaches main, the shared publisher prepares a generated-only
+PR into main for `MAP.md` and the generated profile block, then requests its existing required checks. It also runs
+hourly and can be started manually. A person reviews and merges it.
 Committing the generated views with the source is still supported; unchanged output produces no PR.
 
 The publisher accepts only the two paths registered in `.github/maps.json`, preserves authored profile text,
-and stops on observed staging or generated-head changes. It never merges, promotes production, or changes branch protections. Repository
+and stops on observed main or generated-head changes. It never merges or changes branch protections. Repository
 ownership, plans and explanatory claims remain authored in `repos.json`; refreshing a view does not invent them
 from code. See [Prepare organisation map updates](docs/site/map-publication.md) for operation and recovery.
 

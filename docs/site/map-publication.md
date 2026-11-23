@@ -1,6 +1,6 @@
 ---
 title: "Prepare organisation map updates"
-description: "Prepare and check generated staging updates while preserving authored profile text and human production promotion."
+description: "Prepare and check generated map updates while preserving authored profile text, merged by a person."
 weight: 25
 type: docs
 params:
@@ -9,14 +9,13 @@ params:
 ---
 
 Edit `repos.json` when declared ownership, plans or explanations change. CI generates and validates the map
-before accepting the change. Once that source reaches staging, the shared publisher prepares a generated-only
-staging PR for `MAP.md` and the marked navigation block in `profile/README.md`, then requests its required checks.
-Normal review governs its staging merge. A human promotes staging to main before the committed organisation
-profile changes. The banner, introduction, links and other authored README text are preserved.
+before accepting the change. Once that source reaches main, the shared publisher prepares a generated-only
+PR into main for `MAP.md` and the marked navigation block in `profile/README.md`, then requests its required checks.
+A person reviews and merges it, and the committed organisation profile changes with that merge. The banner, introduction, links and other authored README text are preserved.
 
 ## When updates run
 
-The caller runs on relevant staging changes, hourly at minute 41, and through **Run workflow** on staging in
+The caller runs on relevant main changes, hourly at minute 41, and through **Run workflow** on main in
 [map-publish](https://github.com/unset-sh/.github/actions/workflows/map-publish.yml). GitHub may delay scheduled
 runs. A no-change run creates no branch or pull request. From this repository with its pinned Bun 1.4.4 installed,
 local previews use:
@@ -29,22 +28,22 @@ bun run check
 `.github/maps.json` registers the renderer and its two fixed Markdown outputs. These committed GitHub views use
 tooling's `automation-org-map.yml`. The website's live JSON maps use a separate default-branch timer and approved
 main site build, which can collect from configured public sources without merging this generated Markdown PR.
-Updating the committed GitHub profile still requires its staging PR merge and normal main promotion.
+Updating the committed GitHub profile still requires a person to merge its PR.
 
 ## Follow a generated update
 
 1. Open the completed source run. Its read-only job checks out the exact source revision, regenerates the views,
    and runs the repository checks. It permits changes only to the two registered outputs.
-2. Follow the staging PR created by the isolated publisher. The branch is `automation/map-<source-commit>`.
+2. Follow the PR into main created by the isolated publisher. The branch is `automation/map-<source-commit>`.
    The publisher preserves authored profile text and never executes consumer scripts with its write token.
 3. Follow the three run links reported by the separate dispatcher. It receives only the PR number, head and base,
    verifies the actual bot-owned PR and complete tree again, and requests the existing workflows at that exact head.
 4. Confirm `Check the organisation map`, `check / Check`, and `policy / Validate branch policy` succeeded for the
-   expected head. Accepted dispatch alone does not prove successful checks. Review and merge the staging PR normally;
-   main promotion remains a human action.
+   expected head. Accepted dispatch alone does not prove successful checks. Review and merge the PR normally;
+   merging stays a human action.
 
 For example, a reviewed ownership change in `repos.json` can produce a new repository entry in both rendered views.
-The generated PR has the source staging commit as its only parent. The shared verifier checks its immutable base
+The generated PR has the source main commit as its only parent. The shared verifier checks its immutable base
 and head, bot author, regular output files and unchanged authored profile text. Regeneration during the map check
 must leave the committed views unchanged. This proves the PR contains the renderer's output, without inferring
 whether the original ownership decision is correct.
@@ -64,7 +63,7 @@ Ordinary PR and push checks retain their existing commands; ordinary manual drif
 remain available without generated identity inputs. Documentation export runs after a successful check even when
 the optional generated verifier was skipped; failed or cancelled checks never export.
 
-A failed generation or validation leaves the published profile unchanged. Observed staging changes stop publication
+A failed generation or validation leaves the published profile unchanged. Observed main changes stop publication
 or dispatch; regenerate from the current base. Retrying reuses a branch and PR only when their complete tree, sole
 source parent and head match the validated snapshot. It never overwrites a branch, adopts a modified PR or reopens
 a closed one. Older queued runs may refuse.
@@ -93,4 +92,4 @@ Alex maintains this guide with workflow changes and the repository's documentati
 [tooling publication reference](https://docs.unset.sh/tooling/organisation-map-publication/) describes the central
 job permissions, data bounds and source validation.
 
-The caller wiring was checked against [the map publisher](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/.github/workflows/map-publish.yml), [map checks](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/.github/workflows/org-map.yml), [documentation checks](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/.github/workflows/docs-export.yml), and [condition tests](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/scripts/map-publication.test.mjs). The callers use the [reviewed central implementation](https://github.com/unset-sh/tooling/tree/153b73d8bc6eadddeb50152835ed3daef44f564b).
+The caller wiring was checked against [the map publisher](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/.github/workflows/map-publish.yml), [map checks](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/.github/workflows/org-map.yml), [documentation checks](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/.github/workflows/docs-export.yml), and [condition tests](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/scripts/map-publication.test.mjs). The callers use the [reviewed central implementation](https://github.com/unset-sh/tooling/tree/9239c7b752a92fc1eb3de3a0e86193fce7c4bda3).
