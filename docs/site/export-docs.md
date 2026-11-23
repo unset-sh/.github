@@ -25,14 +25,14 @@ revision and file hashes. The artifact preserves the `github/` section folder, i
 
 ## Reproduce an export locally
 
-Use Git and Node 26.12.0. Check out the reviewed tooling implementation and the intended `.github` source commit.
-Run `npm run check` in each checkout. The source commit must contain `docs/site/` and `LICENSE`; uncommitted edits are
+Use Git and Bun 1.4.4. Check out the reviewed tooling implementation and the intended `.github` source commit.
+Run `bun run check` in each checkout. The source commit must contain `docs/site/` and `LICENSE`; uncommitted edits are
 never included. Obtain its full SHA with `git rev-parse HEAD`.
 
 Run the tooling exporter with absolute checkout paths and a fresh absolute output path whose parent exists:
 
 ```sh
-node /absolute/tooling/scripts/export-docs.mjs \
+bun /absolute/tooling/scripts/export-docs.mjs \
   --root /absolute/github-source \
   --repository unset-sh/.github \
   --revision FULL_40_SHA \

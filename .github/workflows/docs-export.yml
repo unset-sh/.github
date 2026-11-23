@@ -45,7 +45,7 @@ jobs:
       contents: read
     with:
       install: false
-      command: ${{ (github.event_name != 'workflow_dispatch' || (!startsWith(github.ref, 'refs/heads/automation/map-') && inputs.pull-request == '' && inputs.expected-head == '' && inputs.expected-base == '') || needs.verify-generated.result == 'success') && 'npm run map && npm run check' || 'exit 1' }}
+      command: ${{ (github.event_name != 'workflow_dispatch' || (!startsWith(github.ref, 'refs/heads/automation/map-') && inputs.pull-request == '' && inputs.expected-head == '' && inputs.expected-base == '') || needs.verify-generated.result == 'success') && 'bun run map && bun run check' || 'exit 1' }}
   export:
     needs: check
     if: always() && !cancelled() && needs.check.result == 'success'

@@ -44,11 +44,11 @@ separate work; this move does not enable them or remove release approvals.
 
 ## Change the map
 
-Use Node 26.12.0 from `.nvmrc`. Edit `repos.json`, then run:
+Use Bun 1.4.4 from `.bun-version`. Edit `repos.json`, then run:
 
 ```sh
-npm run map
-npm run check
+bun run map
+bun run check
 ```
 
 Commit the source change. CI regenerates both views and checks duplicate repositories, unknown dependencies,

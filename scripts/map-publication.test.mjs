@@ -89,11 +89,11 @@ test("actual caller expressions fail closed for missing inputs or a failed proof
   }
   const success = { event: "workflow_dispatch", ref: generated, proof: "success", inputs: { "pull-request": "17", "expected-head": "b".repeat(40), "expected-base": "a".repeat(40) } };
   assert.equal(evaluate(field(mapCheck, "if", 8), success), false);
-  assert.equal(evaluate(field(docsCheck, "command", 6), success), "npm run map && npm run check");
+  assert.equal(evaluate(field(docsCheck, "command", 6), success), "bun run map && bun run check");
   for (const event of ["pull_request", "push", "workflow_dispatch"]) {
     const ordinary = { event };
     assert.equal(evaluate(field(job(map, "verify-generated"), "if"), ordinary), false);
-    assert.equal(evaluate(field(docsCheck, "command", 6), ordinary), "npm run map && npm run check");
+    assert.equal(evaluate(field(docsCheck, "command", 6), ordinary), "bun run map && bun run check");
     assert.equal(evaluate(field(mapCheck, "if"), ordinary), event !== "workflow_dispatch");
     assert.equal(evaluate(field(job(map, "drift"), "if"), ordinary), event === "workflow_dispatch");
   }
@@ -102,9 +102,9 @@ test("actual caller expressions fail closed for missing inputs or a failed proof
 
 test("source changes are regenerated before validation without committing derived files by hand", () => {
   const checks = read(".github/workflows/org-map.yml");
-  assert.match(checks, /npm run map\n\s+npm run check/);
+  assert.match(checks, /bun run map\n\s+bun run check/);
   const docs = read(".github/workflows/docs-export.yml");
-  assert.ok(docs.includes("'npm run map && npm run check' || 'exit 1'"));
+  assert.ok(docs.includes("'bun run map && bun run check' || 'exit 1'"));
 });
 
 test("documentation export follows the check result despite the optional verifier being skipped", () => {

@@ -18,12 +18,12 @@ profile changes. The banner, introduction, links and other authored README text 
 
 The caller runs on relevant staging changes, hourly at minute 41, and through **Run workflow** on staging in
 [map-publish](https://github.com/unset-sh/.github/actions/workflows/map-publish.yml). GitHub may delay scheduled
-runs. A no-change run creates no branch or pull request. From this repository with its pinned Node 26 installed,
+runs. A no-change run creates no branch or pull request. From this repository with its pinned Bun 1.4.4 installed,
 local previews use:
 
 ```sh
-npm run map
-npm run check
+bun run map
+bun run check
 ```
 
 `.github/maps.json` registers the renderer and its two fixed Markdown outputs. These committed GitHub views use

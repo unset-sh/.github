@@ -2,7 +2,7 @@
 // prints a Markdown report of every difference. Exits 3 when there is drift
 // (and 1 when the check itself fails, so the two are never confused).
 //
-//   node scripts/drift.mjs [report.md]
+//   bun scripts/drift.mjs [report.md]
 //
 // Lists repositories with GET /orgs/{org}/repos?type=public
 // (https://docs.github.com/rest/repos/repos#list-organization-repositories, REST API 2022-11-28).
@@ -65,7 +65,7 @@ export function report(map, { findings, skipped }, runUrl) {
     "",
     ...findings.map((f) => `- ${f}`),
     "",
-    "Fix it with a pull request that edits repos.json and runs `npm run map`. This issue closes itself on the first",
+    "Fix it with a pull request that edits repos.json and runs `bun run map`. This issue closes itself on the first",
     "daily check that finds no difference.",
   ];
   if (skipped.length > 0) lines.push("", `Not checked (private): ${skipped.map((n) => `\`${n}\``).join(", ")}.`);

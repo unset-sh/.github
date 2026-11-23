@@ -1,8 +1,8 @@
 // Renders the organisation map from repos.json into MAP.md and the profile page's
 // repository list, and checks that both are current. No dependencies.
 //
-//   node scripts/map.mjs --write   rewrite MAP.md and the profile section
-//   node scripts/map.mjs --check   fail if either is out of date or repos.json is invalid
+//   bun scripts/map.mjs --write   rewrite MAP.md and the profile section
+//   bun scripts/map.mjs --check   fail if either is out of date or repos.json is invalid
 
 import { readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
@@ -260,7 +260,7 @@ async function main(mode) {
     else stale.push(path.slice(root.length));
   }
   if (stale.length > 0) {
-    console.error(`Out of date with repos.json: ${stale.join(", ")}. Run npm run map and commit the result.`);
+    console.error(`Out of date with repos.json: ${stale.join(", ")}. Run bun run map and commit the result.`);
     process.exit(1);
   }
 }
@@ -268,7 +268,7 @@ async function main(mode) {
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const mode = process.argv[2];
   if (mode !== "--write" && mode !== "--check") {
-    console.error("usage: node scripts/map.mjs --write | --check");
+    console.error("usage: bun scripts/map.mjs --write | --check");
     process.exit(2);
   }
   await main(mode);
