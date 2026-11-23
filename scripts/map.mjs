@@ -15,6 +15,11 @@ export const STATUSES = {
   archived: "Archived",
 };
 const NOT_CREATED = new Set(["pending", "planned", "proposed"]);
+// Tabler drawings copied from @unset-sh/brand 0.1.1 into profile/icons/, plus the brand mark.
+const PROFILE_ICONS = new Set([
+  "unset-mark", "users", "robot", "terminal-2", "book", "palette", "photo",
+  "file-code", "layout", "server", "stack-2", "world", "cloud-upload",
+]);
 export const PROFILE_START = "<!-- org-map:start (generated from repos.json; edit that, then run npm run map) -->";
 export const PROFILE_END = "<!-- org-map:end -->";
 
@@ -47,6 +52,7 @@ export function validate(map) {
     }
     if (typeof repo.summary !== "string" || repo.summary === "") errors.push(`${at}: summary must be a non-empty string`);
     if (!groups.has(repo.group)) errors.push(`${at}: group must be one of the ids in groups`);
+    if (repo.icon !== undefined && !PROFILE_ICONS.has(repo.icon)) errors.push(`${at}: icon must name a bundled profile icon`);
     for (const [key, value] of Object.entries(repo.links ?? {})) {
       if (!["docs", "site", "package"].includes(key)) errors.push(`${at}: links.${key} is not docs, site or package`);
       else if (key !== "package" && !/^https:\/\//.test(value)) errors.push(`${at}: links.${key} must be an https URL`);
@@ -110,90 +116,193 @@ function mermaidId(name) {
   return `r_${name.replace(/[^a-z0-9]/gi, "_")}`;
 }
 
-export function renderMap(map) {
+function mapAnchor(repo) {
+  return `repo-${repo.name.toLowerCase()}`;
+}
+
+function mapGroups(map) {
+  return map.groups.map((group) => ({ ...group, repos: map.repos.filter((repo) => repo.group === group.id) }))
+    .filter((group) => group.repos.length > 0);
+}
+
+function mapDirectory(groups) {
+  const lines = ["<table>"];
+  for (let i = 0; i < groups.length; i += 2) {
+    lines.push("<tbody>", "<tr>");
+    for (const group of groups.slice(i, i + 2)) {
+      lines.push('<td width="440" valign="top">', `<h3>${escapeHtml(group.title)}</h3>`, "<p>");
+      lines.push(group.repos.map((repo) => {
+        const status = repo.status === "pending" ? "Awaiting setup" : STATUSES[repo.status].split(",")[0];
+        return `<a href="#${escapeHtml(mapAnchor(repo))}"><strong>${escapeHtml(repo.name)}</strong></a> &nbsp;<sub>${escapeHtml(status)}</sub>`;
+      }).join("<br>\n"));
+      lines.push("</p>", "</td>");
+    }
+    if (i + 1 === groups.length) lines.push('<td width="440"></td>');
+    lines.push("</tr>", "</tbody>");
+  }
+  lines.push("</table>");
+  return lines;
+}
+
+function mapRepository(map, repo) {
+  // Keep old heading fragments (.github -> #github) outside the closed disclosure.
+  const legacyAnchor = repo.name.toLowerCase().replace(/[^\w-]/g, "");
   const lines = [
-    "# unset-sh organisation map",
+    `<a name="${escapeHtml(legacyAnchor)}"></a>`,
+    `<a name="${escapeHtml(mapAnchor(repo))}"></a>`,
+    "<details>",
+    `<summary><strong>${escapeHtml(repo.name)}</strong> &nbsp;<code>${escapeHtml(STATUSES[repo.status])}</code></summary>`,
+    "",
+    link(map, repo),
+    "",
+    repo.summary,
+  ];
+  if (repo.owns.length > 0) lines.push("", "**Owns**", "", ...repo.owns.map((item) => `- ${item}`));
+  if (repo.notHere.length > 0) {
+    lines.push("", "**Belongs elsewhere**", "", ...repo.notHere.map((item) => `- ${item.what}: ${where(map, item.where)}`));
+  }
+  lines.push("", `**Current licence:** ${repo.licence.current}`, "", "</details>", "");
+  return lines;
+}
+
+export function renderMap(map) {
+  const groups = mapGroups(map);
+  const counts = Object.keys(STATUSES).map((status) => {
+    const count = map.repos.filter((repo) => repo.status === status).length;
+    return count ? `${count} ${status === "pending" ? "awaiting setup" : status}` : null;
+  }).filter(Boolean);
+  const lines = [
+    '<a name="unset-sh-organisation-map"></a>',
+    "",
+    "# unset.sh / Organisation map",
     "",
     "<!-- Generated from repos.json by scripts/map.mjs. Edit repos.json, then run npm run map. -->",
     "",
-    "Which repository owns what, what does not belong in each, and which way the dependencies point. Read this before",
-    "starting work in any unset.sh repository, and update [`repos.json`](repos.json) in the same change that creates,",
-    "renames, archives or changes the scope of a repository. A daily check compares this map with GitHub and opens an",
-    "issue when they differ.",
+    "Find the right repository, trace its dependencies, and check what belongs there.",
+    "",
+    "[Repositories](#repositories) &nbsp;·&nbsp; [Dependencies](#dependencies) &nbsp;·&nbsp; [Ownership](#repository-boundaries) &nbsp;·&nbsp; [Licences](#licences)",
+    "",
+    `**${map.repos.length} repositories** &nbsp;·&nbsp; ${counts.join(" &nbsp;·&nbsp; ")}`,
+    "",
+    "<sub>Active means the repository exists. It does not mean its product or integration is ready.</sub>",
     "",
     "## Repositories",
     "",
-    "| Repository | Status | What it is |",
-    "| --- | --- | --- |",
+    "Choose a repository to jump to its ownership details.",
+    "",
+    ...mapDirectory(groups),
   ];
-  for (const repo of map.repos) {
-    lines.push(`| ${link(map, repo)} | ${STATUSES[repo.status]} | ${repo.summary} |`);
+  lines.push("", '<a name="which-way-dependencies-point"></a>', "", "## Dependencies", "",
+    "Arrows show recorded dependencies, including planned and conditional work. **A → B** means A supplies something B pins, copies or receives. The check refuses circular dependencies.",
+    "");
+  const connected = new Set(map.repos.flatMap((repo) => repo.uses.flatMap((use) => [repo.name, use.repo])));
+  if (connected.size > 0) {
+    lines.push("```mermaid", "flowchart TB");
+    for (const repo of map.repos.filter((repo) => connected.has(repo.name))) {
+      const label = NOT_CREATED.has(repo.status) ? `${repo.name} (${repo.status})` : repo.name;
+      lines.push(`  ${mermaidId(repo.name)}["${label}"]`);
+    }
+    for (const repo of map.repos) {
+      for (const use of repo.uses) lines.push(`  ${mermaidId(use.repo)} --> ${mermaidId(repo.name)}`);
+    }
+    lines.push("  classDef default fill:transparent,stroke:#888,stroke-width:1px", "  classDef uncreated fill:transparent,stroke:#888,stroke-width:1px,stroke-dasharray:5 4");
+    const uncreated = map.repos.filter((repo) => connected.has(repo.name) && NOT_CREATED.has(repo.status));
+    if (uncreated.length) lines.push(`  class ${uncreated.map((repo) => mermaidId(repo.name)).join(",")} uncreated`);
+    if (connected.has("unset")) lines.push("  style r_unset stroke-width:2px");
+    lines.push("```", "");
+    if (uncreated.length) lines.push("Dashed outlines mark repositories that have not been created.", "");
   }
-  lines.push("", "## Which way dependencies point", "", "An arrow reads \"feeds\": the left side is pinned, copied or pushed into the right. Nothing points back, and the",
-    "check fails on a cycle.", "", "```mermaid", "flowchart LR");
-  for (const repo of map.repos) {
-    const label = NOT_CREATED.has(repo.status) ? `${repo.name} (${repo.status})` : repo.name;
-    lines.push(`  ${mermaidId(repo.name)}["${label}"]`);
+  const standalone = map.repos.filter((repo) => !connected.has(repo.name));
+  if (standalone.length) {
+    lines.push(`No dependency edges recorded: ${standalone.map((repo) => `[${repo.name}](#${mapAnchor(repo)})`).join(" · ")}.`, "");
   }
-  for (const repo of map.repos) {
-    for (const use of repo.uses) lines.push(`  ${mermaidId(use.repo)} --> ${mermaidId(repo.name)}`);
+  if (connected.size > 0) {
+    lines.push("<details>", '<summary><strong>Dependency details</strong> — pins, copies and handoffs</summary>', "");
+    for (const repo of map.repos) {
+      for (const use of repo.uses) lines.push(`- \`${use.repo}\` → \`${repo.name}\`: ${use.how}`);
+    }
+    lines.push("", "</details>", "");
   }
-  lines.push("```", "");
-  for (const repo of map.repos) {
-    for (const use of repo.uses) lines.push(`- \`${use.repo}\` → \`${repo.name}\`: ${use.how}`);
+  lines.push("## Repository boundaries", "",
+    "Expand a repository for its full scope, ownership, current licence and where other work belongs.", "");
+  for (const group of groups) {
+    lines.push(`### ${group.title}`, "");
+    for (const repo of group.repos) lines.push(...mapRepository(map, repo));
   }
   const offRule = map.repos.filter((r) => !r.licence.followsRule);
-  lines.push("", "## Licences", "", map.licenceRule);
+  lines.push("## Licences", "", map.licenceRule);
   if (offRule.length > 0) {
-    lines.push("", "Not matching the rule yet (changing a published licence needs the owner's decision):", "");
+    lines.push("", `**${offRule.length} repositories do not match the rule yet.** Changing a published licence needs the owner's decision.`, "");
     lines.push("| Repository | Licence today |", "| --- | --- |");
-    for (const repo of offRule) lines.push(`| \`${repo.name}\` | ${repo.licence.current} |`);
+    for (const repo of offRule) lines.push(`| [${repo.name}](#${mapAnchor(repo)}) | ${repo.licence.current} |`);
   }
-  for (const repo of map.repos) {
-    lines.push("", `## ${repo.name}`, "", `${link(map, repo)}. ${STATUSES[repo.status]}.`, "", repo.summary);
-    lines.push("", `**Licence:** ${repo.licence.current}.`);
-    if (repo.owns.length > 0) {
-      lines.push("", "**Owns**", "", ...repo.owns.map((item) => `- ${item}`));
-    }
-    if (repo.notHere.length > 0) {
-      lines.push("", "**Does not belong here**", "", ...repo.notHere.map((item) => `- ${item.what}: ${where(map, item.where)}`));
-    }
-  }
-  lines.push("");
+  lines.push("", "---", "", "<details>", "<summary>Maintaining this map</summary>", "",
+    "Read this map before starting work in any unset.sh repository. Update [`repos.json`](repos.json) in the same change that creates, renames, archives or changes the scope of a repository, then run `npm run map`.", "",
+    "A daily check compares this map with GitHub and opens an issue when they differ.", "", "</details>", "");
   return lines.join("\n");
 }
 
 const ORG_URL = "https://github.com/unset-sh";
 const MAP_URL = `${ORG_URL}/.github/blob/main/MAP.md`;
+const BRAND_ASSETS = "https://raw.githubusercontent.com/unset-sh/brand/8c998a2990ae477daf5ac1636028f6cbf379577b/logo";
 
 function escapeHtml(text) {
   return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
+function profileIcon(name) {
+  if (name === "unset-mark") {
+    return `<picture><source media="(prefers-color-scheme: dark)" srcset="${BRAND_ASSETS}/unset-mark-platinum.svg"><img src="${BRAND_ASSETS}/unset-mark-onyx.svg" width="60" alt=""></picture>`;
+  }
+  return PROFILE_ICONS.has(name)
+    ? `<picture><img src="./icons/${name}.svg" width="24" height="24" alt=""></picture>`
+    : "";
+}
+
 function profileCardParts(map, repo) {
   const name = fullName(map, repo);
   const created = !NOT_CREATED.has(repo.status);
-  const title = created
+  const label = created
     ? `<a href="https://github.com/${name}"><strong>${escapeHtml(repo.name)}</strong></a>`
     : `<strong>${escapeHtml(repo.name)}</strong>`;
   const links = [];
-  if (created) links.push(`<a href="https://github.com/${name}">Code</a>`);
-  if (repo.links?.docs) links.push(`<a href="${escapeHtml(repo.links.docs)}">Docs</a>`);
+  if (repo.links?.docs) {
+    const label = repo.links.docs === MAP_URL ? "Organisation map" : "Documentation";
+    links.push(`<a href="${escapeHtml(repo.links.docs)}">${label}</a>`);
+  }
   if (repo.links?.site) links.push(`<a href="${escapeHtml(repo.links.site)}">${escapeHtml(new URL(repo.links.site).host)}</a>`);
   if (repo.links?.package) links.push(`<code>${escapeHtml(repo.links.package)}</code>`);
-  if (!created) links.push("<sub>Coming soon</sub>");
-  return { title, text: escapeHtml(repo.tagline ?? repo.description ?? repo.summary), links: links.join(" &nbsp;·&nbsp; ") };
+  return {
+    title: label,
+    icon: profileIcon(repo.icon),
+    text: escapeHtml(repo.tagline ?? repo.description ?? repo.summary),
+    links: links.join(" &nbsp;·&nbsp; "),
+    status: created ? "" : escapeHtml(STATUSES[repo.status]),
+  };
 }
 
-function profileCard(map, repo) {
-  const { title, text, links } = profileCardParts(map, repo);
-  return ['<td width="50%" valign="top">', "", `${title}<br>`, text, "<br><br>", links, "", "</td>"];
-}
-
-// GitHub sizes a table to its content, so a lone card would sit in a narrow box; it gets a plain paragraph instead.
-function profileLine(map, repo) {
-  const { title, text, links } = profileCardParts(map, repo);
-  return [`${title} &nbsp;${text}<br>`, links, ""];
+function profileCards(map, repos, columns = 2) {
+  const cards = repos.map((repo) => profileCardParts(map, repo));
+  const hasFooter = cards.some((card) => card.links !== "");
+  const lines = ["<tbody>", "<tr>"];
+  for (const { title, icon, text, links, status } of cards) {
+    const span = hasFooter && !links ? ' rowspan="2"' : "";
+    const heading = icon ? `${icon}${columns === 2 ? "<br>" : " &nbsp;"}${title}` : title;
+    lines.push(`<td width="${880 / columns}" valign="top"${span}>`, `<h3>${heading}</h3>`, `<p>${text}</p>`);
+    if (status) lines.push(`<p><sub>${status}</sub></p>`);
+    lines.push("</td>");
+  }
+  if (cards.length < columns) lines.push(`<td width="440"${hasFooter ? ' rowspan="2"' : ""}></td>`);
+  lines.push("</tr>");
+  if (hasFooter) {
+    lines.push("<tr>");
+    for (const { links } of cards) {
+      if (links) lines.push(`<td width="${100 / columns}%" valign="bottom">`, links, "</td>");
+    }
+    lines.push("</tr>");
+  }
+  lines.push("</tbody>");
+  return lines;
 }
 
 // Repositories the profile page shows: existing ones not hidden, and approved ones not created yet.
@@ -207,26 +316,19 @@ export function renderProfileSection(map) {
   for (const group of map.groups) {
     const repos = shown.filter((r) => r.group === group.id);
     if (repos.length === 0) continue;
-    lines.push(`### ${group.title}`, "", group.blurb, "");
-    if (repos.length === 1) {
-      lines.push(...profileLine(map, repos[0]));
-      continue;
-    }
-    // Two cards to a row; an odd last card leaves an empty cell.
+    lines.push(`## ${group.title}`, "");
     lines.push("<table>");
+    const columns = repos.length === 1 ? 1 : 2;
     for (let i = 0; i < repos.length; i += 2) {
-      const pair = repos.slice(i, i + 2);
-      lines.push("<tr>", ...pair.flatMap((repo) => profileCard(map, repo)));
-      if (pair.length === 1) lines.push('<td width="50%"></td>');
-      lines.push("</tr>");
+      lines.push(...profileCards(map, repos.slice(i, i + 2), columns));
     }
     lines.push("</table>", "");
   }
   lines.push(
     "---",
     "",
-    `<sub>How the repositories depend on each other, what belongs where, and each one's licence: <a href="${MAP_URL}">the organisation map</a>. ` +
-      `Product code is AGPL-3.0-only. <a href="${ORG_URL}/.github/blob/main/CONTRIBUTING.md">How to contribute</a>.</sub>`,
+    `<sub>Repository boundaries, dependencies and licences: <a href="${MAP_URL}">organisation map</a>. ` +
+      `<a href="${ORG_URL}/.github/blob/main/CONTRIBUTING.md">How to contribute</a>.</sub>`,
     "",
     PROFILE_END,
   );
