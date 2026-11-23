@@ -47,7 +47,7 @@
         },
         {
           "what": "Preview images and embeds drawn from data",
-          "where": "presentation"
+          "where": "rendering"
         },
         {
           "what": "Ready-made profile layouts for AI-assisted setup",
@@ -68,8 +68,8 @@
           "how": "@unset-sh/brand at an exact version (after the rewrite)"
         },
         {
-          "repo": "presentation",
-          "how": "@unset-sh/presentation at an exact version (after the rewrite)"
+          "repo": "rendering",
+          "how": "@unset-sh/rendering at an exact version (after the rewrite)"
         },
         {
           "repo": "messaging",
@@ -198,7 +198,7 @@
       "notHere": [
         {
           "what": "Anything drawn from data, such as link previews and share cards",
-          "where": "presentation"
+          "where": "rendering"
         },
         {
           "what": "Business rules, authentication, network calls and application state",
@@ -213,6 +213,10 @@
         {
           "repo": "tooling",
           "how": "read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment"
+        },
+        {
+          "repo": "agent-kit",
+          "how": "committed copy under .claude/ at a full commit of main, checked by sync.mjs --check (adoption pull request open)"
         }
       ],
       "licence": {
@@ -222,14 +226,14 @@
       }
     },
     {
-      "name": "presentation",
+      "name": "rendering",
       "status": "active",
       "group": "look",
       "description": "How unset.sh looks outside the app: preview images and embeds for profiles, posts and articles, rendered from supplied data",
       "tagline": "Preview images and embeds for profiles, posts and articles",
-      "summary": "Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/presentation on GitHub Packages; no running service.",
+      "summary": "Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/rendering on GitHub Packages; no running service.",
       "links": {
-        "package": "@unset-sh/presentation"
+        "package": "@unset-sh/rendering"
       },
       "owns": [
         "Templates for profile, post and article previews, one owner per template",
@@ -258,6 +262,10 @@
         {
           "repo": "tooling",
           "how": "read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment"
+        },
+        {
+          "repo": "agent-kit",
+          "how": "committed copy under .claude/ at a full commit of main, checked by sync.mjs --check (adoption pull request open)"
         }
       ],
       "licence": {
@@ -309,6 +317,10 @@
         {
           "repo": "tooling",
           "how": "read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment"
+        },
+        {
+          "repo": "agent-kit",
+          "how": "committed copy under .claude/ at a full commit of main, checked by sync.mjs --check (adoption pull request open)"
         }
       ],
       "licence": {
@@ -426,6 +438,10 @@
         {
           "repo": "tooling",
           "how": "read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment"
+        },
+        {
+          "repo": "agent-kit",
+          "how": "committed copy under .claude/ at a full commit of main, checked by sync.mjs --check (adoption pull request open)"
         }
       ],
       "licence": {
@@ -458,6 +474,10 @@
         {
           "repo": "tooling",
           "how": "read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment"
+        },
+        {
+          "repo": "agent-kit",
+          "how": "committed copy under .claude/ at a full commit of main, checked by sync.mjs --check (adoption pull request open)"
         }
       ],
       "licence": {

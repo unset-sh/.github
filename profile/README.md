@@ -47,10 +47,10 @@ Shared visual contract, assets and brand guide
 </td>
 <td width="50%" valign="top">
 
-<a href="https://github.com/unset-sh/presentation"><strong>presentation</strong></a><br>
+<a href="https://github.com/unset-sh/rendering"><strong>rendering</strong></a><br>
 Preview images and embeds for profiles, posts and articles
 <br><br>
-<a href="https://github.com/unset-sh/presentation">Code</a> &nbsp;·&nbsp; <code>@unset-sh/presentation</code>
+<a href="https://github.com/unset-sh/rendering">Code</a> &nbsp;·&nbsp; <code>@unset-sh/rendering</code>
 
 </td>
 </tr>
