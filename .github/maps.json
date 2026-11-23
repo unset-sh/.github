@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "maps": [
+    {
+      "id": "organisation",
+      "generator": "scripts/map.mjs",
+      "arguments": ["--write"],
+      "outputs": ["MAP.md", "profile/README.md"]
+    }
+  ]
+}

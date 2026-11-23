@@ -1,7 +1,7 @@
 name: org-map
 
-# check: on every pull request and push, repos.json is valid and MAP.md and the
-#        profile page match it.
+# check: on every pull request and push, regenerate the map from repos.json and
+#        validate the result. map-publish updates the committed views after merge.
 # drift: every day and on demand, compares repos.json with the organisation's
 #        public repositories and keeps one issue labelled org-map-drift open
 #        while they differ, closing it once they match again.
@@ -36,7 +36,9 @@ jobs:
         with:
           node-version-file: .nvmrc
           package-manager-cache: false
-      - run: npm run check
+      - run: |
+          npm run map
+          npm run check
 
   drift:
     name: Compare the map with GitHub

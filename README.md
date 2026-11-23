@@ -51,8 +51,16 @@ npm run map
 npm run check
 ```
 
-Commit the source and generated views together. The check rejects duplicate repositories, unknown dependencies,
-cycles and stale generated output.
+Commit the source change. CI regenerates both views and checks duplicate repositories, unknown dependencies,
+cycles and generated output. After merge, the shared publisher updates `MAP.md` and the generated profile block
+through a generated-only PR without a separate owner approval. It also runs hourly and can be started manually.
+Committing the generated views with the source is still supported; unchanged output produces no PR.
+
+The publisher accepts only the two paths registered in `.github/maps.json`, preserves authored profile text,
+and stops on observed main changes or a refused merge. A concurrent source change after the final check can leave
+a temporarily stale view until the next successful current-main refresh. It never changes branch protections. Repository
+ownership, plans and explanatory claims remain authored in `repos.json`; refreshing a view does not invent them
+from code. See [Automatic map publication](docs/site/map-publication.md) for operation and recovery.
 
 The daily and manual map workflow compares the map with public GitHub metadata. While differences exist it keeps
 one issue labelled `org-map-drift` open and closes it when they are resolved. Private entries cannot be checked
