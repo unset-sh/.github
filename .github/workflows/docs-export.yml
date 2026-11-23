@@ -18,6 +18,8 @@ jobs:
     uses: unset-sh/tooling/.github/workflows/ci-check.yml@838a965d14d0887291046c279422becb7b0228f3
     permissions:
       contents: read
+    with:
+      command: npm run map && npm run check
   export:
     needs: check
     uses: unset-sh/tooling/.github/workflows/automation-docs-export.yml@838a965d14d0887291046c279422becb7b0228f3

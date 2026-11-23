@@ -10,8 +10,12 @@ This is `unset-sh/.github`: the organisation's front page, repository map, commu
 
 ## Rules
 
-- `repos.json` is the only hand-written source of the map. `MAP.md` and the block between the `org-map` markers in
-  `profile/README.md` are generated: edit `repos.json`, run `npm run map`, commit both. `npm run check` must pass.
+- `repos.json` is the authored source for ownership, plans and explanatory text. `MAP.md` and the block between
+  the `org-map` markers in `profile/README.md` are generated. CI regenerates and checks them; the pinned shared
+  publisher updates the committed views after a source change reaches main, hourly, or on demand. It may merge
+  only those validated generated files without another owner approval. Source changes follow normal review.
+  `.github/maps.json` registers these Markdown views for tooling's dedicated organisation-map publisher;
+  the generic website map runner still accepts JSON snapshots only. Use `npm run map` for a local preview.
 - A repository's `description` in `repos.json` is exactly what GitHub shows for it (`""` when it has none). When the
   two differ, decide which is wrong; changing the GitHub description is the owner's call.
 - Statuses: `active` exists; `pending` is approved and waiting for the owner to set it up; `planned` is agreed but not

@@ -1,0 +1,30 @@
+name: map-publish
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - repos.json
+      - scripts/**
+      - package.json
+      - MAP.md
+      - profile/README.md
+      - .github/maps.json
+      - .github/workflows/map-publish.yml
+  schedule:
+    - cron: '41 * * * *'
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: map-publication
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    uses: unset-sh/tooling/.github/workflows/automation-org-map.yml@3b81a8a0196a2c1e49131584bdd4355867f2ed4e
+    permissions:
+      contents: write
+      pull-requests: write
