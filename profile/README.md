@@ -28,8 +28,44 @@ An AT Protocol identity and profile app, built privacy first with a small core t
 
 What members use, and the services that run it.
 
-<a href="https://github.com/Undefined6799/unset"><strong>unset</strong></a> &nbsp;The app: your identity and profile on the AT Protocol<br>
+<table>
+<tr>
+<td width="50%" valign="top">
+
+<a href="https://github.com/unset-sh/web"><strong>web</strong></a><br>
+The complete SvelteKit web client
+<br><br>
+<a href="https://github.com/unset-sh/web">Code</a>
+
+</td>
+<td width="50%" valign="top">
+
+<a href="https://github.com/unset-sh/backend"><strong>backend</strong></a><br>
+Product capabilities, AppView and server adapters
+<br><br>
+<a href="https://github.com/unset-sh/backend">Code</a>
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+<a href="https://github.com/unset-sh/deployment"><strong>deployment</strong></a><br>
+Environment topology and stack releases
+<br><br>
+<a href="https://github.com/unset-sh/deployment">Code</a>
+
+</td>
+<td width="50%" valign="top">
+
+<a href="https://github.com/Undefined6799/unset"><strong>unset</strong></a><br>
+The app: your identity and profile on the AT Protocol
+<br><br>
 <a href="https://github.com/Undefined6799/unset">Code</a> &nbsp;·&nbsp; <a href="https://unset.sh">unset.sh</a>
+
+</td>
+</tr>
+</table>
 
 ### Look and feel
 

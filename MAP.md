@@ -11,7 +11,10 @@ issue when they differ.
 
 | Repository | Status | What it is |
 | --- | --- | --- |
-| [`Undefined6799/unset`](https://github.com/Undefined6799/unset) | Active | The unset.sh app: web, admin, public API, indexer, media proxy, their database and deployment. Lives outside the organisation for now and will be largely rewritten, then wired to the repositories below by pinned releases. |
+| [`unset-sh/web`](https://github.com/unset-sh/web) | Active | The approved home for the complete web application, including messaging UI and web/device adapters. The repository exists with an initial README and licence; detailed ownership setup is under review. No runnable SvelteKit application, image or migrated feature exists yet. |
+| [`unset-sh/backend`](https://github.com/unset-sh/backend) | Active | The approved product backend shared by web and future mobile clients. The repository exists with an initial README and licence; detailed ownership setup is under review. Application code, API contracts, images and migration remain pending. Replaces the proposed server-kit destination; messaging is a capability here, not a standalone repository. |
+| [`unset-sh/deployment`](https://github.com/unset-sh/deployment) | Active | The approved home for environment definitions and stack release assembly. The repository exists with an initial README and licence; detailed ownership setup is under review. No deployable stack, image selections, infrastructure configuration or rollout automation exists yet. |
+| [`Undefined6799/unset`](https://github.com/Undefined6799/unset) | Active | The existing application outside the organisation, retained read-only during the migration. Its implementation and regression evidence inform the new web, backend and deployment repositories; their creation does not mean the application has moved. |
 | [`unset-sh/.github`](https://github.com/unset-sh/.github) | Active | The organisation's front page, repository map, community defaults and native starter workflow catalogue. Local map validation stays here, with small pinned read-only callers for shared checks and documentation export from tooling. Consumers retain their own workflow events, permissions and project commands. |
 | [`unset-sh/tooling`](https://github.com/unset-sh/tooling) | Active | Maintains shared CI, protected-release and documentation-export implementations, supporting scripts and tests. The initial implementation is merged through pull request #1 at version 0.0.0; the first release and broader consumer adoption remain pending. Consumers retain their own events, permissions, inputs, build and test logic, and immutable caller pins. |
 | [`unset-sh/brand`](https://github.com/unset-sh/brand) | Active | The editable visual contract for unset.sh. Ships static CSS, JSON, fonts, mark and icon data as @unset-sh/brand on GitHub Packages, and builds its Hugo guide with an interactive Svelte component gallery for GitHub Pages. |
@@ -19,9 +22,7 @@ issue when they differ.
 | [`unset-sh/profile-recipes`](https://github.com/unset-sh/profile-recipes) | Active | Persona profile layouts (recipes) with a guide an AI assistant follows to build someone's profile, plus sample records checked against the lexicons. |
 | [`unset-sh/docs`](https://github.com/unset-sh/docs) | Active | The live organisation-only docs.unset.sh site: a root Hugo framework edited by pull requests, source-owned repository sections and map views derived from .github. Profile-recipes publishes its section automatically. The old app mirror workflow and its writable credential are retired; the site excludes app documentation until the app moves into the organisation. |
 | [`unset-sh/pds`](https://github.com/unset-sh/pds) | Active | The home for unset.sh's PDS image and everything that customises the PDS: the build on top of the official image, the theme for its sign-in and account pages, and their pins. Empty for now; until it moves, the image is built in the app repository (deployment/pds/). |
-| [`unset-sh/lexicons`](https://github.com/unset-sh/lexicons) | Active | The public MIT-licensed sh.unset.* lexicon schemas, reference documentation and examples. The initial schemas are an exact snapshot of the merged application source with recorded hashes. Schema changes remain coordinated in the app; synchronization is currently manual and the proposed automatic mirror is not configured. DNS/PDS publication is separate. |
-| `unset-sh/messaging` | Proposed, not approved | The private messaging product on unset.cc: one-to-one chat on Matrix today, later communities, channels, roles and voice. Plan drafted, awaiting approval; not created. |
-| `unset-sh/server-kit` | Proposed, not approved | Proposed: the generic security code the app and messaging both need (HTTP kit and CSRF gate, egress guard, sealed storage, signed admin envelope, config, log). Not approved yet. |
+| [`unset-sh/lexicons`](https://github.com/unset-sh/lexicons) | Active | The public MIT-licensed sh.unset.* schemas, reference documentation and examples, and the agreed destination for protocol authority. Current schema bytes retain their exact application-import provenance; the maintained import/authoring policy and consumer adoption still need the authority cutover. GitHub source, generated SDKs and DNS/PDS publication are separate states. |
 | [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit) | Active | The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. Organisation decision records and AI working notes and artifacts are maintained here; working material stays outside the distributed kit. The shared human documentation standard remains proposed in pull request #7. Updates to distributed rules and skills still require an approved kit release. |
 
 ## Which way dependencies point
@@ -31,6 +32,9 @@ check fails on a cycle.
 
 ```mermaid
 flowchart LR
+  r_web["web"]
+  r_backend["backend"]
+  r_deployment["deployment"]
   r_unset["unset"]
   r__github[".github"]
   r_tooling["tooling"]
@@ -40,14 +44,21 @@ flowchart LR
   r_docs["docs"]
   r_pds["pds"]
   r_lexicons["lexicons"]
-  r_messaging["messaging (proposed)"]
-  r_server_kit["server-kit (proposed)"]
   r_agent_kit["agent-kit"]
-  r_brand --> r_unset
-  r_rendering --> r_unset
-  r_messaging --> r_unset
-  r_server_kit --> r_unset
-  r_pds --> r_unset
+  r_backend --> r_web
+  r_brand --> r_web
+  r_lexicons --> r_web
+  r_tooling --> r_web
+  r_agent_kit --> r_web
+  r_lexicons --> r_backend
+  r_rendering --> r_backend
+  r_tooling --> r_backend
+  r_agent_kit --> r_backend
+  r_backend --> r_deployment
+  r_web --> r_deployment
+  r_pds --> r_deployment
+  r_tooling --> r_deployment
+  r_agent_kit --> r_deployment
   r_tooling --> r__github
   r_tooling --> r_brand
   r_brand --> r_rendering
@@ -63,16 +74,23 @@ flowchart LR
   r_tooling --> r_pds
   r_unset --> r_lexicons
   r_tooling --> r_lexicons
-  r_brand --> r_messaging
-  r_server_kit --> r_messaging
   r_tooling --> r_agent_kit
 ```
 
-- `brand` → `unset`: @unset-sh/brand at an exact version (after the rewrite)
-- `rendering` → `unset`: @unset-sh/rendering at an exact version (after the rewrite)
-- `messaging` → `unset`: @unset-sh/messaging-contract at an exact version (planned)
-- `server-kit` → `unset`: pinned release (if approved)
-- `pds` → `unset`: the PDS image by pinned digest (after the move)
+- `backend` → `web`: planned public API consumption; browser and SSR code do not import private backend implementations
+- `brand` → `web`: planned semantic tokens and assets through immutable consumer artifacts
+- `lexicons` → `web`: planned supported protocol artifacts where the client needs them
+- `tooling` → `web`: planned reviewed workflow callers with product-owned checks
+- `agent-kit` → `web`: bootstrap instructions reference a recorded full commit; installed kit and release adoption remain pending
+- `lexicons` → `backend`: planned protocol artifact consumption at reviewed immutable revisions after authority and compatibility cutover
+- `rendering` → `backend`: planned rendering from authorized supplied data; no package is installed yet
+- `tooling` → `backend`: planned reviewed workflow callers once meaningful product checks and builds exist
+- `agent-kit` → `backend`: bootstrap instructions reference a recorded full commit; installed kit and release adoption remain pending
+- `backend` → `deployment`: planned deployment of released API, indexer and other independently privileged backend images
+- `web` → `deployment`: planned deployment of the released web image
+- `pds` → `deployment`: planned deployment of a maintained PDS image by verified digest
+- `tooling` → `deployment`: planned shared deployment mechanisms; current tooling does not implement stack deployment
+- `agent-kit` → `deployment`: bootstrap instructions reference a recorded full commit; installed kit and release adoption remain pending
 - `tooling` → `.github`: small read-only CI and documentation-export callers at a reviewed merged full commit; source checks must pass before export, and automatic update propagation is not configured; read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `tooling` → `brand`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `brand` → `rendering`: @unset-sh/brand at an exact version
@@ -88,8 +106,6 @@ flowchart LR
 - `tooling` → `pds`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `unset` → `lexicons`: initial schemas copied from the merged application source at a recorded commit with per-file hashes; synchronization is manual and the proposed automatic mirror is not configured
 - `tooling` → `lexicons`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
-- `brand` → `messaging`: @unset-sh/brand at an exact version
-- `server-kit` → `messaging`: pinned kit packages (if server-kit is approved)
 - `tooling` → `agent-kit`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 
 ## Licences
@@ -102,28 +118,95 @@ Not matching the rule yet (changing a published licence needs the owner's decisi
 | --- | --- |
 | `unset` | AGPL-3.0-only; the lexicon schemas are MIT (as the rule wants); shared/ is MIT under ADR 0012 |
 
+## web
+
+[`unset-sh/web`](https://github.com/unset-sh/web). Active.
+
+The approved home for the complete web application, including messaging UI and web/device adapters. The repository exists with an initial README and licence; detailed ownership setup is under review. No runnable SvelteKit application, image or migrated feature exists yet.
+
+**Licence:** AGPL-3.0-only first-party work; foundation only, no application code imported.
+
+**Owns**
+
+- SvelteKit routes, SSR, screens, interactions, web sessions and web-specific response handling
+- Client capability interfaces and adapters, including messaging device responsibilities where required
+- Web tests, browser/server boundaries and producer image builds
+
+**Does not belong here**
+
+- Authoritative product operations and private data adapters: [`unset-sh/backend`](https://github.com/unset-sh/backend)
+- Shared brand tokens and assets: [`unset-sh/brand`](https://github.com/unset-sh/brand)
+- Preview images and embeds drawn from data: [`unset-sh/rendering`](https://github.com/unset-sh/rendering)
+- Canonical protocol definitions: [`unset-sh/lexicons`](https://github.com/unset-sh/lexicons)
+- Environment wiring and stack delivery: [`unset-sh/deployment`](https://github.com/unset-sh/deployment)
+
+## backend
+
+[`unset-sh/backend`](https://github.com/unset-sh/backend). Active.
+
+The approved product backend shared by web and future mobile clients. The repository exists with an initial README and licence; detailed ownership setup is under review. Application code, API contracts, images and migration remain pending. Replaces the proposed server-kit destination; messaging is a capability here, not a standalone repository.
+
+**Licence:** AGPL-3.0-only first-party work; foundation only, no application code imported.
+
+**Owns**
+
+- Product domains and operations, authoritative authorization, and private domain-owned contracts
+- Published service APIs and consumer compatibility checks, distinct from private domain ports
+- AppView query APIs, indexing rules and feature projections; separate privileged process entry points
+- Technology-specific server adapters, including AT Protocol, Postgres and S3; domain code depends on capability contracts
+- Database migration definitions, image builds and runtime configuration contracts
+
+**Does not belong here**
+
+- Web and messaging screens, browser sessions and device-side integrations: [`unset-sh/web`](https://github.com/unset-sh/web)
+- Environment topology, bucket provisioning, selected images and stack rollout: [`unset-sh/deployment`](https://github.com/unset-sh/deployment)
+- PDS image packaging and customization: [`unset-sh/pds`](https://github.com/unset-sh/pds)
+- Canonical shared protocol definitions: [`unset-sh/lexicons`](https://github.com/unset-sh/lexicons)
+- Shared developer-tooling implementations: [`unset-sh/tooling`](https://github.com/unset-sh/tooling)
+
+## deployment
+
+[`unset-sh/deployment`](https://github.com/unset-sh/deployment). Active.
+
+The approved home for environment definitions and stack release assembly. The repository exists with an initial README and licence; detailed ownership setup is under review. No deployable stack, image selections, infrastructure configuration or rollout automation exists yet.
+
+**Licence:** AGPL-3.0-only first-party work; foundation only, no application code imported.
+
+**Owns**
+
+- Environment topology, networks, volumes, bucket provisioning, configuration references and access policies
+- A versioned compatible set of producer-built immutable images and artifacts, not one combined services image
+- Rollout order, health verification, recorded deployed versions and recovery procedures
+- Execution of producer-owned migration contracts and separately operated services such as PDS and Tap when adopted
+
+**Does not belong here**
+
+- Application code, AppView/indexer behavior and database migration definitions: [`unset-sh/backend`](https://github.com/unset-sh/backend)
+- Web code and web image builds: [`unset-sh/web`](https://github.com/unset-sh/web)
+- Maintained PDS image builds and customization: [`unset-sh/pds`](https://github.com/unset-sh/pds)
+- Reusable CI and deployment execution mechanisms: [`unset-sh/tooling`](https://github.com/unset-sh/tooling)
+
 ## unset
 
 [`Undefined6799/unset`](https://github.com/Undefined6799/unset). Active.
 
-The unset.sh app: web, admin, public API, indexer, media proxy, their database and deployment. Lives outside the organisation for now and will be largely rewritten, then wired to the repositories below by pinned releases.
+The existing application outside the organisation, retained read-only during the migration. Its implementation and regression evidence inform the new web, backend and deployment repositories; their creation does not mean the application has moved.
 
 **Licence:** AGPL-3.0-only; the lexicon schemas are MIT (as the rule wants); shared/ is MIT under ADR 0012.
 
 **Owns**
 
-- Every product rule and screen of unset.sh, and the data behind them
-- The sh.unset.* lexicon schemas (shared/lexicons/schemas/), the source of truth until the organisation takes it over
-- Deciding what to present: which data, who may see it, URLs, caching and removal
-- The app's architecture decision records (docs/human/decisions/)
+- The current application implementation and its tests until each destination migration is verified
+- Historical application decisions and recorded schema-import provenance
+- Existing runtime behavior; no production cutover is implied by the organisation layout
 
 **Does not belong here**
 
-- Design tokens, fonts, the mark and icons: [`unset-sh/brand`](https://github.com/unset-sh/brand)
-- Preview images and embeds drawn from data: [`unset-sh/rendering`](https://github.com/unset-sh/rendering)
-- Ready-made profile layouts for AI-assisted setup: [`unset-sh/profile-recipes`](https://github.com/unset-sh/profile-recipes)
-- The chat app (unset.cc), once it moves: `unset-sh/messaging`
-- The PDS image and its customisation, once they move: [`unset-sh/pds`](https://github.com/unset-sh/pds)
+- New organisation web UI, routes and web-specific adapters: [`unset-sh/web`](https://github.com/unset-sh/web)
+- New organisation product operations, AppView and server adapters: [`unset-sh/backend`](https://github.com/unset-sh/backend)
+- New environment topology and stack release assembly: [`unset-sh/deployment`](https://github.com/unset-sh/deployment)
+- Canonical shared brand and rendering capabilities: [`unset-sh/brand`](https://github.com/unset-sh/brand) and rendering
+- Organisation architecture decisions and this migration record: [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit)
 
 ## .github
 
@@ -190,7 +273,7 @@ The editable visual contract for unset.sh. Ships static CSS, JSON, fonts, mark a
 **Does not belong here**
 
 - Anything drawn from data, such as link previews and share cards: [`unset-sh/rendering`](https://github.com/unset-sh/rendering)
-- Business rules, authentication, network calls and application state: [`Undefined6799/unset`](https://github.com/Undefined6799/unset) or the consuming application
+- Business rules, authentication, network calls and application state: [`unset-sh/backend`](https://github.com/unset-sh/backend) or web, according to the capability
 - Component interaction behaviour or consumer deployment orchestration: the consuming application and its shadcn-svelte/Bits UI integration
 
 ## rendering
@@ -209,9 +292,9 @@ Templates and the one rendering path for preview images and embeds, with a galle
 
 **Does not belong here**
 
-- Deciding what to show: data, visibility, URLs, caching, removal: [`Undefined6799/unset`](https://github.com/Undefined6799/unset)
+- Deciding what to show: data, visibility, URLs, caching, removal: [`unset-sh/backend`](https://github.com/unset-sh/backend) (after the application migration; currently the read-only source app)
 - Colours, fonts and the mark: [`unset-sh/brand`](https://github.com/unset-sh/brand)
-- A server or a queue that renders on request: [`Undefined6799/unset`](https://github.com/Undefined6799/unset) (it calls this package)
+- A server or a queue that renders on request: [`unset-sh/backend`](https://github.com/unset-sh/backend) (after the application migration; currently the read-only source app)
 
 ## profile-recipes
 
@@ -278,64 +361,26 @@ The home for unset.sh's PDS image and everything that customises the PDS: the bu
 
 **Does not belong here**
 
-- Running and deploying the PDS, and the process that holds its admin password (pds-admin): [`Undefined6799/unset`](https://github.com/Undefined6799/unset)
-- Colours, fonts and the mark the theme uses: [`unset-sh/brand`](https://github.com/unset-sh/brand)
+- PDS runtime topology, volumes and deployed image selection: [`unset-sh/deployment`](https://github.com/unset-sh/deployment)
+- The privileged pds-admin process and application integration: [`unset-sh/backend`](https://github.com/unset-sh/backend)
+- Shared colours, fonts and the mark: [`unset-sh/brand`](https://github.com/unset-sh/brand)
 
 ## lexicons
 
 [`unset-sh/lexicons`](https://github.com/unset-sh/lexicons). Active.
 
-The public MIT-licensed sh.unset.* lexicon schemas, reference documentation and examples. The initial schemas are an exact snapshot of the merged application source with recorded hashes. Schema changes remain coordinated in the app; synchronization is currently manual and the proposed automatic mirror is not configured. DNS/PDS publication is separate.
+The public MIT-licensed sh.unset.* schemas, reference documentation and examples, and the agreed destination for protocol authority. Current schema bytes retain their exact application-import provenance; the maintained import/authoring policy and consumer adoption still need the authority cutover. GitHub source, generated SDKs and DNS/PDS publication are separate states.
 
 **Licence:** MIT schemas and documentation.
 
 **Owns**
 
 - The published copy of the sh.unset.* schemas, their docs and examples
+- The agreed destination for protocol authority and compatible evolution; implementation of the authoring-policy cutover remains pending
 
 **Does not belong here**
 
 - Any edit to a schema: [`Undefined6799/unset`](https://github.com/Undefined6799/unset) (shared/lexicons/schemas/); coordinate changes there and refresh the recorded snapshot manually
-
-## messaging
-
-`unset-sh/messaging`. Proposed, not approved.
-
-The private messaging product on unset.cc: one-to-one chat on Matrix today, later communities, channels, roles and voice. Plan drafted, awaiting approval; not created.
-
-**Licence:** Not created; AGPL-3.0-only.
-
-**Owns**
-
-- The chat client and the door (the public process on unset.cc)
-- The admin service that alone holds the MAS credential
-- Messaging rules, the Matrix adapter and the Synapse policy module
-- The Synapse image and the reviewed Synapse and MAS configs
-- Its own database tables
-- @unset-sh/messaging-contract: the only thing the app pins
-
-**Does not belong here**
-
-- Identity and sign-in: [`Undefined6799/unset`](https://github.com/Undefined6799/unset)
-- Generic server code (HTTP kit, CSRF gate, egress guard, sealing): `unset-sh/server-kit`
-- Design tokens, fonts and icons: [`unset-sh/brand`](https://github.com/unset-sh/brand)
-- Deploying the whole stack: [`Undefined6799/unset`](https://github.com/Undefined6799/unset) (until a deploy repository is decided)
-
-## server-kit
-
-`unset-sh/server-kit`. Proposed, not approved.
-
-Proposed: the generic security code the app and messaging both need (HTTP kit and CSRF gate, egress guard, sealed storage, signed admin envelope, config, log). Not approved yet.
-
-**Licence:** Not created; AGPL-3.0-only for the whole kit.
-
-**Owns**
-
-- Generic server code with no product meaning
-
-**Does not belong here**
-
-- Anything with product meaning: [`Undefined6799/unset`](https://github.com/Undefined6799/unset) or messaging
 
 ## agent-kit
 
