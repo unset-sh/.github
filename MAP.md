@@ -8,7 +8,7 @@ Find the right repository, trace its dependencies, and check what belongs there.
 
 [Repositories](#repositories) &nbsp;·&nbsp; [Dependencies](#dependencies) &nbsp;·&nbsp; [Ownership](#repository-boundaries) &nbsp;·&nbsp; [Licences](#licences)
 
-**13 repositories** &nbsp;·&nbsp; 13 active
+**14 repositories** &nbsp;·&nbsp; 14 active
 
 <sub>Active means the repository exists. It does not mean its product or integration is ready.</sub>
 
@@ -25,6 +25,7 @@ Choose a repository to jump to its ownership details.
 <a href="#repo-web"><strong>web</strong></a> &nbsp;<sub>Active</sub><br>
 <a href="#repo-backend"><strong>backend</strong></a> &nbsp;<sub>Active</sub><br>
 <a href="#repo-deployment"><strong>deployment</strong></a> &nbsp;<sub>Active</sub><br>
+<a href="#repo-modules"><strong>modules</strong></a> &nbsp;<sub>Active</sub><br>
 <a href="#repo-unset"><strong>unset</strong></a> &nbsp;<sub>Active</sub><br>
 <a href="#repo-pds"><strong>pds</strong></a> &nbsp;<sub>Active</sub>
 </p>
@@ -71,6 +72,7 @@ flowchart TB
   r_web["web"]
   r_backend["backend"]
   r_deployment["deployment"]
+  r_modules["modules"]
   r_unset["unset"]
   r__github[".github"]
   r_tooling["tooling"]
@@ -95,6 +97,8 @@ flowchart TB
   r_pds --> r_deployment
   r_tooling --> r_deployment
   r_agent_kit --> r_deployment
+  r_tooling --> r_modules
+  r_agent_kit --> r_modules
   r_tooling --> r__github
   r_tooling --> r_brand
   r_brand --> r_rendering
@@ -134,6 +138,8 @@ flowchart TB
 - `pds` → `deployment`: planned deployment of a maintained PDS image by verified digest
 - `tooling` → `deployment`: planned shared deployment mechanisms; current tooling does not implement stack deployment
 - `agent-kit` → `deployment`: bootstrap instructions reference a recorded full commit; installing the kit remains pending
+- `tooling` → `modules`: read-only branch-policy caller at an immutable tooling commit
+- `agent-kit` → `modules`: checked copy under .claude/ at a recorded full commit, verified by CI against its lock
 - `tooling` → `.github`: small read-only CI and documentation-export callers at a reviewed merged full commit; source checks must pass before export, and automatic update propagation is not configured; read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `tooling` → `brand`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `brand` → `rendering`: @unset-sh/brand at an exact version
@@ -240,6 +246,34 @@ The approved home for environment definitions and stack release assembly. The re
 - Reusable CI and deployment execution mechanisms: [`unset-sh/tooling`](https://github.com/unset-sh/tooling)
 
 **Current licence:** AGPL-3.0-only first-party work; foundation only, no application code imported
+
+</details>
+
+<a name="modules"></a>
+<a name="repo-modules"></a>
+<details>
+<summary><strong>modules</strong> &nbsp;<code>Active</code></summary>
+
+[`unset-sh/modules`](https://github.com/unset-sh/modules)
+
+The approved home for marketplace modules: small apps a member turns on or off, built here and reviewed by unset before members see them. The repository exists as a foundation only (README, licence, agent rules, CI); no contract, module, list or marketplace exists yet. The owner set the direction (one repository first, every module reviewed, a sandboxed web app given a screen inside unset.sh); the licence for outside work and the remaining design decisions are open, and outside contributions are not accepted yet.
+
+**Owns**
+
+- The module contract: the manifest, the permissions a module may ask for and the messages between a module and unset.sh; not designed yet
+- The starter module, the modules themselves and their own record types
+- The generated list of accepted modules and the block list
+- The checks every module must pass and the developer guide
+
+**Belongs elsewhere**
+
+- Loading a module, showing its screen and the marketplace screens: [`unset-sh/web`](https://github.com/unset-sh/web)
+- A member's on or off state and every write made for a module: [`unset-sh/backend`](https://github.com/unset-sh/backend)
+- The sh.unset.* record types: [`unset-sh/lexicons`](https://github.com/unset-sh/lexicons)
+- Serving module files and their domain: [`unset-sh/deployment`](https://github.com/unset-sh/deployment)
+- Colours, fonts and icons: [`unset-sh/brand`](https://github.com/unset-sh/brand)
+
+**Current licence:** AGPL-3.0-only first-party work; foundation only. The licence for the contract, the starter module and outside developers' modules is not set
 
 </details>
 
