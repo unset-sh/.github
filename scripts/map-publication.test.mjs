@@ -66,7 +66,7 @@ test("dispatch checks preserve required names, prove committed freshness, and ne
   assert.ok(map.includes(`if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && ${empty})`));
   const docs = read(".github/workflows/docs-export.yml");
   assert.match(docs, /^ {2}check:\n/m);
-  assert.match(docs, /uses: unset-sh\/tooling\/\.github\/workflows\/ci-check.yml@838a965d14d0887291046c279422becb7b0228f3/);
+  assert.match(docs, /uses: unset-sh\/tooling\/\.github\/workflows\/ci-check.yml@7cd2e8c3d284cd9bb90c54f336adc0834b515d97/);
   assert.match(docs, /^ {2}export:\n {4}needs: check/m);
 });
 

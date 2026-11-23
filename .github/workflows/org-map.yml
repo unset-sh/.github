@@ -37,7 +37,7 @@ concurrency:
 jobs:
   verify-generated:
     if: github.event_name == 'workflow_dispatch' && (startsWith(github.ref, 'refs/heads/automation/map-') || inputs.pull-request != '' || inputs.expected-head != '' || inputs.expected-base != '')
-    uses: unset-sh/tooling/.github/workflows/ci-branch-policy.yml@9239c7b752a92fc1eb3de3a0e86193fce7c4bda3
+    uses: unset-sh/tooling/.github/workflows/ci-branch-policy.yml@7cd2e8c3d284cd9bb90c54f336adc0834b515d97
     permissions: {}
     with:
       pull-request: ${{ inputs.pull-request }}
