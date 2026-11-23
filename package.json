@@ -4,8 +4,8 @@
   "license": "AGPL-3.0-only",
   "type": "module",
   "scripts": {
-    "map": "node scripts/map.mjs --write",
-    "check": "node --test \"scripts/*.test.mjs\" && node scripts/map.mjs --check",
-    "drift": "node scripts/drift.mjs"
+    "map": "bun scripts/map.mjs --write",
+    "check": "bun test ./scripts/ && bun scripts/map.mjs --check",
+    "drift": "bun scripts/drift.mjs"
   }
 }

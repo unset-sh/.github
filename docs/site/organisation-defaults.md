@@ -92,7 +92,7 @@ change, and check their links and repository settings at least every six months.
 with the relevant human guide updated in the same change. AI working notes and validation artifacts belong in
 `unset-sh/agent-kit`.
 
-Run `npm run check` for the repository's map checks. Shared execution and release checks run in `unset-sh/tooling`. For a form change, also parse
+Run `bun run check` for the repository's map checks. Shared execution and release checks run in `unset-sh/tooling`. For a form change, also parse
 the YAML and compare its fields with GitHub's [form schema](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-githubs-form-schema)
 and [private-report form contract](https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/configure-vulnerability-reporting/configure-for-a-repository).
 The repository check alone does not prove that GitHub renders a new form correctly.

@@ -20,4 +20,4 @@ jobs:
     permissions:
       contents: read
     with:
-      install: false # Set true for npm ci --ignore-scripts; keep false with no dependencies.
+      install: false # Set true for bun install --frozen-lockfile --ignore-scripts from a committed bun.lock; keep false with no dependencies.

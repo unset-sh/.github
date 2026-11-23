@@ -16,7 +16,7 @@ This is `unset-sh/.github`: the organisation's front page, repository map, commu
   Its separate dispatcher verifies the exact real PR and requests the existing required checks. The publisher
   never merges; a person reviews and merges it into main. `.github` works on main alone (org-0010).
   `.github/maps.json` registers these Markdown views for tooling's dedicated organisation-map publisher;
-  the generic website map runner still accepts JSON snapshots only. Use `npm run map` for a local preview.
+  the generic website map runner still accepts JSON snapshots only. Use `bun run map` for a local preview.
 - A repository's `description` in `repos.json` is exactly what GitHub shows for it (`""` when it has none). When the
   two differ, decide which is wrong; changing the GitHub description is the owner's call.
 - Statuses: `active` exists; `pending` is approved and waiting for the owner to set it up; `planned` is agreed but not
@@ -31,7 +31,8 @@ This is `unset-sh/.github`: the organisation's front page, repository map, commu
   `links` (docs, site, package). Only the banner, the link row and the intro above the `org-map` block are hand-written;
   the banner images in `profile/` are provisional until the branding pass and can be swapped without touching the generator.
 - The owner is named only as "Alex" or by the GitHub login `Undefined6799`; their surname never appears.
-- Node 26 (`.nvmrc`), no dependencies, `node:test` only. Actions are pinned by full commit SHA.
+- Bun (`.bun-version`; Alex, 2026-11-23: "Bun is actually going to be replacing Node"), no dependencies, `bun test`
+  only. Actions are pinned by full commit SHA.
 
 ## Tooling boundary
 
@@ -39,7 +40,7 @@ This is `unset-sh/.github`: the organisation's front page, repository map, commu
   (org-0006, Alex, 2026-11-22). Keep only this repository's metadata validation and small callers here.
 - Starter templates are maintained directly in `workflow-templates/`; they call tooling at reviewed full commits.
   Placeholder pins must be replaced before installation. Do not duplicate tooling's implementation or release docs.
-- Local `npm run check` validates the map tooling and generated map. A workflow caller change must verify its
+- Local `bun run check` validates the map tooling and generated map. A workflow caller change must verify its
   referenced tooling commit, inputs and permission boundary; a location change never weakens release approval.
 - The documentation caller uses a reviewed full tooling commit while the first release is pending. It requires
   the check to pass before packaging and has contents-read access only. Automatic adoption is not implemented.

@@ -17,12 +17,12 @@ A person reviews and merges it, and the committed organisation profile changes w
 
 The caller runs on relevant main changes, hourly at minute 41, and through **Run workflow** on main in
 [map-publish](https://github.com/unset-sh/.github/actions/workflows/map-publish.yml). GitHub may delay scheduled
-runs. A no-change run creates no branch or pull request. From this repository with its pinned Node 26 installed,
+runs. A no-change run creates no branch or pull request. From this repository with its pinned Bun 1.4.4 installed,
 local previews use:
 
 ```sh
-npm run map
-npm run check
+bun run map
+bun run check
 ```
 
 `.github/maps.json` registers the renderer and its two fixed Markdown outputs. These committed GitHub views use
@@ -92,4 +92,4 @@ Alex maintains this guide with workflow changes and the repository's documentati
 [tooling publication reference](https://docs.unset.sh/tooling/organisation-map-publication/) describes the central
 job permissions, data bounds and source validation.
 
-The caller wiring was checked against [the map publisher](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/.github/workflows/map-publish.yml), [map checks](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/.github/workflows/org-map.yml), [documentation checks](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/.github/workflows/docs-export.yml), and [condition tests](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/scripts/map-publication.test.mjs). The callers use the [reviewed central implementation](https://github.com/unset-sh/tooling/tree/9239c7b752a92fc1eb3de3a0e86193fce7c4bda3).
+The caller wiring was checked against [the map publisher](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/.github/workflows/map-publish.yml), [map checks](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/.github/workflows/org-map.yml), [documentation checks](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/.github/workflows/docs-export.yml), and [condition tests](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/scripts/map-publication.test.mjs). The callers use the [reviewed central implementation](https://github.com/unset-sh/tooling/tree/7cd2e8c3d284cd9bb90c54f336adc0834b515d97).

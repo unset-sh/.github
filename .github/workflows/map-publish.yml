@@ -24,7 +24,7 @@ concurrency:
 jobs:
   publish:
     if: github.ref == 'refs/heads/main'
-    uses: unset-sh/tooling/.github/workflows/automation-org-map.yml@9239c7b752a92fc1eb3de3a0e86193fce7c4bda3
+    uses: unset-sh/tooling/.github/workflows/automation-org-map.yml@7cd2e8c3d284cd9bb90c54f336adc0834b515d97
     permissions:
       contents: write
       pull-requests: write
