@@ -5,7 +5,7 @@ weight: 25
 type: docs
 params:
   doc_kind: guide
-  checked_source_revision: "dde2397da8c359661b24a1b17e4552c7e376f2f8"
+  checked_source_revision: "7806769ceb152ebac554ae0b24d2fbb910f9a01d"
 ---
 
 Edit `repos.json` when declared ownership, plans or explanations change. CI generates and validates the map
@@ -93,4 +93,4 @@ Alex maintains this guide with workflow changes and the repository's documentati
 [tooling publication reference](https://docs.unset.sh/tooling/organisation-map-publication/) describes the central
 job permissions, data bounds and source validation.
 
-The caller wiring was checked against [the map publisher](https://github.com/unset-sh/.github/blob/dde2397da8c359661b24a1b17e4552c7e376f2f8/.github/workflows/map-publish.yml), [map checks](https://github.com/unset-sh/.github/blob/dde2397da8c359661b24a1b17e4552c7e376f2f8/.github/workflows/org-map.yml), [documentation checks](https://github.com/unset-sh/.github/blob/dde2397da8c359661b24a1b17e4552c7e376f2f8/.github/workflows/docs-export.yml), and [condition tests](https://github.com/unset-sh/.github/blob/dde2397da8c359661b24a1b17e4552c7e376f2f8/scripts/map-publication.test.mjs). The callers use the [reviewed central implementation](https://github.com/unset-sh/tooling/tree/153b73d8bc6eadddeb50152835ed3daef44f564b).
+The caller wiring was checked against [the map publisher](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/.github/workflows/map-publish.yml), [map checks](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/.github/workflows/org-map.yml), [documentation checks](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/.github/workflows/docs-export.yml), and [condition tests](https://github.com/unset-sh/.github/blob/7806769ceb152ebac554ae0b24d2fbb910f9a01d/scripts/map-publication.test.mjs). The callers use the [reviewed central implementation](https://github.com/unset-sh/tooling/tree/153b73d8bc6eadddeb50152835ed3daef44f564b).
