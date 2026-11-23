@@ -61,7 +61,8 @@ partial generated inputs fail. The required check runs and fails on a failed pro
 skipped condition. The documentation check selects a fixed failing command and installs no dependencies in that
 case. The map check fails before checkout. A generated dispatch never reaches the writable drift-report job.
 Ordinary PR and push checks retain their existing commands; ordinary manual drift and documentation-export runs
-remain available without generated identity inputs.
+remain available without generated identity inputs. Documentation export runs after a successful check even when
+the optional generated verifier was skipped; failed or cancelled checks never export.
 
 A failed generation or validation leaves the published profile unchanged. Observed staging changes stop publication
 or dispatch; regenerate from the current base. Retrying reuses a branch and PR only when their complete tree, sole

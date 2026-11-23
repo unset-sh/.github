@@ -33,13 +33,13 @@ const empty = "!startsWith(github.ref, 'refs/heads/automation/map-') && inputs.p
 const guard = `github.event_name == 'workflow_dispatch' && ${pending}`;
 const job = (source, name) => new RegExp(`^  ${name}:\\n([\\s\\S]*?)(?=^  [a-z][a-z-]*:|(?![\\s\\S]))`, "m").exec(source.slice(source.indexOf("\njobs:\n")))?.[1];
 const field = (source, name, spaces = 4) => new RegExp(`^ {${spaces}}${name}: (.+)$`, "m").exec(source)?.[1];
-function evaluate(expression, { event, ref = "refs/heads/staging", proof = "skipped", inputs = {} }) {
+function evaluate(expression, { event, ref = "refs/heads/staging", proof = "skipped", check = "success", cancelled = false, inputs = {} }) {
   const program = expression.replace(/^\$\{\{\s*/, "").replace(/\s*\}\}$/, "")
     .replace(/inputs\.(pull-request|expected-head|expected-base)/g, 'inputs["$1"]')
     .replaceAll("needs.verify-generated", 'needs["verify-generated"]');
   return runInNewContext(program, { github: { event_name: event, ref },
-    needs: { "verify-generated": { result: proof } }, inputs: { "pull-request": "", "expected-head": "", "expected-base": "", ...inputs },
-    always: () => true, cancelled: () => false, startsWith: (value, prefix) => value.toLowerCase().startsWith(prefix.toLowerCase()) });
+    needs: { "verify-generated": { result: proof }, check: { result: check } }, inputs: { "pull-request": "", "expected-head": "", "expected-base": "", ...inputs },
+    always: () => true, cancelled: () => cancelled, startsWith: (value, prefix) => value.toLowerCase().startsWith(prefix.toLowerCase()) });
 }
 
 test("generated map dispatch uses all three exact inputs and cannot satisfy a skipped or failed guard", () => {
@@ -105,4 +105,22 @@ test("source changes are regenerated before validation without committing derive
   assert.match(checks, /npm run map\n\s+npm run check/);
   const docs = read(".github/workflows/docs-export.yml");
   assert.ok(docs.includes("'npm run map && npm run check' || 'exit 1'"));
+});
+
+test("documentation export follows the check result despite the optional verifier being skipped", () => {
+  const expression = field(job(read(".github/workflows/docs-export.yml"), "export"), "if");
+  assert.ok(expression, "export needs an explicit condition to override the skipped ancestor");
+  assert.match(expression, /always\(\)/);
+  for (const event of ["pull_request", "push", "workflow_dispatch"]) {
+    assert.equal(evaluate(expression, { event, proof: "skipped", check: "success" }), true);
+    for (const check of ["failure", "cancelled", "skipped"]) {
+      assert.equal(evaluate(expression, { event, proof: "skipped", check }), false);
+    }
+    assert.equal(evaluate(expression, { event, check: "success", cancelled: true }), false);
+  }
+  const generated = { event: "workflow_dispatch", ref: `refs/heads/automation/map-${"a".repeat(40)}` };
+  assert.equal(evaluate(expression, { ...generated, proof: "success", check: "success" }), true);
+  for (const proof of ["failure", "cancelled", "skipped"]) {
+    assert.equal(evaluate(expression, { ...generated, proof, check: "failure" }), false);
+  }
 });
