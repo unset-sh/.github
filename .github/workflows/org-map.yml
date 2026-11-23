@@ -1,7 +1,7 @@
 name: org-map
 
 # check: on every pull request and push, regenerate the map from repos.json and
-#        validate the result. map-publish updates the committed views after merge.
+#        validate the result. map-publish prepares a checked staging PR for committed views.
 # drift: every day and on demand, compares repos.json with the organisation's
 #        public repositories and keeps one issue labelled org-map-drift open
 #        while they differ, closing it once they match again.
@@ -14,6 +14,19 @@ on:
   schedule:
     - cron: "17 6 * * *"
   workflow_dispatch:
+    inputs:
+      pull-request:
+        description: Generated map PR number; leave all identity inputs empty for ordinary manual runs
+        type: string
+        default: ""
+      expected-head:
+        description: Exact generated PR head commit
+        type: string
+        default: ""
+      expected-base:
+        description: Exact staging source commit
+        type: string
+        default: ""
 
 permissions: {}
 
@@ -22,14 +35,27 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  verify-generated:
+    if: github.event_name == 'workflow_dispatch' && (startsWith(github.ref, 'refs/heads/automation/map-') || inputs.pull-request != '' || inputs.expected-head != '' || inputs.expected-base != '')
+    uses: unset-sh/tooling/.github/workflows/ci-branch-policy.yml@153b73d8bc6eadddeb50152835ed3daef44f564b
+    permissions: {}
+    with:
+      pull-request: ${{ inputs.pull-request }}
+      expected-head: ${{ inputs.expected-head }}
+      expected-base: ${{ inputs.expected-base }}
+
   check:
     name: Check the organisation map
-    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    needs: verify-generated
+    if: always() && !cancelled() && (github.event_name == 'pull_request' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (startsWith(github.ref, 'refs/heads/automation/map-') || inputs.pull-request != '' || inputs.expected-head != '' || inputs.expected-base != '')))
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     permissions:
       contents: read
     steps:
+      - name: Fail the required check if generated PR verification failed
+        if: (github.event_name == 'workflow_dispatch' && (startsWith(github.ref, 'refs/heads/automation/map-') || inputs.pull-request != '' || inputs.expected-head != '' || inputs.expected-base != '')) && needs.verify-generated.result != 'success'
+        run: exit 1
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
@@ -40,10 +66,13 @@ jobs:
       - run: |
           npm run map
           npm run check
+      - name: Verify that the generated PR already contains the exact rendered views
+        if: github.event_name == 'workflow_dispatch' && (startsWith(github.ref, 'refs/heads/automation/map-') || inputs.pull-request != '' || inputs.expected-head != '' || inputs.expected-base != '')
+        run: git diff --exit-code -- MAP.md profile/README.md
 
   drift:
     name: Compare the map with GitHub
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !startsWith(github.ref, 'refs/heads/automation/map-') && inputs.pull-request == '' && inputs.expected-head == '' && inputs.expected-base == '')
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     permissions:

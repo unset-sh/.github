@@ -52,15 +52,15 @@ npm run check
 ```
 
 Commit the source change. CI regenerates both views and checks duplicate repositories, unknown dependencies,
-cycles and generated output. After merge, the shared publisher updates `MAP.md` and the generated profile block
-through a generated-only PR without a separate owner approval. It also runs hourly and can be started manually.
+cycles and generated output. After a source change reaches staging, the shared publisher prepares a generated-only
+staging PR for `MAP.md` and the generated profile block, then requests its existing required checks. It also runs
+hourly and can be started manually. Normal review governs its staging merge; a human promotes main.
 Committing the generated views with the source is still supported; unchanged output produces no PR.
 
 The publisher accepts only the two paths registered in `.github/maps.json`, preserves authored profile text,
-and stops on observed main changes or a refused merge. A concurrent source change after the final check can leave
-a temporarily stale view until the next successful current-main refresh. It never changes branch protections. Repository
+and stops on observed staging or generated-head changes. It never merges, promotes production, or changes branch protections. Repository
 ownership, plans and explanatory claims remain authored in `repos.json`; refreshing a view does not invent them
-from code. See [Automatic map publication](docs/site/map-publication.md) for operation and recovery.
+from code. See [Prepare organisation map updates](docs/site/map-publication.md) for operation and recovery.
 
 The daily and manual map workflow compares the map with public GitHub metadata. While differences exist it keeps
 one issue labelled `org-map-drift` open and closes it when they are resolved. Private entries cannot be checked
