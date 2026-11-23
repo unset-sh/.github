@@ -49,17 +49,23 @@ flowchart LR
   r_server_kit --> r_unset
   r_pds --> r_unset
   r_tooling --> r__github
+  r_tooling --> r_brand
   r_brand --> r_presentation
+  r_tooling --> r_presentation
   r_unset --> r_profile_recipes
+  r_tooling --> r_profile_recipes
   r_brand --> r_docs
   r__github --> r_docs
   r_agent_kit --> r_docs
   r_profile_recipes --> r_docs
   r_tooling --> r_docs
   r_brand --> r_pds
+  r_tooling --> r_pds
   r_unset --> r_lexicons
+  r_tooling --> r_lexicons
   r_brand --> r_messaging
   r_server_kit --> r_messaging
+  r_tooling --> r_agent_kit
 ```
 
 - `brand` → `unset`: @unset-sh/brand at an exact version (after the rewrite)
@@ -67,18 +73,24 @@ flowchart LR
 - `messaging` → `unset`: @unset-sh/messaging-contract at an exact version (planned)
 - `server-kit` → `unset`: pinned release (if approved)
 - `pds` → `unset`: the PDS image by pinned digest (after the move)
-- `tooling` → `.github`: small read-only CI and documentation-export callers at a reviewed merged full commit; source checks must pass before export, and automatic update propagation is not configured
+- `tooling` → `.github`: small read-only CI and documentation-export callers at a reviewed merged full commit; source checks must pass before export, and automatic update propagation is not configured; read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
+- `tooling` → `brand`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `brand` → `presentation`: @unset-sh/brand at an exact version
+- `tooling` → `presentation`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `unset` → `profile-recipes`: lexicon schemas and editor limits, copied at a pinned commit
+- `tooling` → `profile-recipes`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `brand` → `docs`: stable published @unset-sh/brand 0.1.x releases, each resolved to an immutable commit; compatible patch updates may rebuild and publish the site automatically after checks
 - `.github` → `docs`: repos.json at an exact commit revision for generated organisation map and ownership views; .github remains the source of truth. Its source-owned docs/site/ maps to github/ under the reserved-name exception, with initial import tracked in docs pull request #2
 - `agent-kit` → `docs`: planned adoption of org-documentation through the existing sync workflow and lock after an approved kit release; the standard remains proposed in agent-kit pull request #7
 - `profile-recipes` → `docs`: source-owned docs/ exported automatically into the profile-recipes/ section with its source revision and licences; publication verified through source 1e64c46 to docs commit 2b4099f
-- `tooling` → `docs`: Source-owned docs/ for the tooling/ section with an exact source revision and licences, delivered through reviewed imports; a reviewed full-commit shared refresh runs registered map generators and supplies the public workflow catalogue before site builds. Reusable workflow adoption remains explicit in each consumer
+- `tooling` → `docs`: Source-owned docs/ for the tooling/ section with an exact source revision and licences, delivered through reviewed imports; a reviewed full-commit shared refresh runs registered map generators and supplies the public workflow catalogue before site builds. Reusable workflow adoption remains explicit in each consumer; read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `brand` → `pds`: theme colours and fonts at an exact version (after the move)
+- `tooling` → `pds`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `unset` → `lexicons`: initial schemas copied from the merged application source at a recorded commit with per-file hashes; synchronization is manual and the proposed automatic mirror is not configured
+- `tooling` → `lexicons`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `brand` → `messaging`: @unset-sh/brand at an exact version
 - `server-kit` → `messaging`: pinned kit packages (if server-kit is approved)
+- `tooling` → `agent-kit`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 
 ## Licences
 
