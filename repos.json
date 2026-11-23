@@ -78,7 +78,7 @@
         },
         {
           "repo": "agent-kit",
-          "how": "bootstrap instructions reference a recorded full commit; installed kit and release adoption remain pending"
+          "how": "bootstrap instructions reference a recorded full commit; installing the kit remains pending"
         }
       ],
       "licence": {
@@ -139,7 +139,7 @@
         },
         {
           "repo": "agent-kit",
-          "how": "bootstrap instructions reference a recorded full commit; installed kit and release adoption remain pending"
+          "how": "bootstrap instructions reference a recorded full commit; installing the kit remains pending"
         }
       ],
       "licence": {
@@ -199,7 +199,7 @@
         },
         {
           "repo": "agent-kit",
-          "how": "bootstrap instructions reference a recorded full commit; installed kit and release adoption remain pending"
+          "how": "bootstrap instructions reference a recorded full commit; installing the kit remains pending"
         }
       ],
       "licence": {
@@ -515,7 +515,7 @@
         },
         {
           "what": "The shared human documentation standard and authoring templates",
-          "where": "agent-kit (proposed in pull request #7; not released yet)"
+          "where": "agent-kit (the org-documentation skill)"
         },
         {
           "what": "AI working notes and supporting artifacts",
@@ -545,7 +545,7 @@
         },
         {
           "repo": "agent-kit",
-          "how": "planned adoption of org-documentation through the existing sync workflow and lock after an approved kit release; the standard remains proposed in agent-kit pull request #7"
+          "how": "source-owned docs/ exported to the agent-kit/ section, first export pending; adopting org-documentation through the kit sync and lock is pending"
         },
         {
           "repo": "profile-recipes",
@@ -646,15 +646,17 @@
       "group": "building",
       "description": "Shared rules, skills and templates for AI assistants working on unset.sh",
       "tagline": "Shared rules, skills and templates for AI assistants",
-      "summary": "The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. Organisation decision records and AI working notes and artifacts are maintained here; working material stays outside the distributed kit. The shared human documentation standard remains proposed in pull request #7. Updates to distributed rules and skills still require an approved kit release.",
+      "summary": "The rules, skills and templates every repository's assistant needs. Repositories copy them under .claude/ from one reviewed commit of main, pinned by a lock file; the kit has no releases (org-0010). Organisation decision records, AI working notes and artifacts are kept here, outside the distributed kit.",
       "hideFromProfile": true,
       "owns": [
         "Organisation-wide assistant rules and the three generic engineering documents",
-        "The shared human documentation standard, architecture guidance and authoring templates as org-documentation, proposed in pull request #7",
+        "The shared human documentation standard, architecture guidance and authoring templates as the org-documentation skill",
         "Organisation decision records, including the accepted tooling and documentation ownership decisions",
         "AI working notes in notes/ and supporting artifacts in artifacts/, grouped by task and excluded from the distributed kit",
         "The CLAUDE.md and AGENTS.md templates",
         "Shared skills and subagents, the model and effort router text, and the sync script",
+        "Experience reviews through the org-experience-review skill: seven perspectives as prompts inside the skill, not separate subagents",
+        "Its own human guides in docs/, exported to the docs site's agent-kit/ section; first export pending",
         "Requester/provider procedures for missing brand resources, with requests tracked as brand issues; AGENTS.md entry-point templates route agents to the shared rules and skills"
       ],
       "notHere": [

@@ -23,7 +23,7 @@ issue when they differ.
 | [`unset-sh/docs`](https://github.com/unset-sh/docs) | Active | The live organisation-only docs.unset.sh site: a root Hugo framework edited by pull requests, source-owned repository sections and map views derived from .github. Profile-recipes publishes its section automatically. The old app mirror workflow and its writable credential are retired; the site excludes app documentation until the app moves into the organisation. |
 | [`unset-sh/pds`](https://github.com/unset-sh/pds) | Active | The home for unset.sh's PDS image and everything that customises the PDS: the build on top of the official image, the theme for its sign-in and account pages, and their pins. Empty for now; until it moves, the image is built in the app repository (deployment/pds/). |
 | [`unset-sh/lexicons`](https://github.com/unset-sh/lexicons) | Active | The public MIT-licensed sh.unset.* schemas, reference documentation and examples, and the agreed destination for protocol authority. Current schema bytes retain their exact application-import provenance; the maintained import/authoring policy and consumer adoption still need the authority cutover. GitHub source, generated SDKs and DNS/PDS publication are separate states. |
-| [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit) | Active | The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. Organisation decision records and AI working notes and artifacts are maintained here; working material stays outside the distributed kit. The shared human documentation standard remains proposed in pull request #7. Updates to distributed rules and skills still require an approved kit release. |
+| [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit) | Active | The rules, skills and templates every repository's assistant needs. Repositories copy them under .claude/ from one reviewed commit of main, pinned by a lock file; the kit has no releases (org-0010). Organisation decision records, AI working notes and artifacts are kept here, outside the distributed kit. |
 
 ## Which way dependencies point
 
@@ -82,16 +82,16 @@ flowchart LR
 - `brand` → `web`: planned semantic tokens and assets through immutable consumer artifacts
 - `lexicons` → `web`: planned supported protocol artifacts where the client needs them
 - `tooling` → `web`: planned reviewed workflow callers with product-owned checks
-- `agent-kit` → `web`: bootstrap instructions reference a recorded full commit; installed kit and release adoption remain pending
+- `agent-kit` → `web`: bootstrap instructions reference a recorded full commit; installing the kit remains pending
 - `lexicons` → `backend`: planned protocol artifact consumption at reviewed immutable revisions after authority and compatibility cutover
 - `rendering` → `backend`: planned rendering from authorized supplied data; no package is installed yet
 - `tooling` → `backend`: planned reviewed workflow callers once meaningful product checks and builds exist
-- `agent-kit` → `backend`: bootstrap instructions reference a recorded full commit; installed kit and release adoption remain pending
+- `agent-kit` → `backend`: bootstrap instructions reference a recorded full commit; installing the kit remains pending
 - `backend` → `deployment`: planned deployment of released API, indexer and other independently privileged backend images
 - `web` → `deployment`: planned deployment of the released web image
 - `pds` → `deployment`: planned deployment of a maintained PDS image by verified digest
 - `tooling` → `deployment`: planned shared deployment mechanisms; current tooling does not implement stack deployment
-- `agent-kit` → `deployment`: bootstrap instructions reference a recorded full commit; installed kit and release adoption remain pending
+- `agent-kit` → `deployment`: bootstrap instructions reference a recorded full commit; installing the kit remains pending
 - `tooling` → `.github`: small read-only CI and documentation-export callers at a reviewed merged full commit; source checks must pass before export, and automatic update propagation is not configured; read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `tooling` → `brand`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `brand` → `rendering`: @unset-sh/brand at an exact version
@@ -101,7 +101,7 @@ flowchart LR
 - `tooling` → `profile-recipes`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `brand` → `docs`: stable published @unset-sh/brand 0.1.x releases, each resolved to an immutable commit; compatible patch updates may rebuild and publish the site automatically after checks
 - `.github` → `docs`: repos.json at an exact commit revision for generated organisation map and ownership views; .github remains the source of truth. Its source-owned docs/site/ maps to github/ under the reserved-name exception, with initial import tracked in docs pull request #2
-- `agent-kit` → `docs`: planned adoption of org-documentation through the existing sync workflow and lock after an approved kit release; the standard remains proposed in agent-kit pull request #7
+- `agent-kit` → `docs`: source-owned docs/ exported to the agent-kit/ section, first export pending; adopting org-documentation through the kit sync and lock is pending
 - `profile-recipes` → `docs`: source-owned docs/ exported automatically into the profile-recipes/ section with its source revision and licences; publication verified through source 1e64c46 to docs commit 2b4099f
 - `tooling` → `docs`: Source-owned docs/ for the tooling/ section with an exact source revision and licences, delivered through reviewed imports; a reviewed full-commit shared refresh runs registered map generators and supplies the public workflow catalogue before site builds. Reusable workflow adoption remains explicit in each consumer; read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `brand` → `pds`: theme colours and fonts at an exact version (after the move)
@@ -342,7 +342,7 @@ The live organisation-only docs.unset.sh site: a root Hugo framework edited by p
 - Authoring or hand-editing a source repository's mirrored documentation: the source repository's docs folder
 - Hand-maintaining repository ownership descriptions: [`unset-sh/.github`](https://github.com/unset-sh/.github) repos.json
 - Shared visual values, assets and the brand contract: [`unset-sh/brand`](https://github.com/unset-sh/brand)
-- The shared human documentation standard and authoring templates: [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit) (proposed in pull request #7; not released yet)
+- The shared human documentation standard and authoring templates: [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit) (the org-documentation skill)
 - AI working notes and supporting artifacts: [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit) under notes/ and artifacts/, outside the distributed kit
 - Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests: [`unset-sh/tooling`](https://github.com/unset-sh/tooling)
 - Organisation community defaults and native starter workflow templates: [`unset-sh/.github`](https://github.com/unset-sh/.github)
@@ -388,18 +388,20 @@ The public MIT-licensed sh.unset.* schemas, reference documentation and examples
 
 [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit). Active.
 
-The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. Organisation decision records and AI working notes and artifacts are maintained here; working material stays outside the distributed kit. The shared human documentation standard remains proposed in pull request #7. Updates to distributed rules and skills still require an approved kit release.
+The rules, skills and templates every repository's assistant needs. Repositories copy them under .claude/ from one reviewed commit of main, pinned by a lock file; the kit has no releases (org-0010). Organisation decision records, AI working notes and artifacts are kept here, outside the distributed kit.
 
 **Licence:** AGPL-3.0-only.
 
 **Owns**
 
 - Organisation-wide assistant rules and the three generic engineering documents
-- The shared human documentation standard, architecture guidance and authoring templates as org-documentation, proposed in pull request #7
+- The shared human documentation standard, architecture guidance and authoring templates as the org-documentation skill
 - Organisation decision records, including the accepted tooling and documentation ownership decisions
 - AI working notes in notes/ and supporting artifacts in artifacts/, grouped by task and excluded from the distributed kit
 - The CLAUDE.md and AGENTS.md templates
 - Shared skills and subagents, the model and effort router text, and the sync script
+- Experience reviews through the org-experience-review skill: seven perspectives as prompts inside the skill, not separate subagents
+- Its own human guides in docs/, exported to the docs site's agent-kit/ section; first export pending
 - Requester/provider procedures for missing brand resources, with requests tracked as brand issues; AGENTS.md entry-point templates route agents to the shared rules and skills
 
 **Does not belong here**
