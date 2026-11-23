@@ -47,7 +47,7 @@
         },
         {
           "what": "Preview images and embeds drawn from data",
-          "where": "presentation"
+          "where": "rendering"
         },
         {
           "what": "Ready-made profile layouts for AI-assisted setup",
@@ -68,8 +68,8 @@
           "how": "@unset-sh/brand at an exact version (after the rewrite)"
         },
         {
-          "repo": "presentation",
-          "how": "@unset-sh/presentation at an exact version (after the rewrite)"
+          "repo": "rendering",
+          "how": "@unset-sh/rendering at an exact version (after the rewrite)"
         },
         {
           "repo": "messaging",
@@ -198,7 +198,7 @@
       "notHere": [
         {
           "what": "Anything drawn from data, such as link previews and share cards",
-          "where": "presentation"
+          "where": "rendering"
         },
         {
           "what": "Business rules, authentication, network calls and application state",
@@ -222,14 +222,14 @@
       }
     },
     {
-      "name": "presentation",
+      "name": "rendering",
       "status": "active",
       "group": "look",
       "description": "How unset.sh looks outside the app: preview images and embeds for profiles, posts and articles, rendered from supplied data",
       "tagline": "Preview images and embeds for profiles, posts and articles",
-      "summary": "Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/presentation on GitHub Packages; no running service.",
+      "summary": "Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/rendering on GitHub Packages; no running service.",
       "links": {
-        "package": "@unset-sh/presentation"
+        "package": "@unset-sh/rendering"
       },
       "owns": [
         "Templates for profile, post and article previews, one owner per template",
@@ -429,9 +429,9 @@
         }
       ],
       "licence": {
-        "spdx": null,
-        "current": "None yet; should be AGPL-3.0-only. The official PDS it builds on keeps its own licence",
-        "followsRule": false
+        "spdx": "AGPL-3.0",
+        "current": "AGPL-3.0-only first-party work (pds#3); the official PDS it builds on keeps its own licence",
+        "followsRule": true
       }
     },
     {

@@ -15,7 +15,7 @@ issue when they differ.
 | [`unset-sh/.github`](https://github.com/unset-sh/.github) | Active | The organisation's front page, repository map, community defaults and native starter workflow catalogue. Local map validation stays here, with small pinned read-only callers for shared checks and documentation export from tooling. Consumers retain their own workflow events, permissions and project commands. |
 | [`unset-sh/tooling`](https://github.com/unset-sh/tooling) | Active | Maintains shared CI, protected-release and documentation-export implementations, supporting scripts and tests. The initial implementation is merged through pull request #1 at version 0.0.0; the first release and broader consumer adoption remain pending. Consumers retain their own events, permissions, inputs, build and test logic, and immutable caller pins. |
 | [`unset-sh/brand`](https://github.com/unset-sh/brand) | Active | The editable visual contract for unset.sh. Ships static CSS, JSON, fonts, mark and icon data as @unset-sh/brand on GitHub Packages, and builds its Hugo guide with an interactive Svelte component gallery for GitHub Pages. |
-| [`unset-sh/presentation`](https://github.com/unset-sh/presentation) | Active | Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/presentation on GitHub Packages; no running service. |
+| [`unset-sh/rendering`](https://github.com/unset-sh/rendering) | Active | Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/rendering on GitHub Packages; no running service. |
 | [`unset-sh/profile-recipes`](https://github.com/unset-sh/profile-recipes) | Active | Persona profile layouts (recipes) with a guide an AI assistant follows to build someone's profile, plus sample records checked against the lexicons. |
 | [`unset-sh/docs`](https://github.com/unset-sh/docs) | Active | The live organisation-only docs.unset.sh site: a root Hugo framework edited by pull requests, source-owned repository sections and map views derived from .github. Profile-recipes publishes its section automatically. The old app mirror workflow and its writable credential are retired; the site excludes app documentation until the app moves into the organisation. |
 | [`unset-sh/pds`](https://github.com/unset-sh/pds) | Active | The home for unset.sh's PDS image and everything that customises the PDS: the build on top of the official image, the theme for its sign-in and account pages, and their pins. Empty for now; until it moves, the image is built in the app repository (deployment/pds/). |
@@ -35,7 +35,7 @@ flowchart LR
   r__github[".github"]
   r_tooling["tooling"]
   r_brand["brand"]
-  r_presentation["presentation"]
+  r_rendering["rendering"]
   r_profile_recipes["profile-recipes"]
   r_docs["docs"]
   r_pds["pds"]
@@ -44,14 +44,14 @@ flowchart LR
   r_server_kit["server-kit (proposed)"]
   r_agent_kit["agent-kit"]
   r_brand --> r_unset
-  r_presentation --> r_unset
+  r_rendering --> r_unset
   r_messaging --> r_unset
   r_server_kit --> r_unset
   r_pds --> r_unset
   r_tooling --> r__github
   r_tooling --> r_brand
-  r_brand --> r_presentation
-  r_tooling --> r_presentation
+  r_brand --> r_rendering
+  r_tooling --> r_rendering
   r_unset --> r_profile_recipes
   r_tooling --> r_profile_recipes
   r_brand --> r_docs
@@ -69,14 +69,14 @@ flowchart LR
 ```
 
 - `brand` → `unset`: @unset-sh/brand at an exact version (after the rewrite)
-- `presentation` → `unset`: @unset-sh/presentation at an exact version (after the rewrite)
+- `rendering` → `unset`: @unset-sh/rendering at an exact version (after the rewrite)
 - `messaging` → `unset`: @unset-sh/messaging-contract at an exact version (planned)
 - `server-kit` → `unset`: pinned release (if approved)
 - `pds` → `unset`: the PDS image by pinned digest (after the move)
 - `tooling` → `.github`: small read-only CI and documentation-export callers at a reviewed merged full commit; source checks must pass before export, and automatic update propagation is not configured; read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `tooling` → `brand`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
-- `brand` → `presentation`: @unset-sh/brand at an exact version
-- `tooling` → `presentation`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
+- `brand` → `rendering`: @unset-sh/brand at an exact version
+- `tooling` → `rendering`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `unset` → `profile-recipes`: lexicon schemas and editor limits, copied at a pinned commit
 - `tooling` → `profile-recipes`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `brand` → `docs`: stable published @unset-sh/brand 0.1.x releases, each resolved to an immutable commit; compatible patch updates may rebuild and publish the site automatically after checks
@@ -101,7 +101,6 @@ Not matching the rule yet (changing a published licence needs the owner's decisi
 | Repository | Licence today |
 | --- | --- |
 | `unset` | AGPL-3.0-only; the lexicon schemas are MIT (as the rule wants); shared/ is MIT under ADR 0012 |
-| `pds` | None yet; should be AGPL-3.0-only. The official PDS it builds on keeps its own licence |
 
 ## unset
 
@@ -121,7 +120,7 @@ The unset.sh app: web, admin, public API, indexer, media proxy, their database a
 **Does not belong here**
 
 - Design tokens, fonts, the mark and icons: [`unset-sh/brand`](https://github.com/unset-sh/brand)
-- Preview images and embeds drawn from data: [`unset-sh/presentation`](https://github.com/unset-sh/presentation)
+- Preview images and embeds drawn from data: [`unset-sh/rendering`](https://github.com/unset-sh/rendering)
 - Ready-made profile layouts for AI-assisted setup: [`unset-sh/profile-recipes`](https://github.com/unset-sh/profile-recipes)
 - The chat app (unset.cc), once it moves: `unset-sh/messaging`
 - The PDS image and its customisation, once they move: [`unset-sh/pds`](https://github.com/unset-sh/pds)
@@ -190,15 +189,15 @@ The editable visual contract for unset.sh. Ships static CSS, JSON, fonts, mark a
 
 **Does not belong here**
 
-- Anything drawn from data, such as link previews and share cards: [`unset-sh/presentation`](https://github.com/unset-sh/presentation)
+- Anything drawn from data, such as link previews and share cards: [`unset-sh/rendering`](https://github.com/unset-sh/rendering)
 - Business rules, authentication, network calls and application state: [`Undefined6799/unset`](https://github.com/Undefined6799/unset) or the consuming application
 - Component interaction behaviour or consumer deployment orchestration: the consuming application and its shadcn-svelte/Bits UI integration
 
-## presentation
+## rendering
 
-[`unset-sh/presentation`](https://github.com/unset-sh/presentation). Active.
+[`unset-sh/rendering`](https://github.com/unset-sh/rendering). Active.
 
-Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/presentation on GitHub Packages; no running service.
+Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/rendering on GitHub Packages; no running service.
 
 **Licence:** AGPL-3.0-only; third-party dependencies retain their own licences.
 
@@ -270,7 +269,7 @@ The live organisation-only docs.unset.sh site: a root Hugo framework edited by p
 
 The home for unset.sh's PDS image and everything that customises the PDS: the build on top of the official image, the theme for its sign-in and account pages, and their pins. Empty for now; until it moves, the image is built in the app repository (deployment/pds/).
 
-**Licence:** None yet; should be AGPL-3.0-only. The official PDS it builds on keeps its own licence.
+**Licence:** AGPL-3.0-only first-party work (pds#3); the official PDS it builds on keeps its own licence.
 
 **Owns**
 
