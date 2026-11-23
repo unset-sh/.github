@@ -25,65 +25,227 @@
   "licenceRule": "Licence is set per repository (Alex, 2026-11-21). Product repositories are AGPL-3.0-only and take no outside code for now. Work meant to be copied stays permissive: the profile-recipes recipes are CC0-1.0 and the lexicon schemas are MIT, and those two take outside work with a DCO sign-off only. Third-party work keeps its own licence. There is no contributor agreement.",
   "repos": [
     {
+      "name": "web",
+      "status": "active",
+      "visibility": "public",
+      "group": "product",
+      "description": "The Unset SvelteKit web application and client integrations",
+      "tagline": "The complete SvelteKit web client",
+      "summary": "The approved home for the complete web application, including messaging UI and web/device adapters. The repository exists with an initial README and licence; detailed ownership setup is under review. No runnable SvelteKit application, image or migrated feature exists yet.",
+      "owns": [
+        "SvelteKit routes, SSR, screens, interactions, web sessions and web-specific response handling",
+        "Client capability interfaces and adapters, including messaging device responsibilities where required",
+        "Web tests, browser/server boundaries and producer image builds"
+      ],
+      "notHere": [
+        {
+          "what": "Authoritative product operations and private data adapters",
+          "where": "backend"
+        },
+        {
+          "what": "Shared brand tokens and assets",
+          "where": "brand"
+        },
+        {
+          "what": "Preview images and embeds drawn from data",
+          "where": "rendering"
+        },
+        {
+          "what": "Canonical protocol definitions",
+          "where": "lexicons"
+        },
+        {
+          "what": "Environment wiring and stack delivery",
+          "where": "deployment"
+        }
+      ],
+      "uses": [
+        {
+          "repo": "backend",
+          "how": "planned public API consumption; browser and SSR code do not import private backend implementations"
+        },
+        {
+          "repo": "brand",
+          "how": "planned semantic tokens and assets through immutable consumer artifacts"
+        },
+        {
+          "repo": "lexicons",
+          "how": "planned supported protocol artifacts where the client needs them"
+        },
+        {
+          "repo": "tooling",
+          "how": "planned reviewed workflow callers with product-owned checks"
+        },
+        {
+          "repo": "agent-kit",
+          "how": "bootstrap instructions reference a recorded full commit; installing the kit remains pending"
+        }
+      ],
+      "licence": {
+        "spdx": "AGPL-3.0",
+        "current": "AGPL-3.0-only first-party work; foundation only, no application code imported",
+        "followsRule": true
+      }
+    },
+    {
+      "name": "backend",
+      "status": "active",
+      "visibility": "public",
+      "group": "product",
+      "description": "Unset product APIs, domain operations, AppView and server integrations",
+      "tagline": "Product capabilities, AppView and server adapters",
+      "summary": "The approved product backend shared by web and future mobile clients. The repository exists with an initial README and licence; detailed ownership setup is under review. Application code, API contracts, images and migration remain pending. Replaces the proposed server-kit destination; messaging is a capability here, not a standalone repository.",
+      "owns": [
+        "Product domains and operations, authoritative authorization, and private domain-owned contracts",
+        "Published service APIs and consumer compatibility checks, distinct from private domain ports",
+        "AppView query APIs, indexing rules and feature projections; separate privileged process entry points",
+        "Technology-specific server adapters, including AT Protocol, Postgres and S3; domain code depends on capability contracts",
+        "Database migration definitions, image builds and runtime configuration contracts"
+      ],
+      "notHere": [
+        {
+          "what": "Web and messaging screens, browser sessions and device-side integrations",
+          "where": "web"
+        },
+        {
+          "what": "Environment topology, bucket provisioning, selected images and stack rollout",
+          "where": "deployment"
+        },
+        {
+          "what": "PDS image packaging and customization",
+          "where": "pds"
+        },
+        {
+          "what": "Canonical shared protocol definitions",
+          "where": "lexicons"
+        },
+        {
+          "what": "Shared developer-tooling implementations",
+          "where": "tooling"
+        }
+      ],
+      "uses": [
+        {
+          "repo": "lexicons",
+          "how": "planned protocol artifact consumption at reviewed immutable revisions after authority and compatibility cutover"
+        },
+        {
+          "repo": "rendering",
+          "how": "planned rendering from authorized supplied data; no package is installed yet"
+        },
+        {
+          "repo": "tooling",
+          "how": "planned reviewed workflow callers once meaningful product checks and builds exist"
+        },
+        {
+          "repo": "agent-kit",
+          "how": "bootstrap instructions reference a recorded full commit; installing the kit remains pending"
+        }
+      ],
+      "licence": {
+        "spdx": "AGPL-3.0",
+        "current": "AGPL-3.0-only first-party work; foundation only, no application code imported",
+        "followsRule": true
+      }
+    },
+    {
+      "name": "deployment",
+      "status": "active",
+      "visibility": "public",
+      "group": "product",
+      "description": "Unset environment definitions, immutable release assembly and deployment orchestration",
+      "tagline": "Environment topology and stack releases",
+      "summary": "The approved home for environment definitions and stack release assembly. The repository exists with an initial README and licence; detailed ownership setup is under review. No deployable stack, image selections, infrastructure configuration or rollout automation exists yet.",
+      "owns": [
+        "Environment topology, networks, volumes, bucket provisioning, configuration references and access policies",
+        "A versioned compatible set of producer-built immutable images and artifacts, not one combined services image",
+        "Rollout order, health verification, recorded deployed versions and recovery procedures",
+        "Execution of producer-owned migration contracts and separately operated services such as PDS and Tap when adopted"
+      ],
+      "notHere": [
+        {
+          "what": "Application code, AppView/indexer behavior and database migration definitions",
+          "where": "backend"
+        },
+        {
+          "what": "Web code and web image builds",
+          "where": "web"
+        },
+        {
+          "what": "Maintained PDS image builds and customization",
+          "where": "pds"
+        },
+        {
+          "what": "Reusable CI and deployment execution mechanisms",
+          "where": "tooling"
+        }
+      ],
+      "uses": [
+        {
+          "repo": "backend",
+          "how": "planned deployment of released API, indexer and other independently privileged backend images"
+        },
+        {
+          "repo": "web",
+          "how": "planned deployment of the released web image"
+        },
+        {
+          "repo": "pds",
+          "how": "planned deployment of a maintained PDS image by verified digest"
+        },
+        {
+          "repo": "tooling",
+          "how": "planned shared deployment mechanisms; current tooling does not implement stack deployment"
+        },
+        {
+          "repo": "agent-kit",
+          "how": "bootstrap instructions reference a recorded full commit; installing the kit remains pending"
+        }
+      ],
+      "licence": {
+        "spdx": "AGPL-3.0",
+        "current": "AGPL-3.0-only first-party work; foundation only, no application code imported",
+        "followsRule": true
+      }
+    },
+    {
       "name": "unset",
       "owner": "Undefined6799",
       "status": "active",
       "group": "product",
       "tagline": "The app: your identity and profile on the AT Protocol",
-      "summary": "The unset.sh app: web, admin, public API, indexer, media proxy, their database and deployment. Lives outside the organisation for now and will be largely rewritten, then wired to the repositories below by pinned releases.",
+      "summary": "The existing application outside the organisation, retained read-only during the migration. Its implementation and regression evidence inform the new web, backend and deployment repositories; their creation does not mean the application has moved.",
       "links": {
         "site": "https://unset.sh"
       },
       "owns": [
-        "Every product rule and screen of unset.sh, and the data behind them",
-        "The sh.unset.* lexicon schemas (shared/lexicons/schemas/), the source of truth until the organisation takes it over",
-        "Deciding what to present: which data, who may see it, URLs, caching and removal",
-        "The app's architecture decision records (docs/human/decisions/)"
+        "The current application implementation and its tests until each destination migration is verified",
+        "Historical application decisions and recorded schema-import provenance",
+        "Existing runtime behavior; no production cutover is implied by the organisation layout"
       ],
       "notHere": [
         {
-          "what": "Design tokens, fonts, the mark and icons",
-          "where": "brand"
+          "what": "New organisation web UI, routes and web-specific adapters",
+          "where": "web"
         },
         {
-          "what": "Preview images and embeds drawn from data",
-          "where": "presentation"
+          "what": "New organisation product operations, AppView and server adapters",
+          "where": "backend"
         },
         {
-          "what": "Ready-made profile layouts for AI-assisted setup",
-          "where": "profile-recipes"
+          "what": "New environment topology and stack release assembly",
+          "where": "deployment"
         },
         {
-          "what": "The chat app (unset.cc), once it moves",
-          "where": "messaging"
+          "what": "Canonical shared brand and rendering capabilities",
+          "where": "brand and rendering"
         },
         {
-          "what": "The PDS image and its customisation, once they move",
-          "where": "pds"
+          "what": "Organisation architecture decisions and this migration record",
+          "where": "agent-kit"
         }
       ],
-      "uses": [
-        {
-          "repo": "brand",
-          "how": "@unset-sh/brand at an exact version (after the rewrite)"
-        },
-        {
-          "repo": "presentation",
-          "how": "@unset-sh/presentation at an exact version (after the rewrite)"
-        },
-        {
-          "repo": "messaging",
-          "how": "@unset-sh/messaging-contract at an exact version (planned)"
-        },
-        {
-          "repo": "server-kit",
-          "how": "pinned release (if approved)"
-        },
-        {
-          "repo": "pds",
-          "how": "the PDS image by pinned digest (after the move)"
-        }
-      ],
+      "uses": [],
       "licence": {
         "spdx": null,
         "current": "AGPL-3.0-only; the lexicon schemas are MIT (as the rule wants); shared/ is MIT under ADR 0012",
@@ -198,11 +360,11 @@
       "notHere": [
         {
           "what": "Anything drawn from data, such as link previews and share cards",
-          "where": "presentation"
+          "where": "rendering"
         },
         {
           "what": "Business rules, authentication, network calls and application state",
-          "where": "unset or the consuming application"
+          "where": "backend or web, according to the capability"
         },
         {
           "what": "Component interaction behaviour or consumer deployment orchestration",
@@ -222,14 +384,14 @@
       }
     },
     {
-      "name": "presentation",
+      "name": "rendering",
       "status": "active",
       "group": "look",
       "description": "How unset.sh looks outside the app: preview images and embeds for profiles, posts and articles, rendered from supplied data",
       "tagline": "Preview images and embeds for profiles, posts and articles",
-      "summary": "Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/presentation on GitHub Packages; no running service.",
+      "summary": "Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/rendering on GitHub Packages; no running service.",
       "links": {
-        "package": "@unset-sh/presentation"
+        "package": "@unset-sh/rendering"
       },
       "owns": [
         "Templates for profile, post and article previews, one owner per template",
@@ -239,7 +401,7 @@
       "notHere": [
         {
           "what": "Deciding what to show: data, visibility, URLs, caching, removal",
-          "where": "unset"
+          "where": "backend (after the application migration; currently the read-only source app)"
         },
         {
           "what": "Colours, fonts and the mark",
@@ -247,7 +409,7 @@
         },
         {
           "what": "A server or a queue that renders on request",
-          "where": "unset (it calls this package)"
+          "where": "backend (after the application migration; currently the read-only source app)"
         }
       ],
       "uses": [
@@ -282,7 +444,7 @@
       "notHere": [
         {
           "what": "The lexicon schemas themselves (schemas/upstream/ here is a copy)",
-          "where": "unset"
+          "where": "lexicons"
         },
         {
           "what": "The profile editor and its limits (limits.json here is a mirror)",
@@ -303,8 +465,12 @@
       ],
       "uses": [
         {
+          "repo": "lexicons",
+          "how": "record and object schemas copied byte-for-byte at a pinned commit"
+        },
+        {
           "repo": "unset",
-          "how": "lexicon schemas and editor limits, copied at a pinned commit"
+          "how": "editor limits and consumer rendering behavior checked against a pinned app commit"
         },
         {
           "repo": "tooling",
@@ -349,7 +515,7 @@
         },
         {
           "what": "The shared human documentation standard and authoring templates",
-          "where": "agent-kit (proposed in pull request #7; not released yet)"
+          "where": "agent-kit (the org-documentation skill)"
         },
         {
           "what": "AI working notes and supporting artifacts",
@@ -379,7 +545,7 @@
         },
         {
           "repo": "agent-kit",
-          "how": "planned adoption of org-documentation through the existing sync workflow and lock after an approved kit release; the standard remains proposed in agent-kit pull request #7"
+          "how": "source-owned docs/ exported to the agent-kit/ section, first export pending; adopting org-documentation through the kit sync and lock is pending"
         },
         {
           "repo": "profile-recipes",
@@ -410,11 +576,15 @@
       ],
       "notHere": [
         {
-          "what": "Running and deploying the PDS, and the process that holds its admin password (pds-admin)",
-          "where": "unset"
+          "what": "PDS runtime topology, volumes and deployed image selection",
+          "where": "deployment"
         },
         {
-          "what": "Colours, fonts and the mark the theme uses",
+          "what": "The privileged pds-admin process and application integration",
+          "where": "backend"
+        },
+        {
+          "what": "Shared colours, fonts and the mark",
           "where": "brand"
         }
       ],
@@ -429,9 +599,9 @@
         }
       ],
       "licence": {
-        "spdx": null,
-        "current": "None yet; should be AGPL-3.0-only. The official PDS it builds on keeps its own licence",
-        "followsRule": false
+        "spdx": "AGPL-3.0",
+        "current": "AGPL-3.0-only first-party work (pds#3); the official PDS it builds on keeps its own licence",
+        "followsRule": true
       }
     },
     {
@@ -439,10 +609,12 @@
       "status": "active",
       "visibility": "public",
       "group": "records",
+      "description": "AT Protocol lexicons for unset.sh profiles, pages and cards, with reference documentation and examples",
       "tagline": "The sh.unset.* record schemas, published for anyone to use",
-      "summary": "The public MIT-licensed sh.unset.* lexicon schemas, reference documentation and examples. The initial schemas are an exact snapshot of the merged application source with recorded hashes. Schema changes remain coordinated in the app; synchronization is currently manual and the proposed automatic mirror is not configured. DNS/PDS publication is separate.",
+      "summary": "The public MIT-licensed sh.unset.* schemas, reference documentation and examples, and the agreed destination for protocol authority. Current schema bytes retain their exact application-import provenance; the maintained import/authoring policy and consumer adoption still need the authority cutover. GitHub source, generated SDKs and DNS/PDS publication are separate states.",
       "owns": [
-        "The published copy of the sh.unset.* schemas, their docs and examples"
+        "The published copy of the sh.unset.* schemas, their docs and examples",
+        "The agreed destination for protocol authority and compatible evolution; implementation of the authoring-policy cutover remains pending"
       ],
       "notHere": [
         {
@@ -468,93 +640,23 @@
       "description": "AT Protocol lexicons for unset.sh profiles, pages and cards, with reference documentation and examples"
     },
     {
-      "name": "messaging",
-      "status": "proposed",
-      "visibility": "public",
-      "group": "product",
-      "tagline": "Private messaging on unset.cc",
-      "summary": "The private messaging product on unset.cc: one-to-one chat on Matrix today, later communities, channels, roles and voice. Plan drafted, awaiting approval; not created.",
-      "owns": [
-        "The chat client and the door (the public process on unset.cc)",
-        "The admin service that alone holds the MAS credential",
-        "Messaging rules, the Matrix adapter and the Synapse policy module",
-        "The Synapse image and the reviewed Synapse and MAS configs",
-        "Its own database tables",
-        "@unset-sh/messaging-contract: the only thing the app pins"
-      ],
-      "notHere": [
-        {
-          "what": "Identity and sign-in",
-          "where": "unset"
-        },
-        {
-          "what": "Generic server code (HTTP kit, CSRF gate, egress guard, sealing)",
-          "where": "server-kit"
-        },
-        {
-          "what": "Design tokens, fonts and icons",
-          "where": "brand"
-        },
-        {
-          "what": "Deploying the whole stack",
-          "where": "unset (until a deploy repository is decided)"
-        }
-      ],
-      "uses": [
-        {
-          "repo": "brand",
-          "how": "@unset-sh/brand at an exact version"
-        },
-        {
-          "repo": "server-kit",
-          "how": "pinned kit packages (if server-kit is approved)"
-        }
-      ],
-      "licence": {
-        "spdx": null,
-        "current": "Not created; AGPL-3.0-only",
-        "followsRule": true
-      }
-    },
-    {
-      "name": "server-kit",
-      "status": "proposed",
-      "visibility": "public",
-      "group": "building",
-      "tagline": "Shared, audited server code",
-      "summary": "Proposed: the generic security code the app and messaging both need (HTTP kit and CSRF gate, egress guard, sealed storage, signed admin envelope, config, log). Not approved yet.",
-      "owns": [
-        "Generic server code with no product meaning"
-      ],
-      "notHere": [
-        {
-          "what": "Anything with product meaning",
-          "where": "unset or messaging"
-        }
-      ],
-      "uses": [],
-      "licence": {
-        "spdx": null,
-        "current": "Not created; AGPL-3.0-only for the whole kit",
-        "followsRule": true
-      }
-    },
-    {
       "name": "agent-kit",
       "status": "active",
       "visibility": "public",
       "group": "building",
       "description": "Shared rules, skills and templates for AI assistants working on unset.sh",
       "tagline": "Shared rules, skills and templates for AI assistants",
-      "summary": "The rules, skills and templates every repository's assistant needs, released as one version and copied into each repository under .claude/, pinned by a lock file. Organisation decision records and AI working notes and artifacts are maintained here; working material stays outside the distributed kit. The shared human documentation standard remains proposed in pull request #7. Updates to distributed rules and skills still require an approved kit release.",
+      "summary": "The rules, skills and templates every repository's assistant needs. Repositories copy them under .claude/ from one reviewed commit of main, pinned by a lock file; the kit has no releases (org-0010). Organisation decision records, AI working notes and artifacts are kept here, outside the distributed kit.",
       "hideFromProfile": true,
       "owns": [
         "Organisation-wide assistant rules and the three generic engineering documents",
-        "The shared human documentation standard, architecture guidance and authoring templates as org-documentation, proposed in pull request #7",
+        "The shared human documentation standard, architecture guidance and authoring templates as the org-documentation skill",
         "Organisation decision records, including the accepted tooling and documentation ownership decisions",
         "AI working notes in notes/ and supporting artifacts in artifacts/, grouped by task and excluded from the distributed kit",
         "The CLAUDE.md and AGENTS.md templates",
         "Shared skills and subagents, the model and effort router text, and the sync script",
+        "Experience reviews through the org-experience-review skill: seven perspectives as prompts inside the skill, not separate subagents",
+        "Its own human guides in docs/, exported to the docs site's agent-kit/ section; first export pending",
         "Requester/provider procedures for missing brand resources, with requests tracked as brand issues; AGENTS.md entry-point templates route agents to the shared rules and skills"
       ],
       "notHere": [
