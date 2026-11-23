@@ -147,9 +147,10 @@
       "summary": "Maintains shared CI, protected-release and documentation-export implementations, supporting scripts and tests. The initial implementation is merged through pull request #1 at version 0.0.0; the first release and broader consumer adoption remain pending. Consumers retain their own events, permissions, inputs, build and test logic, and immutable caller pins.",
       "owns": [
         "Shared CI, protected-release and documentation-export implementations, supporting scripts and tests; Pages and deployment implementations have not been centralised yet",
-        "Flat reusable entry points directly in .github/workflows/; category source folders and generation may organise the implementation without changing the native GitHub location",
+        "Flat reusable entry points directly in .github/workflows/; shared sources under workflows/shared/ and repository-specific sources under workflows/<repository>/ organise the implementation without changing the native GitHub location",
         "Versioned tooling releases and the implementation of dependency-update proposals; automatic adoption requires explicit update PRs, checks, approvals, eligible auto-merge and downstream delivery, and is not configured yet. Owner release approvals remain required",
-        "Maintained human tooling guides and workflow contracts in docs/site/ for the docs:tooling/ section; initial delivery is tracked in docs pull request #5"
+        "Maintained human tooling guides and workflow contracts in docs/ for the docs:tooling/ section; initial delivery is tracked in docs pull request #5",
+        "Read-only public workflow discovery, digest-bound descriptions and immutable reusable-call resolution for the documentation workflow catalogue; shared refresh orchestration for registered map generators"
       ],
       "notHere": [
         {
@@ -316,6 +317,7 @@
       "owns": [
         "The root Hugo configuration, theme integration, layouts, navigation, front page and publication framework, changed by pull request",
         "Source-derived organisation map and ownership views from an exact .github revision",
+        "Map-specific validation, accessible organisation and workflow views, and a map registry whose generators run through the pinned shared refresh during site publication; workflow collection and shared orchestration are implemented in tooling",
         "One top folder per participating unset-sh repository; mirrored pages, examples and diagrams remain source-owned and are replaced only by that repository's docs job",
         "The site build commands, checks and GitHub Pages publication for docs.unset.sh; migration to central workflow implementations and reviewed callers is pending"
       ],
@@ -372,7 +374,7 @@
         },
         {
           "repo": "tooling",
-          "how": "source-owned docs/site/ for the tooling/ section with an exact source revision and licences, delivered through reviewed imports; initial import is tracked in docs pull request #5. Adoption of shared workflow implementations remains separate"
+          "how": "Source-owned docs/ for the tooling/ section with an exact source revision and licences, delivered through reviewed imports; a reviewed full-commit shared refresh runs registered map generators and supplies the public workflow catalogue before site builds. Reusable workflow adoption remains explicit in each consumer"
         }
       ],
       "licence": {
@@ -531,7 +533,8 @@
         "Organisation decision records, including the accepted tooling and documentation ownership decisions",
         "AI working notes in notes/ and supporting artifacts in artifacts/, grouped by task and excluded from the distributed kit",
         "The CLAUDE.md and AGENTS.md templates",
-        "Shared skills and subagents, the model and effort router text, and the sync script"
+        "Shared skills and subagents, the model and effort router text, and the sync script",
+        "Requester/provider procedures for missing brand resources, with requests tracked as brand issues; AGENTS.md entry-point templates route agents to the shared rules and skills"
       ],
       "notHere": [
         {
@@ -564,50 +567,6 @@
         "spdx": "AGPL-3.0",
         "current": "AGPL-3.0-only",
         "followsRule": true
-      }
-    },
-    {
-      "name": "workflows",
-      "status": "archived",
-      "visibility": "public",
-      "group": "building",
-      "description": "The CI check and the release workflow every unset.sh repository calls at a pinned commit",
-      "tagline": "Archived workflow proposal and review history",
-      "summary": "Archived after the earlier decision to consolidate organisation automation in .github. Main contains only a README, with the original check and release proposal retained in pull request #1. The later ownership decision assigns shared implementations to tooling, whose foundation is merged; the first tooling release and broader consumer adoption remain pending.",
-      "hideFromProfile": true,
-      "links": {
-        "docs": "https://github.com/unset-sh/workflows/blob/main/README.md"
-      },
-      "owns": [
-        "The archived check and release proposal in pull request #1 and its original review history; subsequent implementation work moves to tooling"
-      ],
-      "notHere": [
-        {
-          "what": "Shared CI, release, deployment and documentation-export implementations, supporting scripts and tests",
-          "where": "tooling"
-        },
-        {
-          "what": "Organisation community defaults and native starter workflow templates",
-          "where": ".github"
-        },
-        {
-          "what": "A repository's build and test commands, event triggers and small workflow callers",
-          "where": "the consuming repository"
-        },
-        {
-          "what": "Shared assistant rules, skills and organisation decision records",
-          "where": "agent-kit"
-        },
-        {
-          "what": "The organisation map",
-          "where": ".github"
-        }
-      ],
-      "uses": [],
-      "licence": {
-        "spdx": null,
-        "current": "No licence detected on archived main; the unpublished implementation in pull request #1 proposed AGPL-3.0-only",
-        "followsRule": false
       }
     }
   ]
