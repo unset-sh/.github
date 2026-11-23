@@ -381,6 +381,10 @@
         {
           "repo": "tooling",
           "how": "read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment"
+        },
+        {
+          "repo": "agent-kit",
+          "how": "committed copy under .claude/ at a full commit of main, checked by sync.mjs --check (adoption pull request open)"
         }
       ],
       "licence": {
@@ -427,6 +431,10 @@
         {
           "repo": "tooling",
           "how": "read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment"
+        },
+        {
+          "repo": "agent-kit",
+          "how": "committed copy under .claude/ at a full commit of main, checked by sync.mjs --check (adoption pull request open)"
         }
       ],
       "licence": {
@@ -483,6 +491,10 @@
         {
           "repo": "tooling",
           "how": "read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment"
+        },
+        {
+          "repo": "agent-kit",
+          "how": "committed copy under .claude/ at a full commit of main, checked by sync.mjs --check (adoption pull request open)"
         }
       ],
       "licence": {
@@ -606,6 +618,10 @@
         {
           "repo": "tooling",
           "how": "read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment"
+        },
+        {
+          "repo": "agent-kit",
+          "how": "committed copy under .claude/ at a full commit of main, checked by sync.mjs --check (adoption pull request open)"
         }
       ],
       "licence": {
@@ -641,6 +657,10 @@
         {
           "repo": "tooling",
           "how": "read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment"
+        },
+        {
+          "repo": "agent-kit",
+          "how": "committed copy under .claude/ at a full commit of main, checked by sync.mjs --check (adoption pull request open)"
         }
       ],
       "licence": {

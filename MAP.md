@@ -97,11 +97,14 @@ flowchart TB
   r_agent_kit --> r_deployment
   r_tooling --> r__github
   r_tooling --> r_brand
+  r_agent_kit --> r_brand
   r_brand --> r_rendering
   r_tooling --> r_rendering
+  r_agent_kit --> r_rendering
   r_lexicons --> r_profile_recipes
   r_unset --> r_profile_recipes
   r_tooling --> r_profile_recipes
+  r_agent_kit --> r_profile_recipes
   r_brand --> r_docs
   r__github --> r_docs
   r_agent_kit --> r_docs
@@ -109,8 +112,10 @@ flowchart TB
   r_tooling --> r_docs
   r_brand --> r_pds
   r_tooling --> r_pds
+  r_agent_kit --> r_pds
   r_unset --> r_lexicons
   r_tooling --> r_lexicons
+  r_agent_kit --> r_lexicons
   r_tooling --> r_agent_kit
   classDef default fill:transparent,stroke:#888,stroke-width:1px
   classDef uncreated fill:transparent,stroke:#888,stroke-width:1px,stroke-dasharray:5 4
@@ -136,11 +141,14 @@ flowchart TB
 - `agent-kit` → `deployment`: bootstrap instructions reference a recorded full commit; installing the kit remains pending
 - `tooling` → `.github`: small read-only CI and documentation-export callers at a reviewed merged full commit; source checks must pass before export, and automatic update propagation is not configured; read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `tooling` → `brand`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
+- `agent-kit` → `brand`: committed copy under .claude/ at a full commit of main, checked by sync.mjs --check (adoption pull request open)
 - `brand` → `rendering`: @unset-sh/brand at an exact version
 - `tooling` → `rendering`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
+- `agent-kit` → `rendering`: committed copy under .claude/ at a full commit of main, checked by sync.mjs --check (adoption pull request open)
 - `lexicons` → `profile-recipes`: record and object schemas copied byte-for-byte at a pinned commit
 - `unset` → `profile-recipes`: editor limits and consumer rendering behavior checked against a pinned app commit
 - `tooling` → `profile-recipes`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
+- `agent-kit` → `profile-recipes`: committed copy under .claude/ at a full commit of main, checked by sync.mjs --check (adoption pull request open)
 - `brand` → `docs`: stable published @unset-sh/brand 0.1.x releases, each resolved to an immutable commit; compatible patch updates may rebuild and publish the site automatically after checks
 - `.github` → `docs`: repos.json at an exact commit revision for generated organisation map and ownership views; .github remains the source of truth. Its source-owned docs/site/ maps to github/ under the reserved-name exception, with initial import tracked in docs pull request #2
 - `agent-kit` → `docs`: source-owned docs/ exported to the agent-kit/ section, first export pending; adopting org-documentation through the kit sync and lock is pending
@@ -148,8 +156,10 @@ flowchart TB
 - `tooling` → `docs`: Source-owned docs/ for the tooling/ section with an exact source revision and licences, delivered through reviewed imports; a reviewed full-commit shared refresh runs registered map generators and supplies the public workflow catalogue before site builds. Reusable workflow adoption remains explicit in each consumer; read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `brand` → `pds`: theme colours and fonts at an exact version (after the move)
 - `tooling` → `pds`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
+- `agent-kit` → `pds`: committed copy under .claude/ at a full commit of main, checked by sync.mjs --check (adoption pull request open)
 - `unset` → `lexicons`: initial schemas copied from the merged application source at a recorded commit with per-file hashes; synchronization is manual and the proposed automatic mirror is not configured
 - `tooling` → `lexicons`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
+- `agent-kit` → `lexicons`: committed copy under .claude/ at a full commit of main, checked by sync.mjs --check (adoption pull request open)
 - `tooling` → `agent-kit`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 
 </details>
