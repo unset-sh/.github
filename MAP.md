@@ -8,7 +8,7 @@ Find the right repository, trace its dependencies, and check what belongs there.
 
 [Repositories](#repositories) &nbsp;·&nbsp; [Dependencies](#dependencies) &nbsp;·&nbsp; [Ownership](#repository-boundaries) &nbsp;·&nbsp; [Licences](#licences)
 
-**14 repositories** &nbsp;·&nbsp; 14 active
+**15 repositories** &nbsp;·&nbsp; 14 active &nbsp;·&nbsp; 1 awaiting setup
 
 <sub>Active means the repository exists. It does not mean its product or integration is ready.</sub>
 
@@ -22,11 +22,12 @@ Choose a repository to jump to its ownership details.
 <td width="440" valign="top">
 <h3>The product</h3>
 <p>
+<a href="#repo-unset"><strong>unset</strong></a> &nbsp;<sub>Awaiting setup</sub><br>
 <a href="#repo-web"><strong>web</strong></a> &nbsp;<sub>Active</sub><br>
 <a href="#repo-backend"><strong>backend</strong></a> &nbsp;<sub>Active</sub><br>
 <a href="#repo-deployment"><strong>deployment</strong></a> &nbsp;<sub>Active</sub><br>
 <a href="#repo-modules"><strong>modules</strong></a> &nbsp;<sub>Active</sub><br>
-<a href="#repo-unset"><strong>unset</strong></a> &nbsp;<sub>Active</sub><br>
+<a href="#repo-undefined6799-unset"><strong>Undefined6799/unset</strong></a> &nbsp;<sub>Active</sub><br>
 <a href="#repo-pds"><strong>pds</strong></a> &nbsp;<sub>Active</sub>
 </p>
 </td>
@@ -69,11 +70,12 @@ Arrows show recorded dependencies, including planned and conditional work. **A �
 
 ```mermaid
 flowchart TB
+  r_unset["unset (pending)"]
   r_web["web"]
   r_backend["backend"]
   r_deployment["deployment"]
   r_modules["modules"]
-  r_unset["unset"]
+  r_Undefined6799_unset["Undefined6799/unset"]
   r__github[".github"]
   r_tooling["tooling"]
   r_brand["brand"]
@@ -83,6 +85,8 @@ flowchart TB
   r_pds["pds"]
   r_lexicons["lexicons"]
   r_agent_kit["agent-kit"]
+  r_tooling --> r_unset
+  r_agent_kit --> r_unset
   r_backend --> r_web
   r_brand --> r_web
   r_lexicons --> r_web
@@ -104,7 +108,7 @@ flowchart TB
   r_brand --> r_rendering
   r_tooling --> r_rendering
   r_lexicons --> r_profile_recipes
-  r_unset --> r_profile_recipes
+  r_Undefined6799_unset --> r_profile_recipes
   r_tooling --> r_profile_recipes
   r_brand --> r_docs
   r__github --> r_docs
@@ -113,17 +117,22 @@ flowchart TB
   r_tooling --> r_docs
   r_brand --> r_pds
   r_tooling --> r_pds
-  r_unset --> r_lexicons
+  r_Undefined6799_unset --> r_lexicons
   r_tooling --> r_lexicons
   r_tooling --> r_agent_kit
   classDef default fill:transparent,stroke:#888,stroke-width:1px
   classDef uncreated fill:transparent,stroke:#888,stroke-width:1px,stroke-dasharray:5 4
+  class r_unset uncreated
   style r_unset stroke-width:2px
 ```
+
+Dashed outlines mark repositories that have not been created.
 
 <details>
 <summary><strong>Dependency details</strong> — pins, copies and handoffs</summary>
 
+- `tooling` → `unset`: the shared check, branch and PR policy at full commits
+- `agent-kit` → `unset`: the kit copy under .claude/, pinned by lock.json
 - `backend` → `web`: planned public API consumption; browser and SSR code do not import private backend implementations
 - `brand` → `web`: planned semantic tokens and assets through immutable consumer artifacts
 - `lexicons` → `web`: planned supported protocol artifacts where the client needs them
@@ -145,7 +154,7 @@ flowchart TB
 - `brand` → `rendering`: @unset-sh/brand at an exact version
 - `tooling` → `rendering`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `lexicons` → `profile-recipes`: record and object schemas copied byte-for-byte at a pinned commit
-- `unset` → `profile-recipes`: editor limits and consumer rendering behavior checked against a pinned app commit
+- `Undefined6799/unset` → `profile-recipes`: editor limits and consumer rendering behavior checked against a pinned app commit
 - `tooling` → `profile-recipes`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `brand` → `docs`: stable published @unset-sh/brand 0.1.x releases, each resolved to an immutable commit; compatible patch updates may rebuild and publish the site automatically after checks
 - `.github` → `docs`: repos.json at an exact commit revision for generated organisation map and ownership views; .github remains the source of truth. Its source-owned docs/site/ maps to github/ under the reserved-name exception, with initial import tracked in docs pull request #2
@@ -154,7 +163,7 @@ flowchart TB
 - `tooling` → `docs`: Source-owned docs/ for the tooling/ section with an exact source revision and licences, delivered through reviewed imports; a reviewed full-commit shared refresh runs registered map generators and supplies the public workflow catalogue before site builds. Reusable workflow adoption remains explicit in each consumer; read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `brand` → `pds`: theme colours and fonts at an exact version (after the move)
 - `tooling` → `pds`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
-- `unset` → `lexicons`: initial schemas copied from the merged application source at a recorded commit with per-file hashes; synchronization is manual and the proposed automatic mirror is not configured
+- `Undefined6799/unset` → `lexicons`: initial schemas copied from the merged application source at a recorded commit with per-file hashes; synchronization is manual and the proposed automatic mirror is not configured
 - `tooling` → `lexicons`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `tooling` → `agent-kit`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 
@@ -165,6 +174,35 @@ flowchart TB
 Expand a repository for its full scope, ownership, current licence and where other work belongs.
 
 ### The product
+
+<a name="unset"></a>
+<a name="repo-unset"></a>
+<details>
+<summary><strong>unset</strong> &nbsp;<code>Approved, waiting for setup</code></summary>
+
+`unset-sh/unset`
+
+The product monorepo approved by Alex on 2026-11-24 (agent-kit org-0020). One Bun workspace holding apps/web, apps/server, apps/worker and packages/* (authz, db, brand, rendering). web, backend, rendering and brand move in with their history and are archived only on Alex's word.
+
+**Owns**
+
+- apps/web: SvelteKit screens, SSR, web sessions and device-side integrations
+- apps/server: product operations, its Elysia API groups, Better Auth, migrations and AppView
+- apps/worker: every background job (indexer, authorization sync), one entry and database role per job
+- packages/authz: the OpenFGA model, its tests and the may() port; packages/db, brand (still published) and rendering
+- Each app's image build, pushed to ghcr.io/unset-sh/staging/<app>
+
+**Belongs elsewhere**
+
+- Environment topology, selected images and rollout: [`unset-sh/deployment`](https://github.com/unset-sh/deployment)
+- PDS image packaging and customization: [`unset-sh/pds`](https://github.com/unset-sh/pds)
+- Canonical shared protocol definitions: [`unset-sh/lexicons`](https://github.com/unset-sh/lexicons)
+- Shared developer-tooling implementations: [`unset-sh/tooling`](https://github.com/unset-sh/tooling)
+- Assistant rules and organisation decisions: [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit)
+
+**Current licence:** AGPL-3.0-only first-party work; moved packages keep their licence lines
+
+</details>
 
 <a name="web"></a>
 <a name="repo-web"></a>
@@ -277,10 +315,9 @@ The approved home for marketplace modules: small apps a member turns on or off, 
 
 </details>
 
-<a name="unset"></a>
-<a name="repo-unset"></a>
+<a name="repo-undefined6799-unset"></a>
 <details>
-<summary><strong>unset</strong> &nbsp;<code>Active</code></summary>
+<summary><strong>Undefined6799/unset</strong> &nbsp;<code>Active</code></summary>
 
 [`Undefined6799/unset`](https://github.com/Undefined6799/unset)
 
@@ -566,7 +603,7 @@ Licence is set per repository (Alex, 2026-11-21). Product repositories are AGPL-
 
 | Repository | Licence today |
 | --- | --- |
-| [unset](#repo-unset) | AGPL-3.0-only; the lexicon schemas are MIT (as the rule wants); shared/ is MIT under ADR 0012 |
+| [Undefined6799/unset](#repo-undefined6799-unset) | AGPL-3.0-only; the lexicon schemas are MIT (as the rule wants); shared/ is MIT under ADR 0012 |
 
 ---
 

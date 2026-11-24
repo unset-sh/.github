@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { test } from "node:test";
-import { PROFILE_END, PROFILE_START, STATUSES, renderMap, renderProfileSection, spliceProfile, validate } from "./map.mjs";
+import { PROFILE_END, PROFILE_START, STATUSES, renderMap, renderProfileSection, repoKey, spliceProfile, validate } from "./map.mjs";
 
 const G = [{ id: "g", title: "Group", blurb: "Blurb." }];
 const real = JSON.parse(await readFile(new URL("../repos.json", import.meta.url), "utf8"));
@@ -42,6 +42,25 @@ test("an unknown status is refused", () => {
   assert.match(validate({ org: "o", licenceRule: "AGPL", groups: G, repos: [repo({ status: "live" })] }).join(), /status must be one of/);
 });
 
+test("an outside repository may share a name with an organisation one, and is referred to as owner/name", () => {
+  const app = repo({ name: "unset", owner: "someone", description: undefined });
+  const mono = repo({ name: "unset", status: "pending", description: undefined });
+  const user = repo({ name: "user", uses: [{ repo: "someone/unset", how: "x" }, { repo: "unset", how: "y" }],
+    notHere: [{ what: "Old", where: "someone/unset (app)" }] });
+  const map = { org: "o", licenceRule: "AGPL", groups: G, repos: [app, mono, user] };
+  assert.deepEqual(validate(map), []);
+  const text = renderMap(map);
+  assert.ok(text.includes('<a name="repo-someone-unset"></a>'));
+  assert.ok(text.includes('<a name="repo-unset"></a>'));
+  assert.equal(text.split('<a name="unset"></a>').length - 1, 1, "only the organisation repository keeps the bare fragment");
+  assert.ok(text.includes("r_someone_unset --> r_user"));
+  assert.ok(text.includes("r_unset --> r_user"));
+  assert.ok(text.includes("- Old: [`someone/unset`](https://github.com/someone/unset) (app)"));
+  assert.match(validate({ ...map, repos: [app, app] }).join(), /"someone\/unset": listed twice/);
+  assert.match(validate({ ...map, repos: [repo({ uses: [{ repo: "unset", how: "x" }] }), app] }).join(), /unknown repo "unset"/);
+  assert.match(validate({ ...map, repos: [repo({ owner: "o" })] }).join(), /owner must name another account/);
+});
+
 test("a use of a repository not in the map is refused", () => {
   assert.match(validate({ org: "o", licenceRule: "AGPL", groups: G, repos: [repo({ uses: [{ repo: "ghost", how: "x" }] })] }).join(), /unknown repo "ghost"/);
 });
@@ -55,9 +74,10 @@ test("an existing organisation repository needs its GitHub description", () => {
 test("the map preserves every repository's details behind visible anchors", () => {
   const text = renderMap(real);
   for (const r of real.repos) {
-    const anchor = `<a name="repo-${r.name.toLowerCase()}"></a>\n<details>`;
+    const id = repoKey(real, r).toLowerCase().replace("/", "-");
+    const anchor = `<a name="repo-${id}"></a>\n<details>`;
     assert.ok(text.includes(anchor), r.name);
-    assert.ok(text.includes(`href="#repo-${r.name.toLowerCase()}"`), r.name);
+    assert.ok(text.includes(`href="#repo-${id}"`), r.name);
     const section = text.slice(text.indexOf(anchor), text.indexOf("</details>", text.indexOf(anchor)));
     assert.equal(text.split(r.summary).length - 1, 1, `${r.name} summary appears once`);
     assert.ok(section.includes(r.summary), r.name);
@@ -74,13 +94,13 @@ test("the map preserves every repository's details behind visible anchors", () =
 test("the dependency view preserves edge direction and conditional explanations", () => {
   const text = renderMap(real);
   for (const r of real.repos) for (const use of r.uses) {
-    assert.ok(text.includes(`\`${use.repo}\` → \`${r.name}\`: ${use.how}`));
+    assert.ok(text.includes(`\`${use.repo}\` → \`${repoKey(real, r)}\`: ${use.how}`));
   }
   assert.ok(text.includes("r_brand --> r_web"));
   assert.ok(!text.includes("r_web --> r_brand"));
   assert.ok(text.includes("including planned and conditional work"));
-  const connected = new Set(real.repos.flatMap((r) => r.uses.flatMap((use) => [r.name, use.repo])));
-  const standalone = real.repos.filter((r) => !connected.has(r.name)).map((r) => `[${r.name}](#repo-${r.name})`);
+  const connected = new Set(real.repos.flatMap((r) => r.uses.flatMap((use) => [repoKey(real, r), use.repo])));
+  const standalone = real.repos.filter((r) => !connected.has(repoKey(real, r))).map((r) => `[${repoKey(real, r)}](#repo-${repoKey(real, r).toLowerCase().replace("/", "-")})`);
   if (standalone.length) assert.ok(text.includes(`No dependency edges recorded: ${standalone.join(" · ")}.`));
   else assert.ok(!text.includes("No dependency edges recorded"));
 });
