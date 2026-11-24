@@ -8,7 +8,7 @@ Find the right repository, trace its dependencies, and check what belongs there.
 
 [Repositories](#repositories) &nbsp;·&nbsp; [Dependencies](#dependencies) &nbsp;·&nbsp; [Ownership](#repository-boundaries) &nbsp;·&nbsp; [Licences](#licences)
 
-**14 repositories** &nbsp;·&nbsp; 14 active
+**15 repositories** &nbsp;·&nbsp; 14 active &nbsp;·&nbsp; 1 awaiting setup
 
 <sub>Active means the repository exists. It does not mean its product or integration is ready.</sub>
 
@@ -22,6 +22,7 @@ Choose a repository to jump to its ownership details.
 <td width="440" valign="top">
 <h3>The product</h3>
 <p>
+<a href="#repo-unset"><strong>unset</strong></a> &nbsp;<sub>Awaiting setup</sub><br>
 <a href="#repo-web"><strong>web</strong></a> &nbsp;<sub>Active</sub><br>
 <a href="#repo-backend"><strong>backend</strong></a> &nbsp;<sub>Active</sub><br>
 <a href="#repo-deployment"><strong>deployment</strong></a> &nbsp;<sub>Active</sub><br>
@@ -69,6 +70,7 @@ Arrows show recorded dependencies, including planned and conditional work. **A �
 
 ```mermaid
 flowchart TB
+  r_unset["unset (pending)"]
   r_web["web"]
   r_backend["backend"]
   r_deployment["deployment"]
@@ -83,6 +85,8 @@ flowchart TB
   r_pds["pds"]
   r_lexicons["lexicons"]
   r_agent_kit["agent-kit"]
+  r_tooling --> r_unset
+  r_agent_kit --> r_unset
   r_backend --> r_web
   r_brand --> r_web
   r_lexicons --> r_web
@@ -118,11 +122,17 @@ flowchart TB
   r_tooling --> r_agent_kit
   classDef default fill:transparent,stroke:#888,stroke-width:1px
   classDef uncreated fill:transparent,stroke:#888,stroke-width:1px,stroke-dasharray:5 4
+  class r_unset uncreated
+  style r_unset stroke-width:2px
 ```
+
+Dashed outlines mark repositories that have not been created.
 
 <details>
 <summary><strong>Dependency details</strong> — pins, copies and handoffs</summary>
 
+- `tooling` → `unset`: the shared check, branch and PR policy at full commits
+- `agent-kit` → `unset`: the kit copy under .claude/, pinned by lock.json
 - `backend` → `web`: planned public API consumption; browser and SSR code do not import private backend implementations
 - `brand` → `web`: planned semantic tokens and assets through immutable consumer artifacts
 - `lexicons` → `web`: planned supported protocol artifacts where the client needs them
@@ -164,6 +174,35 @@ flowchart TB
 Expand a repository for its full scope, ownership, current licence and where other work belongs.
 
 ### The product
+
+<a name="unset"></a>
+<a name="repo-unset"></a>
+<details>
+<summary><strong>unset</strong> &nbsp;<code>Approved, waiting for setup</code></summary>
+
+`unset-sh/unset`
+
+The product monorepo approved by Alex on 2026-11-24 (agent-kit org-0020). One Bun workspace holding apps/web, apps/server, apps/worker and packages/* (authz, db, brand, rendering). web, backend, rendering and brand move in with their history and are archived only on Alex's word.
+
+**Owns**
+
+- apps/web: SvelteKit screens, SSR, web sessions and device-side integrations
+- apps/server: product operations, its Elysia API groups, Better Auth, migrations and AppView
+- apps/worker: every background job (indexer, authorization sync), one entry and database role per job
+- packages/authz: the OpenFGA model, its tests and the may() port; packages/db, brand (still published) and rendering
+- Each app's image build, pushed to ghcr.io/unset-sh/staging/<app>
+
+**Belongs elsewhere**
+
+- Environment topology, selected images and rollout: [`unset-sh/deployment`](https://github.com/unset-sh/deployment)
+- PDS image packaging and customization: [`unset-sh/pds`](https://github.com/unset-sh/pds)
+- Canonical shared protocol definitions: [`unset-sh/lexicons`](https://github.com/unset-sh/lexicons)
+- Shared developer-tooling implementations: [`unset-sh/tooling`](https://github.com/unset-sh/tooling)
+- Assistant rules and organisation decisions: [`unset-sh/agent-kit`](https://github.com/unset-sh/agent-kit)
+
+**Current licence:** AGPL-3.0-only first-party work; moved packages keep their licence lines
+
+</details>
 
 <a name="web"></a>
 <a name="repo-web"></a>

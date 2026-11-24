@@ -25,6 +25,59 @@
   "licenceRule": "Licence is set per repository (Alex, 2026-11-21). Product repositories are AGPL-3.0-only and take no outside code for now. Work meant to be copied stays permissive: the profile-recipes recipes are CC0-1.0 and the lexicon schemas are MIT, and those two take outside work with a DCO sign-off only. Third-party work keeps its own licence. There is no contributor agreement.",
   "repos": [
     {
+      "name": "unset",
+      "status": "pending",
+      "visibility": "public",
+      "group": "product",
+      "tagline": "The Unset product: web, server, worker and shared packages in one workspace.",
+      "summary": "The product monorepo approved by Alex on 2026-11-24 (agent-kit org-0020). One Bun workspace holding apps/web, apps/server, apps/worker and packages/* (authz, db, brand, rendering). web, backend, rendering and brand move in with their history and are archived only on Alex's word.",
+      "owns": [
+        "apps/web: SvelteKit screens, SSR, web sessions and device-side integrations",
+        "apps/server: product operations, its Elysia API groups, Better Auth, migrations and AppView",
+        "apps/worker: every background job (indexer, authorization sync), one entry and database role per job",
+        "packages/authz: the OpenFGA model, its tests and the may() port; packages/db, brand (still published) and rendering",
+        "Each app's image build, pushed to ghcr.io/unset-sh/staging/<app>"
+      ],
+      "notHere": [
+        {
+          "what": "Environment topology, selected images and rollout",
+          "where": "deployment"
+        },
+        {
+          "what": "PDS image packaging and customization",
+          "where": "pds"
+        },
+        {
+          "what": "Canonical shared protocol definitions",
+          "where": "lexicons"
+        },
+        {
+          "what": "Shared developer-tooling implementations",
+          "where": "tooling"
+        },
+        {
+          "what": "Assistant rules and organisation decisions",
+          "where": "agent-kit"
+        }
+      ],
+      "uses": [
+        {
+          "repo": "tooling",
+          "how": "the shared check, branch and PR policy at full commits"
+        },
+        {
+          "repo": "agent-kit",
+          "how": "the kit copy under .claude/, pinned by lock.json"
+        }
+      ],
+      "licence": {
+        "spdx": null,
+        "current": "AGPL-3.0-only first-party work; moved packages keep their licence lines",
+        "followsRule": true
+      },
+      "icon": "stack-2"
+    },
+    {
       "name": "web",
       "status": "active",
       "visibility": "public",
