@@ -26,7 +26,7 @@ Choose a repository to jump to its ownership details.
 <a href="#repo-backend"><strong>backend</strong></a> &nbsp;<sub>Active</sub><br>
 <a href="#repo-deployment"><strong>deployment</strong></a> &nbsp;<sub>Active</sub><br>
 <a href="#repo-modules"><strong>modules</strong></a> &nbsp;<sub>Active</sub><br>
-<a href="#repo-unset"><strong>unset</strong></a> &nbsp;<sub>Active</sub><br>
+<a href="#repo-undefined6799-unset"><strong>Undefined6799/unset</strong></a> &nbsp;<sub>Active</sub><br>
 <a href="#repo-pds"><strong>pds</strong></a> &nbsp;<sub>Active</sub>
 </p>
 </td>
@@ -73,7 +73,7 @@ flowchart TB
   r_backend["backend"]
   r_deployment["deployment"]
   r_modules["modules"]
-  r_unset["unset"]
+  r_Undefined6799_unset["Undefined6799/unset"]
   r__github[".github"]
   r_tooling["tooling"]
   r_brand["brand"]
@@ -104,7 +104,7 @@ flowchart TB
   r_brand --> r_rendering
   r_tooling --> r_rendering
   r_lexicons --> r_profile_recipes
-  r_unset --> r_profile_recipes
+  r_Undefined6799_unset --> r_profile_recipes
   r_tooling --> r_profile_recipes
   r_brand --> r_docs
   r__github --> r_docs
@@ -113,12 +113,11 @@ flowchart TB
   r_tooling --> r_docs
   r_brand --> r_pds
   r_tooling --> r_pds
-  r_unset --> r_lexicons
+  r_Undefined6799_unset --> r_lexicons
   r_tooling --> r_lexicons
   r_tooling --> r_agent_kit
   classDef default fill:transparent,stroke:#888,stroke-width:1px
   classDef uncreated fill:transparent,stroke:#888,stroke-width:1px,stroke-dasharray:5 4
-  style r_unset stroke-width:2px
 ```
 
 <details>
@@ -145,7 +144,7 @@ flowchart TB
 - `brand` → `rendering`: @unset-sh/brand at an exact version
 - `tooling` → `rendering`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `lexicons` → `profile-recipes`: record and object schemas copied byte-for-byte at a pinned commit
-- `unset` → `profile-recipes`: editor limits and consumer rendering behavior checked against a pinned app commit
+- `Undefined6799/unset` → `profile-recipes`: editor limits and consumer rendering behavior checked against a pinned app commit
 - `tooling` → `profile-recipes`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `brand` → `docs`: stable published @unset-sh/brand 0.1.x releases, each resolved to an immutable commit; compatible patch updates may rebuild and publish the site automatically after checks
 - `.github` → `docs`: repos.json at an exact commit revision for generated organisation map and ownership views; .github remains the source of truth. Its source-owned docs/site/ maps to github/ under the reserved-name exception, with initial import tracked in docs pull request #2
@@ -154,7 +153,7 @@ flowchart TB
 - `tooling` → `docs`: Source-owned docs/ for the tooling/ section with an exact source revision and licences, delivered through reviewed imports; a reviewed full-commit shared refresh runs registered map generators and supplies the public workflow catalogue before site builds. Reusable workflow adoption remains explicit in each consumer; read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `brand` → `pds`: theme colours and fonts at an exact version (after the move)
 - `tooling` → `pds`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
-- `unset` → `lexicons`: initial schemas copied from the merged application source at a recorded commit with per-file hashes; synchronization is manual and the proposed automatic mirror is not configured
+- `Undefined6799/unset` → `lexicons`: initial schemas copied from the merged application source at a recorded commit with per-file hashes; synchronization is manual and the proposed automatic mirror is not configured
 - `tooling` → `lexicons`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 - `tooling` → `agent-kit`: read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
 
@@ -277,10 +276,9 @@ The approved home for marketplace modules: small apps a member turns on or off, 
 
 </details>
 
-<a name="unset"></a>
-<a name="repo-unset"></a>
+<a name="repo-undefined6799-unset"></a>
 <details>
-<summary><strong>unset</strong> &nbsp;<code>Active</code></summary>
+<summary><strong>Undefined6799/unset</strong> &nbsp;<code>Active</code></summary>
 
 [`Undefined6799/unset`](https://github.com/Undefined6799/unset)
 
@@ -566,7 +564,7 @@ Licence is set per repository (Alex, 2026-11-21). Product repositories are AGPL-
 
 | Repository | Licence today |
 | --- | --- |
-| [unset](#repo-unset) | AGPL-3.0-only; the lexicon schemas are MIT (as the rule wants); shared/ is MIT under ADR 0012 |
+| [Undefined6799/unset](#repo-undefined6799-unset) | AGPL-3.0-only; the lexicon schemas are MIT (as the rule wants); shared/ is MIT under ADR 0012 |
 
 ---
 

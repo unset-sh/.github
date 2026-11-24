@@ -508,7 +508,7 @@
         },
         {
           "what": "The profile editor and its limits (limits.json here is a mirror)",
-          "where": "unset"
+          "where": "Undefined6799/unset"
         },
         {
           "what": "The documentation site's root configuration, navigation and layouts",
@@ -529,7 +529,7 @@
           "how": "record and object schemas copied byte-for-byte at a pinned commit"
         },
         {
-          "repo": "unset",
+          "repo": "Undefined6799/unset",
           "how": "editor limits and consumer rendering behavior checked against a pinned app commit"
         },
         {
@@ -682,12 +682,12 @@
       "notHere": [
         {
           "what": "Any edit to a schema",
-          "where": "unset (shared/lexicons/schemas/); coordinate changes there and refresh the recorded snapshot manually"
+          "where": "Undefined6799/unset (shared/lexicons/schemas/); coordinate changes there and refresh the recorded snapshot manually"
         }
       ],
       "uses": [
         {
-          "repo": "unset",
+          "repo": "Undefined6799/unset",
           "how": "initial schemas copied from the merged application source at a recorded commit with per-file hashes; synchronization is manual and the proposed automatic mirror is not configured"
         },
         {
