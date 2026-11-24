@@ -1,7 +1,7 @@
 name: org-map
 
 # check: on every pull request and push, regenerate the map from repos.json and
-#        validate the result. map-publish prepares a checked staging PR for committed views.
+#        validate the result. map-publish prepares a checked PR into main for committed views.
 # drift: every day and on demand, compares repos.json with the organisation's
 #        public repositories and keeps one issue labelled org-map-drift open
 #        while they differ, closing it once they match again.
@@ -10,7 +10,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, edited, ready_for_review]
   push:
-    branches: [staging, main]
+    branches: [main]
   schedule:
     - cron: "17 6 * * *"
   workflow_dispatch:

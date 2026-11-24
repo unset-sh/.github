@@ -33,7 +33,7 @@ const empty = "!startsWith(github.ref, 'refs/heads/automation/map-') && inputs.p
 const guard = `github.event_name == 'workflow_dispatch' && ${pending}`;
 const job = (source, name) => new RegExp(`^  ${name}:\\n([\\s\\S]*?)(?=^  [a-z][a-z-]*:|(?![\\s\\S]))`, "m").exec(source.slice(source.indexOf("\njobs:\n")))?.[1];
 const field = (source, name, spaces = 4) => new RegExp(`^ {${spaces}}${name}: (.+)$`, "m").exec(source)?.[1];
-function evaluate(expression, { event, ref = "refs/heads/staging", proof = "skipped", check = "success", cancelled = false, inputs = {} }) {
+function evaluate(expression, { event, ref = "refs/heads/main", proof = "skipped", check = "success", cancelled = false, inputs = {} }) {
   const program = expression.replace(/^\$\{\{\s*/, "").replace(/\s*\}\}$/, "")
     .replace(/inputs\.(pull-request|expected-head|expected-base)/g, 'inputs["$1"]')
     .replaceAll("needs.verify-generated", 'needs["verify-generated"]');
