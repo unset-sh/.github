@@ -86,6 +86,7 @@ flowchart TB
   r_lexicons["lexicons"]
   r_agent_kit["agent-kit"]
   r_tooling --> r_unset
+  r_lexicons --> r_unset
   r_agent_kit --> r_unset
   r_backend --> r_web
   r_brand --> r_web
@@ -132,6 +133,7 @@ Dashed outlines mark repositories that have not been created.
 <summary><strong>Dependency details</strong> — pins, copies and handoffs</summary>
 
 - `tooling` → `unset`: the shared check, branch and PR policy at full commits
+- `lexicons` → `unset`: packages/lexicons copies the schemas it needs from main at a full commit with per-file hashes, and generates code from them
 - `agent-kit` → `unset`: the kit copy under .claude/, pinned by lock.json
 - `backend` → `web`: planned public API consumption; browser and SSR code do not import private backend implementations
 - `brand` → `web`: planned semantic tokens and assets through immutable consumer artifacts
@@ -190,6 +192,7 @@ The product monorepo approved by Alex on 2026-11-24 (agent-kit org-0020). One Bu
 - apps/server: product operations, its Elysia API groups, Better Auth, migrations and AppView
 - apps/worker: every background job (indexer, authorization sync), one entry and database role per job
 - packages/authz: the OpenFGA model, its tests and the may() port; packages/db, brand (still published) and rendering
+- packages/lexicons: a pinned copy of the sh.unset.* lexicons the apps read and the types and validators generated from it
 - Each app's image build, pushed to ghcr.io/unset-sh/staging/<app>
 
 **Belongs elsewhere**
