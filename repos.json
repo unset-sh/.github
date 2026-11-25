@@ -37,13 +37,10 @@
         "apps/worker: every background job (indexer, authorization sync), one entry and database role per job",
         "packages/access: the OpenFGA model, its tests and the may() port; packages/db, brand (still published) and rendering",
         "packages/lexicons: a pinned copy of the sh.unset.* lexicons the apps read and the types and validators generated from it",
-        "Each app's image build, pushed to ghcr.io/unset-sh/staging/<app>"
+        "Each app's image build, pushed to ghcr.io/unset-sh/staging/<app>",
+        "deploy/ (org-0023): each service's compose file and settings under services/<name>/, each environment's services, image digests and secret references under environments/<env>/, rollout order and recovery"
       ],
       "notHere": [
-        {
-          "what": "Environment topology, selected images and rollout",
-          "where": "deployment"
-        },
         {
           "what": "PDS image packaging and customization",
           "where": "pds"
@@ -73,6 +70,10 @@
         {
           "repo": "agent-kit",
           "how": "the kit copy under .claude/, pinned by lock.json"
+        },
+        {
+          "repo": "pds",
+          "how": "planned: deploy/ runs the released PDS image by verified digest"
         }
       ],
       "licence": {
@@ -114,7 +115,7 @@
         },
         {
           "what": "Environment wiring and stack delivery",
-          "where": "deployment"
+          "where": "unset"
         }
       ],
       "uses": [
@@ -168,7 +169,7 @@
         },
         {
           "what": "Environment topology, bucket provisioning, selected images and stack rollout",
-          "where": "deployment"
+          "where": "unset"
         },
         {
           "what": "PDS image packaging and customization",
@@ -214,14 +215,9 @@
       "visibility": "public",
       "group": "product",
       "description": "Unset environment definitions, immutable release assembly and deployment orchestration",
-      "tagline": "Environment topology and stack releases.",
-      "summary": "The approved home for environment definitions and stack release assembly. The repository exists with an initial README and licence; detailed ownership setup is under review. No deployable stack, image selections, infrastructure configuration or rollout automation exists yet.",
-      "owns": [
-        "Environment topology, networks, volumes, bucket provisioning, configuration references and access policies",
-        "A versioned compatible set of producer-built immutable images and artifacts, not one combined services image",
-        "Rollout order, health verification, recorded deployed versions and recovery procedures",
-        "Execution of producer-owned migration contracts and separately operated services such as PDS and Tap when adopted"
-      ],
+      "tagline": "Superseded by deploy/ in unset; kept until Alex archives it.",
+      "summary": "Its job moved into unset-sh/unset as deploy/ (agent-kit org-0023, accepted 2026-11-25), started clean with nothing imported. This repository stays as it is until Alex archives it; its open pull requests are closed, not merged.",
+      "owns": [],
       "notHere": [
         {
           "what": "Application code, AppView/indexer behavior and database migration definitions",
@@ -240,28 +236,7 @@
           "where": "tooling"
         }
       ],
-      "uses": [
-        {
-          "repo": "backend",
-          "how": "planned deployment of released API, indexer and other independently privileged backend images"
-        },
-        {
-          "repo": "web",
-          "how": "planned deployment of the released web image"
-        },
-        {
-          "repo": "pds",
-          "how": "planned deployment of a maintained PDS image by verified digest"
-        },
-        {
-          "repo": "tooling",
-          "how": "planned shared deployment mechanisms; current tooling does not implement stack deployment"
-        },
-        {
-          "repo": "agent-kit",
-          "how": "bootstrap instructions reference a recorded full commit; installing the kit remains pending"
-        }
-      ],
+      "uses": [],
       "licence": {
         "spdx": "AGPL-3.0",
         "current": "AGPL-3.0-only first-party work; foundation only, no application code imported",
@@ -298,7 +273,7 @@
         },
         {
           "what": "Serving module files and their domain",
-          "where": "deployment"
+          "where": "unset"
         },
         {
           "what": "Colours, fonts and icons",
@@ -697,7 +672,7 @@
       "notHere": [
         {
           "what": "PDS runtime topology, volumes and deployed image selection",
-          "where": "deployment"
+          "where": "unset"
         },
         {
           "what": "The privileged pds-admin process and application integration",

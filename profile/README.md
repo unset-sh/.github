@@ -48,7 +48,7 @@
 </td>
 <td width="440" valign="top">
 <h3><picture><img src="./icons/cloud-upload.svg" width="24" height="24" alt=""></picture><br><a href="https://github.com/unset-sh/deployment"><strong>deployment</strong></a></h3>
-<p>Environment topology and stack releases.</p>
+<p>Superseded by deploy/ in unset; kept until Alex archives it.</p>
 </td>
 </tr>
 </tbody>

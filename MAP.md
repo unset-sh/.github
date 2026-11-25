@@ -73,7 +73,6 @@ flowchart TB
   r_unset["unset (pending)"]
   r_web["web"]
   r_backend["backend"]
-  r_deployment["deployment"]
   r_modules["modules"]
   r_Undefined6799_unset["Undefined6799/unset"]
   r__github[".github"]
@@ -88,6 +87,7 @@ flowchart TB
   r_tooling --> r_unset
   r_lexicons --> r_unset
   r_agent_kit --> r_unset
+  r_pds --> r_unset
   r_backend --> r_web
   r_brand --> r_web
   r_lexicons --> r_web
@@ -97,11 +97,6 @@ flowchart TB
   r_rendering --> r_backend
   r_tooling --> r_backend
   r_agent_kit --> r_backend
-  r_backend --> r_deployment
-  r_web --> r_deployment
-  r_pds --> r_deployment
-  r_tooling --> r_deployment
-  r_agent_kit --> r_deployment
   r_tooling --> r_modules
   r_agent_kit --> r_modules
   r_tooling --> r__github
@@ -129,12 +124,15 @@ flowchart TB
 
 Dashed outlines mark repositories that have not been created.
 
+No dependency edges recorded: [deployment](#repo-deployment).
+
 <details>
 <summary><strong>Dependency details</strong> — pins, copies and handoffs</summary>
 
 - `tooling` → `unset`: the shared check, branch and PR policy at full commits
 - `lexicons` → `unset`: packages/lexicons copies the schemas it needs from main at a full commit with per-file hashes, and generates code from them
 - `agent-kit` → `unset`: the kit copy under .claude/, pinned by lock.json
+- `pds` → `unset`: planned: deploy/ runs the released PDS image by verified digest
 - `backend` → `web`: planned public API consumption; browser and SSR code do not import private backend implementations
 - `brand` → `web`: planned semantic tokens and assets through immutable consumer artifacts
 - `lexicons` → `web`: planned supported protocol artifacts where the client needs them
@@ -144,11 +142,6 @@ Dashed outlines mark repositories that have not been created.
 - `rendering` → `backend`: planned rendering from authorized supplied data; no package is installed yet
 - `tooling` → `backend`: planned reviewed workflow callers once meaningful product checks and builds exist
 - `agent-kit` → `backend`: bootstrap instructions reference a recorded full commit; installing the kit remains pending
-- `backend` → `deployment`: planned deployment of released API, indexer and other independently privileged backend images
-- `web` → `deployment`: planned deployment of the released web image
-- `pds` → `deployment`: planned deployment of a maintained PDS image by verified digest
-- `tooling` → `deployment`: planned shared deployment mechanisms; current tooling does not implement stack deployment
-- `agent-kit` → `deployment`: bootstrap instructions reference a recorded full commit; installing the kit remains pending
 - `tooling` → `modules`: read-only branch-policy caller at an immutable tooling commit
 - `agent-kit` → `modules`: checked copy under .claude/ at a recorded full commit, verified by CI against its lock
 - `tooling` → `.github`: small read-only CI and documentation-export callers at a reviewed merged full commit; source checks must pass before export, and automatic update propagation is not configured; read-only branch-policy caller at an immutable tooling commit; staging check adoption is being rolled out separately from release and deployment
@@ -194,10 +187,10 @@ The product monorepo approved by Alex on 2026-11-24 (agent-kit org-0020). One Bu
 - packages/access: the OpenFGA model, its tests and the may() port; packages/db, brand (still published) and rendering
 - packages/lexicons: a pinned copy of the sh.unset.* lexicons the apps read and the types and validators generated from it
 - Each app's image build, pushed to ghcr.io/unset-sh/staging/<app>
+- deploy/ (org-0023): each service's compose file and settings under services/<name>/, each environment's services, image digests and secret references under environments/<env>/, rollout order and recovery
 
 **Belongs elsewhere**
 
-- Environment topology, selected images and rollout: [`unset-sh/deployment`](https://github.com/unset-sh/deployment)
 - PDS image packaging and customization: [`unset-sh/pds`](https://github.com/unset-sh/pds)
 - Canonical shared protocol definitions: [`unset-sh/lexicons`](https://github.com/unset-sh/lexicons)
 - Shared developer-tooling implementations: [`unset-sh/tooling`](https://github.com/unset-sh/tooling)
@@ -228,7 +221,7 @@ The approved home for the complete web application, including messaging UI and w
 - Shared brand tokens and assets: [`unset-sh/brand`](https://github.com/unset-sh/brand)
 - Preview images and embeds drawn from data: [`unset-sh/rendering`](https://github.com/unset-sh/rendering)
 - Canonical protocol definitions: [`unset-sh/lexicons`](https://github.com/unset-sh/lexicons)
-- Environment wiring and stack delivery: [`unset-sh/deployment`](https://github.com/unset-sh/deployment)
+- Environment wiring and stack delivery: `unset-sh/unset`
 
 **Current licence:** AGPL-3.0-only first-party work; foundation only, no application code imported
 
@@ -254,7 +247,7 @@ The approved product backend shared by web and future mobile clients. The reposi
 **Belongs elsewhere**
 
 - Web and messaging screens, browser sessions and device-side integrations: [`unset-sh/web`](https://github.com/unset-sh/web)
-- Environment topology, bucket provisioning, selected images and stack rollout: [`unset-sh/deployment`](https://github.com/unset-sh/deployment)
+- Environment topology, bucket provisioning, selected images and stack rollout: `unset-sh/unset`
 - PDS image packaging and customization: [`unset-sh/pds`](https://github.com/unset-sh/pds)
 - Canonical shared protocol definitions: [`unset-sh/lexicons`](https://github.com/unset-sh/lexicons)
 - Shared developer-tooling implementations: [`unset-sh/tooling`](https://github.com/unset-sh/tooling)
@@ -270,14 +263,7 @@ The approved product backend shared by web and future mobile clients. The reposi
 
 [`unset-sh/deployment`](https://github.com/unset-sh/deployment)
 
-The approved home for environment definitions and stack release assembly. The repository exists with an initial README and licence; detailed ownership setup is under review. No deployable stack, image selections, infrastructure configuration or rollout automation exists yet.
-
-**Owns**
-
-- Environment topology, networks, volumes, bucket provisioning, configuration references and access policies
-- A versioned compatible set of producer-built immutable images and artifacts, not one combined services image
-- Rollout order, health verification, recorded deployed versions and recovery procedures
-- Execution of producer-owned migration contracts and separately operated services such as PDS and Tap when adopted
+Its job moved into unset-sh/unset as deploy/ (agent-kit org-0023, accepted 2026-11-25), started clean with nothing imported. This repository stays as it is until Alex archives it; its open pull requests are closed, not merged.
 
 **Belongs elsewhere**
 
@@ -311,7 +297,7 @@ The approved home for marketplace modules: small apps a member turns on or off, 
 - Loading a module, showing its screen and the marketplace screens: [`unset-sh/web`](https://github.com/unset-sh/web)
 - A member's on or off state and every write made for a module: [`unset-sh/backend`](https://github.com/unset-sh/backend)
 - The sh.unset.* record types: [`unset-sh/lexicons`](https://github.com/unset-sh/lexicons)
-- Serving module files and their domain: [`unset-sh/deployment`](https://github.com/unset-sh/deployment)
+- Serving module files and their domain: `unset-sh/unset`
 - Colours, fonts and icons: [`unset-sh/brand`](https://github.com/unset-sh/brand)
 
 **Current licence:** AGPL-3.0-only first-party work; foundation only. The licence for the contract, the starter module and outside developers' modules is not set
@@ -360,7 +346,7 @@ The home for unset.sh's PDS image and everything that customises the PDS: the bu
 
 **Belongs elsewhere**
 
-- PDS runtime topology, volumes and deployed image selection: [`unset-sh/deployment`](https://github.com/unset-sh/deployment)
+- PDS runtime topology, volumes and deployed image selection: `unset-sh/unset`
 - The privileged pds-admin process and application integration: [`unset-sh/backend`](https://github.com/unset-sh/backend)
 - Shared colours, fonts and the mark: [`unset-sh/brand`](https://github.com/unset-sh/brand)
 
