@@ -37,13 +37,10 @@
         "apps/worker: every background job (indexer, authorization sync), one entry and database role per job",
         "packages/access: the OpenFGA model, its tests and the may() port; packages/db, brand (still published) and rendering",
         "packages/lexicons: a pinned copy of the sh.unset.* lexicons the apps read and the types and validators generated from it",
-        "Each app's image build, pushed to ghcr.io/unset-sh/staging/<app>"
+        "Each app's image build, pushed to ghcr.io/unset-sh/staging/<app>",
+        "deploy/ (org-0023): each service's compose file and settings under services/<name>/, each environment's services, image digests and secret references under environments/<env>/, rollout order and recovery"
       ],
       "notHere": [
-        {
-          "what": "Environment topology, selected images and rollout",
-          "where": "deployment"
-        },
         {
           "what": "PDS image packaging and customization",
           "where": "pds"
@@ -73,6 +70,10 @@
         {
           "repo": "agent-kit",
           "how": "the kit copy under .claude/, pinned by lock.json"
+        },
+        {
+          "repo": "pds",
+          "how": "planned: deploy/ runs the released PDS image by verified digest"
         }
       ],
       "licence": {
@@ -214,8 +215,8 @@
       "visibility": "public",
       "group": "product",
       "description": "Unset environment definitions, immutable release assembly and deployment orchestration",
-      "tagline": "Environment topology and stack releases.",
-      "summary": "The approved home for environment definitions and stack release assembly. The repository exists with an initial README and licence; detailed ownership setup is under review. No deployable stack, image selections, infrastructure configuration or rollout automation exists yet.",
+      "tagline": "Superseded by deploy/ in unset; kept until Alex archives it.",
+      "summary": "Its job moved into unset-sh/unset as deploy/ (agent-kit org-0023, accepted 2026-11-25), started clean with nothing imported. This repository stays as it is until Alex archives it; its open pull requests are closed, not merged.",
       "owns": [
         "Environment topology, networks, volumes, bucket provisioning, configuration references and access policies",
         "A versioned compatible set of producer-built immutable images and artifacts, not one combined services image",
@@ -697,7 +698,7 @@
       "notHere": [
         {
           "what": "PDS runtime topology, volumes and deployed image selection",
-          "where": "deployment"
+          "where": "unset"
         },
         {
           "what": "The privileged pds-admin process and application integration",

@@ -88,6 +88,7 @@ flowchart TB
   r_tooling --> r_unset
   r_lexicons --> r_unset
   r_agent_kit --> r_unset
+  r_pds --> r_unset
   r_backend --> r_web
   r_brand --> r_web
   r_lexicons --> r_web
@@ -135,6 +136,7 @@ Dashed outlines mark repositories that have not been created.
 - `tooling` → `unset`: the shared check, branch and PR policy at full commits
 - `lexicons` → `unset`: packages/lexicons copies the schemas it needs from main at a full commit with per-file hashes, and generates code from them
 - `agent-kit` → `unset`: the kit copy under .claude/, pinned by lock.json
+- `pds` → `unset`: planned: deploy/ runs the released PDS image by verified digest
 - `backend` → `web`: planned public API consumption; browser and SSR code do not import private backend implementations
 - `brand` → `web`: planned semantic tokens and assets through immutable consumer artifacts
 - `lexicons` → `web`: planned supported protocol artifacts where the client needs them
@@ -194,10 +196,10 @@ The product monorepo approved by Alex on 2026-11-24 (agent-kit org-0020). One Bu
 - packages/access: the OpenFGA model, its tests and the may() port; packages/db, brand (still published) and rendering
 - packages/lexicons: a pinned copy of the sh.unset.* lexicons the apps read and the types and validators generated from it
 - Each app's image build, pushed to ghcr.io/unset-sh/staging/<app>
+- deploy/ (org-0023): each service's compose file and settings under services/<name>/, each environment's services, image digests and secret references under environments/<env>/, rollout order and recovery
 
 **Belongs elsewhere**
 
-- Environment topology, selected images and rollout: [`unset-sh/deployment`](https://github.com/unset-sh/deployment)
 - PDS image packaging and customization: [`unset-sh/pds`](https://github.com/unset-sh/pds)
 - Canonical shared protocol definitions: [`unset-sh/lexicons`](https://github.com/unset-sh/lexicons)
 - Shared developer-tooling implementations: [`unset-sh/tooling`](https://github.com/unset-sh/tooling)
@@ -270,7 +272,7 @@ The approved product backend shared by web and future mobile clients. The reposi
 
 [`unset-sh/deployment`](https://github.com/unset-sh/deployment)
 
-The approved home for environment definitions and stack release assembly. The repository exists with an initial README and licence; detailed ownership setup is under review. No deployable stack, image selections, infrastructure configuration or rollout automation exists yet.
+Its job moved into unset-sh/unset as deploy/ (agent-kit org-0023, accepted 2026-11-25), started clean with nothing imported. This repository stays as it is until Alex archives it; its open pull requests are closed, not merged.
 
 **Owns**
 
@@ -360,7 +362,7 @@ The home for unset.sh's PDS image and everything that customises the PDS: the bu
 
 **Belongs elsewhere**
 
-- PDS runtime topology, volumes and deployed image selection: [`unset-sh/deployment`](https://github.com/unset-sh/deployment)
+- PDS runtime topology, volumes and deployed image selection: `unset-sh/unset`
 - The privileged pds-admin process and application integration: [`unset-sh/backend`](https://github.com/unset-sh/backend)
 - Shared colours, fonts and the mark: [`unset-sh/brand`](https://github.com/unset-sh/brand)
 
