@@ -115,7 +115,7 @@
         },
         {
           "what": "Environment wiring and stack delivery",
-          "where": "deployment"
+          "where": "unset"
         }
       ],
       "uses": [
@@ -169,7 +169,7 @@
         },
         {
           "what": "Environment topology, bucket provisioning, selected images and stack rollout",
-          "where": "deployment"
+          "where": "unset"
         },
         {
           "what": "PDS image packaging and customization",
@@ -217,12 +217,7 @@
       "description": "Unset environment definitions, immutable release assembly and deployment orchestration",
       "tagline": "Superseded by deploy/ in unset; kept until Alex archives it.",
       "summary": "Its job moved into unset-sh/unset as deploy/ (agent-kit org-0023, accepted 2026-11-25), started clean with nothing imported. This repository stays as it is until Alex archives it; its open pull requests are closed, not merged.",
-      "owns": [
-        "Environment topology, networks, volumes, bucket provisioning, configuration references and access policies",
-        "A versioned compatible set of producer-built immutable images and artifacts, not one combined services image",
-        "Rollout order, health verification, recorded deployed versions and recovery procedures",
-        "Execution of producer-owned migration contracts and separately operated services such as PDS and Tap when adopted"
-      ],
+      "owns": [],
       "notHere": [
         {
           "what": "Application code, AppView/indexer behavior and database migration definitions",
@@ -241,28 +236,7 @@
           "where": "tooling"
         }
       ],
-      "uses": [
-        {
-          "repo": "backend",
-          "how": "planned deployment of released API, indexer and other independently privileged backend images"
-        },
-        {
-          "repo": "web",
-          "how": "planned deployment of the released web image"
-        },
-        {
-          "repo": "pds",
-          "how": "planned deployment of a maintained PDS image by verified digest"
-        },
-        {
-          "repo": "tooling",
-          "how": "planned shared deployment mechanisms; current tooling does not implement stack deployment"
-        },
-        {
-          "repo": "agent-kit",
-          "how": "bootstrap instructions reference a recorded full commit; installing the kit remains pending"
-        }
-      ],
+      "uses": [],
       "licence": {
         "spdx": "AGPL-3.0",
         "current": "AGPL-3.0-only first-party work; foundation only, no application code imported",
@@ -299,7 +273,7 @@
         },
         {
           "what": "Serving module files and their domain",
-          "where": "deployment"
+          "where": "unset"
         },
         {
           "what": "Colours, fonts and icons",
