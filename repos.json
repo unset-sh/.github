@@ -36,6 +36,7 @@
         "apps/server: product operations, its Elysia API groups, Better Auth, migrations and AppView",
         "apps/worker: every background job (indexer, authorization sync), one entry and database role per job",
         "packages/authz: the OpenFGA model, its tests and the may() port; packages/db, brand (still published) and rendering",
+        "packages/lexicons: a pinned copy of the sh.unset.* lexicons the apps read and the types and validators generated from it",
         "Each app's image build, pushed to ghcr.io/unset-sh/staging/<app>"
       ],
       "notHere": [
@@ -64,6 +65,10 @@
         {
           "repo": "tooling",
           "how": "the shared check, branch and PR policy at full commits"
+        },
+        {
+          "repo": "lexicons",
+          "how": "packages/lexicons copies the schemas it needs from main at a full commit with per-file hashes, and generates code from them"
         },
         {
           "repo": "agent-kit",
