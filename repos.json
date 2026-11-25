@@ -30,12 +30,12 @@
       "visibility": "public",
       "group": "product",
       "tagline": "The Unset product: web, server, worker and shared packages in one workspace.",
-      "summary": "The product monorepo approved by Alex on 2026-11-24 (agent-kit org-0020). One Bun workspace holding apps/web, apps/api, apps/worker and packages/* (authz, db, brand, rendering). web, backend, rendering and brand move in with their history and are archived only on Alex's word.",
+      "summary": "The product monorepo approved by Alex on 2026-11-24 (agent-kit org-0020). One Bun workspace holding apps/web, apps/api, apps/worker and packages/* (access, db, brand, rendering). web, backend, rendering and brand move in with their history and are archived only on Alex's word.",
       "owns": [
         "apps/web: SvelteKit screens, SSR, web sessions and device-side integrations",
         "apps/api: product operations, its Elysia API groups, Better Auth, migrations and AppView",
         "apps/worker: every background job (indexer, authorization sync), one entry and database role per job",
-        "packages/authz: the OpenFGA model, its tests and the may() port; packages/db, brand (still published) and rendering",
+        "packages/access: the OpenFGA model, its tests and the may() port; packages/db, brand (still published) and rendering",
         "packages/lexicons: a pinned copy of the sh.unset.* lexicons the apps read and the types and validators generated from it",
         "Each app's image build, pushed to ghcr.io/unset-sh/staging/<app>"
       ],
