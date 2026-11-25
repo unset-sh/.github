@@ -184,12 +184,12 @@ Expand a repository for its full scope, ownership, current licence and where oth
 
 `unset-sh/unset`
 
-The product monorepo approved by Alex on 2026-11-24 (agent-kit org-0020). One Bun workspace holding apps/web, apps/server, apps/worker and packages/* (authz, db, brand, rendering). web, backend, rendering and brand move in with their history and are archived only on Alex's word.
+The product monorepo approved by Alex on 2026-11-24 (agent-kit org-0020). One Bun workspace holding apps/web, apps/api, apps/worker and packages/* (authz, db, brand, rendering). web, backend, rendering and brand move in with their history and are archived only on Alex's word.
 
 **Owns**
 
 - apps/web: SvelteKit screens, SSR, web sessions and device-side integrations
-- apps/server: product operations, its Elysia API groups, Better Auth, migrations and AppView
+- apps/api: product operations, its Elysia API groups, Better Auth, migrations and AppView
 - apps/worker: every background job (indexer, authorization sync), one entry and database role per job
 - packages/authz: the OpenFGA model, its tests and the may() port; packages/db, brand (still published) and rendering
 - packages/lexicons: a pinned copy of the sh.unset.* lexicons the apps read and the types and validators generated from it
