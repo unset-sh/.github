@@ -77,7 +77,7 @@ they do not automatically enable workflows across the organisation.
 Repository permissions, rulesets, required checks, deployment environments and private vulnerability reporting
 are settings to configure and verify in their own scope.
 
-This repository runs map validation on pull requests and pushes to `staging` and `main`. Its separate
+This repository runs map validation on pull requests and pushes to `main`. Its separate
 `policy / Validate branch policy` caller checks PR branch relationships through pinned tooling, including
 retargeted PRs. The caller has read-only permissions and does not publish. Required-check settings are rolled
 out separately; existing publishing workflows and schedules are unchanged.
