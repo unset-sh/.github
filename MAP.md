@@ -134,7 +134,7 @@ No dependency edges recorded: [deployment](#repo-deployment).
 - `agent-kit` → `unset`: the kit copy under .claude/, pinned by lock.json
 - `pds` → `unset`: planned: deploy/ runs the released PDS image by verified digest
 - `backend` → `web`: planned public API consumption; browser and SSR code do not import private backend implementations
-- `brand` → `web`: @unset-sh/brand 0.1.1 tokens and assets, with shadcn-svelte components copied from its pinned gallery; the fixed default link card is copied from brand commit 96f1b29f97224eb8d0581a1c13c2fa94c8b625ec with a checked SHA-256 until its package release is adopted
+- `brand` → `web`: planned semantic tokens and assets through immutable consumer artifacts
 - `lexicons` → `web`: planned supported protocol artifacts where the client needs them
 - `tooling` → `web`: planned reviewed workflow callers with product-owned checks
 - `agent-kit` → `web`: bootstrap instructions reference a recorded full commit; installing the kit remains pending
@@ -177,14 +177,16 @@ Expand a repository for its full scope, ownership, current licence and where oth
 
 `unset-sh/unset`
 
-The product monorepo approved by Alex on 2026-11-24 (agent-kit org-0020). One Bun workspace holding apps/web, apps/api, apps/worker and packages/* (access, db, brand, rendering). web, backend, rendering and brand move in with their history and are archived only on Alex's word.
+The product monorepo approved by Alex on 2026-11-24 (agent-kit org-0020). One Bun workspace holding apps/web, apps/api, apps/worker and packages/* (access, db, brand, rendering). web, backend, rendering and brand move in with their history and are archived only on Alex's word. The welcome page and SEO foundation belong to apps/web, with the fixed default link card supplied by packages/brand. This source integration does not imply a production launch.
 
 **Owns**
 
 - apps/web: SvelteKit screens, SSR, web sessions and device-side integrations
+- apps/web: the standalone welcome page and visitor entry into the app shell; public-page titles, descriptions, canonical URLs, structured data and link-card metadata; launch-controlled indexing, robots.txt and sitemap responses
 - apps/api: product operations, its Elysia API groups, Better Auth, migrations and AppView
 - apps/worker: every background job (indexer, authorization sync), one entry and database role per job
 - packages/access: the OpenFGA model, its tests and the may() port; packages/db, brand (still published) and rendering
+- packages/brand: the fixed default 1200 × 630 Unset link card, its source and provenance; apps/web serves a checked static copy, while data-driven previews remain in packages/rendering
 - packages/lexicons: a pinned copy of the sh.unset.* lexicons the apps read and the types and validators generated from it
 - Each app's image build, pushed to ghcr.io/unset-sh/staging/<app>
 - deploy/ (org-0023): each service's compose file and settings under services/<name>/, each environment's services, image digests and secret references under environments/<env>/, rollout order and recovery
@@ -207,12 +209,11 @@ The product monorepo approved by Alex on 2026-11-24 (agent-kit org-0020). One Bu
 
 [`unset-sh/web`](https://github.com/unset-sh/web)
 
-The complete SvelteKit web application, including web sessions and client integrations. Its homepage and SEO foundation provide server-rendered metadata, launch-controlled indexing, robots.txt and a sitemap. Public profile, community and article routes remain future work; this source integration does not imply a production launch.
+The approved home for the complete web application, including messaging UI and web/device adapters. The repository exists with an initial README and licence; detailed ownership setup is under review. No runnable SvelteKit application, image or migrated feature exists yet.
 
 **Owns**
 
 - SvelteKit routes, SSR, screens, interactions, web sessions and web-specific response handling
-- Public-page titles, descriptions, canonical URLs, structured data and link-card metadata; indexing policy, robots.txt and sitemap responses
 - Client capability interfaces and adapters, including messaging device responsibilities where required
 - Web tests, browser/server boundaries and producer image builds
 
@@ -224,7 +225,7 @@ The complete SvelteKit web application, including web sessions and client integr
 - Canonical protocol definitions: [`unset-sh/lexicons`](https://github.com/unset-sh/lexicons)
 - Environment wiring and stack delivery: `unset-sh/unset`
 
-**Current licence:** AGPL-3.0-only first-party work; vendored upstream UI and brand assets retain their notices
+**Current licence:** AGPL-3.0-only first-party work; foundation only, no application code imported
 
 </details>
 
@@ -364,13 +365,12 @@ The home for unset.sh's PDS image and everything that customises the PDS: the bu
 
 [`unset-sh/brand`](https://github.com/unset-sh/brand)
 
-The editable visual contract for unset.sh. Ships static CSS, JSON, fonts, mark and icon data as @unset-sh/brand on GitHub Packages, and builds its Hugo guide with an interactive Svelte component gallery for GitHub Pages. Owns the fixed default Unset link card, generated with a build-only Takumi dependency; consumers receive the static image.
+The editable visual contract for unset.sh. Ships static CSS, JSON, fonts, mark and icon data as @unset-sh/brand on GitHub Packages, and builds its Hugo guide with an interactive Svelte component gallery for GitHub Pages.
 
 **Owns**
 
 - The editable brand contract: semantic colour, typography, spacing and component style roles
 - Generated static package exports, optional Tailwind/shadcn style adapters, fonts, the mark and pinned icon data
-- The fixed default 1200 × 630 Unset link card, its source and provenance; data-driven previews remain in rendering
 - Asset provenance and licences; historical design-sheet provenance is retained
 - Brand usage guidelines, the Hugo brand guide and its private interactive Svelte component gallery
 - Changeset version preparation, package validation and protected publication, and GitHub Pages guide deployment
@@ -392,7 +392,7 @@ The editable visual contract for unset.sh. Ships static CSS, JSON, fonts, mark a
 
 [`unset-sh/rendering`](https://github.com/unset-sh/rendering)
 
-Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Produces @unset-sh/rendering; runtime adoption by web and backend remains pending. No running service.
+Templates and the one rendering path for preview images and embeds, with a gallery of hard cases. Ships @unset-sh/rendering on GitHub Packages; no running service.
 
 **Owns**
 
