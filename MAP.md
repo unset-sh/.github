@@ -182,8 +182,8 @@ The product monorepo approved by Alex on 2026-11-24 (agent-kit org-0020). One Bu
 **Owns**
 
 - apps/web: SvelteKit screens, SSR, web sessions and device-side integrations
-- apps/api: product operations, its Elysia API groups, Better Auth, migrations and AppView
-- apps/worker: every background job (indexer, authorization sync), one entry and database role per job
+- apps/api: product operations, its Elysia API groups, Better Auth, migrations and AppView; also expired OAuth state housekeeping at startup and hourly UTC, the narrow exception accepted by Alex on 2026-11-27
+- apps/worker: every other background job (indexer, authorization sync), one entry and database role per job
 - packages/access: the OpenFGA model, its tests and the may() port; packages/db, brand (still published) and rendering
 - packages/lexicons: a pinned copy of the sh.unset.* lexicons the apps read and the types and validators generated from it
 - Each app's image build, pushed to ghcr.io/unset-sh/staging/<app>
