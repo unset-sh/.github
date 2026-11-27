@@ -30,12 +30,14 @@
       "visibility": "public",
       "group": "product",
       "tagline": "The Unset product: web, server, worker and shared packages in one workspace.",
-      "summary": "The product monorepo approved by Alex on 2026-11-24 (agent-kit org-0020). One Bun workspace holding apps/web, apps/api, apps/worker and packages/* (access, db, brand, rendering). web, backend, rendering and brand move in with their history and are archived only on Alex's word.",
+      "summary": "The product monorepo approved by Alex on 2026-11-24 (agent-kit org-0020). One Bun workspace holding apps/web, apps/api, apps/worker and packages/* (access, db, brand, rendering). web, backend, rendering and brand move in with their history and are archived only on Alex's word. The welcome page and SEO foundation belong to apps/web, with the fixed default link card supplied by packages/brand. This source integration does not imply a production launch.",
       "owns": [
         "apps/web: SvelteKit screens, SSR, web sessions and device-side integrations",
+        "apps/web: the standalone welcome page and visitor entry into the app shell; public-page titles, descriptions, canonical URLs, structured data and link-card metadata; launch-controlled indexing, robots.txt and sitemap responses",
         "apps/api: product operations, its Elysia API groups, Better Auth, migrations and AppView",
         "apps/worker: every background job (indexer, authorization sync), one entry and database role per job",
         "packages/access: the OpenFGA model, its tests and the may() port; packages/db, brand (still published) and rendering",
+        "packages/brand: the fixed default 1200 \u00d7 630 Unset link card, its source and provenance; apps/web serves a checked static copy, while data-driven previews remain in packages/rendering",
         "packages/lexicons: a pinned copy of the sh.unset.* lexicons the apps read and the types and validators generated from it",
         "Each app's image build, pushed to ghcr.io/unset-sh/staging/<app>",
         "deploy/ (org-0023): each service's compose file and settings under services/<name>/, each environment's services, image digests and secret references under environments/<env>/, rollout order and recovery"
